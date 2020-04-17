@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
 
             <ScrollView Grid.Row="0">
-                <StackLayout BackgroundColor="WhiteSmoke" Spacing="10">
+                <StackLayout Spacing="10">
                     <!--
                 <cv:CarouselViewControl x:Name="carousel" ItemsSource="{Binding AdvertiseList}"
                                     ShowArrows="False" ShowIndicators="True" Orientation="Horizontal">
@@ -32,7 +32,7 @@
                 </cv:CarouselViewControl>-->
                     <ff:CachedImage Source="{Binding Product.productImageBig}" HeightRequest="300"/>
 
-                    <StackLayout BackgroundColor="White" Orientation="Vertical" Padding="10">
+                    <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Orientation="Vertical" Padding="10">
                         <Grid HeightRequest="60" RowSpacing="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -81,7 +81,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="热卖" TextColor="Crimson" FontSize="12"/>
-                                    <Span Text="{Binding Product.productName}" TextColor="Black" FontAttributes="Bold" FontSize="22"/>
+                                    <Span Text="{Binding Product.productName}" TextColor="{DynamicResource PrimaryTextColor}" FontAttributes="Bold" FontSize="22"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -91,15 +91,15 @@
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
 
-                    <StackLayout BackgroundColor="White" Padding="10">
-                        <Label Text="产品规格" TextColor="Black" FontSize="20" FontAttributes="Bold"/>
+                    <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
+                        <Label Text="产品规格"  TextColor="{DynamicResource PrimaryTextColor}" FontSize="20" FontAttributes="Bold"/>
                         <StackLayout BindableLayout.ItemsSource="{Binding Product.itemAttributeValues}" IsVisible="{Binding MemberPriceVisible}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Label VerticalOptions="Center" FontSize="18">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding attributeValue}" TextColor="Black"/>
+                                                <Span Text="{Binding attributeValue}" TextColor="{DynamicResource PrimaryTextColor}"/>
                                                 <Span Text="  ￥" TextColor="{StaticResource SkyBlue}"/>
                                                 <Span Text="{Binding mallPrice}" TextColor="{StaticResource SkyBlue}"/>
                                                 <Span Text="  ￥" TextColor="{StaticResource ThickPink}" FontAttributes="Bold"/>
@@ -128,8 +128,8 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <StackLayout BackgroundColor="White" Padding="10">
-                        <Label Text="产品详情" TextColor="Black" FontSize="20" FontAttributes="Bold"/>
+                    <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
+                        <Label Text="产品详情" TextColor="{DynamicResource PrimaryTextColor}" FontSize="20" FontAttributes="Bold"/>
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
@@ -193,8 +193,8 @@
                         <WebView x:Name="webView" Source="{Binding HtmlSource}" HeightRequest="400" WidthRequest="400" HorizontalOptions="Fill" VerticalOptions="Fill"/>
                     </StackLayout>
                     -->
-                    
-                    <StackLayout Orientation="Vertical" BackgroundColor="White" Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="Fill"
+
+                    <StackLayout Orientation="Vertical" BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="Fill"
                                  BindableLayout.ItemsSource="{Binding Product.productImageSmall}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>

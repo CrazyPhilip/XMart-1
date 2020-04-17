@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
 
             <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
-            <Label Grid.Row="0" Text="订单管理" TextColor="Black" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Grid.Row="0" Text="订单管理" Style="{StaticResource TitleLabel}"/>
             <ImageButton Grid.Row="0" Source="refresh.png" BackgroundColor="Transparent" 
                          HeightRequest="30" WidthRequest="30" Padding="0" Margin="10,0"
                          HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
@@ -31,7 +31,7 @@
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <Frame CornerRadius="5" Margin="5,0" Style="{StaticResource BaseFrame}" HorizontalOptions="Fill">
-                                    <Grid BackgroundColor="White" Padding="5" Margin="0,5">
+                                    <Grid Padding="5" Margin="0,5">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="20"/>
                                             <RowDefinition Height="20"/>

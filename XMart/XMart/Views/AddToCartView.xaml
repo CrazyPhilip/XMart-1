@@ -14,7 +14,7 @@
         <controls:UserAnimation/>
     </popup:PopupPage.Animation>
 
-    <Frame BackgroundColor="White" Padding="5" VerticalOptions="End" HorizontalOptions="Fill" Style="{StaticResource BaseFrame}">
+    <Frame BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="5" VerticalOptions="End" HorizontalOptions="Fill" Style="{StaticResource BaseFrame}">
         <Grid RowSpacing="0" HorizontalOptions="Fill" VerticalOptions="Fill">
             <Grid.RowDefinitions>
                 <RowDefinition/>

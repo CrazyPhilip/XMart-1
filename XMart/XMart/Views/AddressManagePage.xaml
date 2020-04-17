@@ -18,10 +18,12 @@
         <Style x:Key="PhoneStyle" TargetType="Label">
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
         </Style>
         <Style x:Key="AddressStyle" TargetType="Label">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="LineBreakMode" Value="CharacterWrap"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
         </Style>
     </ContentPage.Resources>
 
@@ -34,8 +36,8 @@
 
             <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="0">
                 <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                <Label Text="我的收货地址" TextColor="Black" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                <Button WidthRequest="60" Text="新增" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddAddressCommand}"/>
+                <Label Text="我的收货地址" Style="{StaticResource TitleLabel}"/>
+                <Button WidthRequest="60" Text="新增" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddAddressCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
             </StackLayout>
 
             <StackLayout Grid.Row="1" VerticalOptions="Fill">
@@ -49,7 +51,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid BackgroundColor="White" Margin="0,5" Padding="5">
+                                <Grid Margin="0,5" Padding="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                         <RowDefinition/>

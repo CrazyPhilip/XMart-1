@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
 
             <!--头部-->
-            <Label Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="24">
+            <Label Grid.Row="0" Style="{StaticResource TitleLabel}">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="购物车"/>
@@ -61,7 +61,7 @@
 
                                     <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding productImg}"/>
                                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" 
-                                           FontSize="18" TextColor="Black" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                           FontSize="18" TextColor="{DynamicResource PrimaryTextColor}" VerticalOptions="Center" VerticalTextAlignment="Center"/>
                                     <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="Medium"
                                            VerticalOptions="Center" VerticalTextAlignment="Center"/>
                                     <!--<Picker Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Title="规格......" WidthRequest="80" HorizontalOptions="CenterAndExpand"/>

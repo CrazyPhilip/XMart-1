@@ -12,7 +12,7 @@
     
     <ContentPage.Resources>
         <Style x:Key="ParentLabel" TargetType="Label">
-            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
             <Setter Property="HeightRequest" Value="40"/>
             <Setter Property="WidthRequest" Value="100"/>
             <Setter Property="FontSize" Value="20"/>
@@ -28,6 +28,7 @@
             <Setter Property="VerticalOptions" Value="Start"/>
             <Setter Property="VerticalTextAlignment" Value="Center"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
         </Style>
     </ContentPage.Resources>
 
@@ -65,7 +66,7 @@
                                             <Setter Property="TextColor" Value="{StaticResource ThickPink}" />
                                             <Setter Property="FontSize" Value="24" />
                                             <Setter Property="FontAttributes" Value="Bold"/>
-                                            <Setter Property="BackgroundColor" Value="White"/>
+                                            <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"/>
                                         </DataTrigger>
                                     </Label.Triggers>
                                     <Label.GestureRecognizers>
@@ -81,7 +82,7 @@
 
                 <!--二级分类-->
                 <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                    <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SubCategoryList}" BackgroundColor="White"
+                    <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SubCategoryList}" BackgroundColor="{DynamicResource ControlBackgroundColor}"
                                 Wrap="Wrap" JustifyContent="SpaceAround" AlignContent="Start">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:behaviors="clr-namespace:XMart.Behaviors"
              mc:Ignorable="d"
              x:Class="XMart.Views.SettingPage"
@@ -14,14 +15,14 @@
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="Gray"/>
+            <Setter Property="TextColor" Value="{DynamicResource TertiaryTextColor}"/>
         </Style>
         <Style x:Key="OptionLabel" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
         </Style>
     </ContentPage.Resources>
     
@@ -33,7 +34,7 @@
             </Grid.RowDefinitions>
 
             <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
-            <Label Grid.Row="0" Text="设置" TextColor="Black" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Grid.Row="0" Text="设置" Style="{StaticResource TitleLabel}"/>
 
             <StackLayout Grid.Row="1" Orientation="Vertical" Margin="10">
                 <Label Text="个性化" Style="{DynamicResource SectionTiltleLabel}"/>

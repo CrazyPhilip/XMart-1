@@ -12,6 +12,7 @@
 
     <ContentPage.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
             <Setter Property="WidthRequest" Value="100"/>
             <Setter Property="HeightRequest" Value="30"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
@@ -198,7 +199,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding productImageBig}"/>
-                                        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" FontSize="18" TextColor="Black" 
+                                        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" FontSize="18" TextColor="{DynamicResource PrimaryTextColor}" 
                                            VerticalOptions="Center" VerticalTextAlignment="Center" LineBreakMode="CharacterWrap"/>
                                         <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="16" LineBreakMode="CharacterWrap"/>
 

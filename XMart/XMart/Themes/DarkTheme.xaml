@@ -3,7 +3,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     x:Class="XMart.Themes.DarkTheme">
 
-    <Color x:Key="PageBackgroundColor">Black</Color>
+    <Color x:Key="PageBackgroundColor">#323232</Color>
+    <Color x:Key="ControlBackgroundColor">#646464</Color>
+    
+    <Color x:Key="PrimaryTextColor">White</Color>
+    <Color x:Key="SecondaryTextColor">WhiteSmoke</Color>
+    <Color x:Key="TertiaryTextColor">LightGray</Color>
+
+    <Color x:Key="PrimaryColor">Teal</Color>
+    <Color x:Key="SecondaryColor">White</Color>
+
     <Color x:Key="MainColor">#353f48</Color>
     <Color x:Key="DeepBlue">#353f48</Color>
     <Color x:Key="SkyBlue">#01acf2</Color>

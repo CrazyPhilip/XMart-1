@@ -13,7 +13,7 @@
             <Style x:Key="BaseFrame" TargetType="Frame">
                 <Setter Property="BorderColor" Value="Transparent"/>
                 <Setter Property="HasShadow" Value="False"/>
-                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"/>
                 <Setter Property="CornerRadius" Value="15"/>
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
@@ -46,6 +46,12 @@
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="Aspect" Value="AspectFit"/>
                 <Setter Property="Margin" Value="15,0"/>
+            </Style>
+            <Style x:Key="TitleLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
             </Style>
 
         </ResourceDictionary>

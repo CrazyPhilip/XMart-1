@@ -4,6 +4,15 @@
                     x:Class="XMart.Themes.LightTheme">
 
     <Color x:Key="PageBackgroundColor">#fafafa</Color>
+    <Color x:Key="ControlBackgroundColor">White</Color>
+    
+    <Color x:Key="PrimaryTextColor">Black</Color>
+    <Color x:Key="SecondaryTextColor">Gray</Color>
+    <Color x:Key="TertiaryTextColor">LightGray</Color>
+
+    <Color x:Key="PrimaryColor">Teal</Color>
+    <Color x:Key="SecondaryColor">White</Color>
+
     <Color x:Key="MainColor">#353f48</Color>
     <Color x:Key="DeepBlue">#353f48</Color>
     <Color x:Key="SkyBlue">#01acf2</Color>

@@ -18,8 +18,8 @@
 
                 <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="0">
                     <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                    <Label Text="编辑收货地址" TextColor="Black" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                    <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}"/>
+                    <Label Text="编辑收货地址" Style="{StaticResource TitleLabel}"/>
+                    <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
                 </StackLayout>
 
                 <StackLayout Grid.Row="1" Margin="20,0" HeightRequest="500">
@@ -38,11 +38,11 @@
                         </TableRoot>
                     </TableView>-->
 
-                    <controls:MyEntry Placeholder="收货人姓名" Text="{Binding UserName}" Margin="0,10" HeightRequest="40" FontSize="20"/>
+                    <controls:MyEntry Placeholder="收货人姓名" Text="{Binding UserName}" Margin="0,10" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>
 
-                    <controls:MyEntry Placeholder="电话号码" Text="{Binding Tel}" Margin="0,10" Keyboard="Numeric" MaxLength="11" HeightRequest="40" FontSize="20"/>
+                    <controls:MyEntry Placeholder="电话号码" Text="{Binding Tel}" Margin="0,10" Keyboard="Numeric" MaxLength="11" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>
 
-                    <Label FontSize="20" TextColor="Black">
+                    <Label FontSize="20" TextColor="{DynamicResource PrimaryTextColor}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{Binding SelectedItem,Source={x:Reference provinceList}}"/>
@@ -58,7 +58,7 @@
                         </Label.GestureRecognizers>
                     </Label>
 
-                    <Grid BackgroundColor="White">
+                    <Grid BackgroundColor="{DynamicResource ControlBackgroundColor}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -103,7 +103,7 @@
                         </ListView>
                     </Grid>
 
-                    <controls:MyEntry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Margin="0,10" HeightRequest="40" FontSize="20"/>
+                    <controls:MyEntry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Margin="0,10" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>
 
                     <StackLayout Orientation="Horizontal" Margin="0">
                         <Label Text="是否设为默认地址" HorizontalOptions="Start" FontSize="18" TextColor="{StaticResource SkyBlue}" VerticalOptions="Center"/>

@@ -51,13 +51,15 @@
 
                             <Frame HasShadow="True" BorderColor="DarkGray" CornerRadius="5" HeightRequest="400" WidthRequest="200" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                 <StackLayout>
-                                    <Label Text="{Binding username}" FontAttributes="Bold" FontSize="22" TextColor="Black"
-                                           HorizontalOptions="Center" VerticalOptions="Center" />
                                     <ff:CachedImage Source="star_yellow.png" Aspect="AspectFill" HeightRequest="150"
                                                     WidthRequest="150" HorizontalOptions="Center" />
+                                    <Label Text="{Binding username}" FontAttributes="Bold" FontSize="22" TextColor="Black"
+                                           HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Label Text="{Binding description}" HorizontalOptions="Center" />
                                     <Label Text="{Binding phone}" HorizontalOptions="Center" />
-                                    <Label Text="{Binding buyCompanyName}" FontAttributes="Italic" HorizontalOptions="Center"
-                                           MaxLines="5" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding buyCompanyName}" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding address}" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding email}" HorizontalOptions="Center"/>
                                 </StackLayout>
                             </Frame>
                         </StackLayout>
