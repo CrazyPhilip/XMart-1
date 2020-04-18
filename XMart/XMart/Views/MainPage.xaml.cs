@@ -38,9 +38,6 @@ namespace XMart.Views
             //}
 
             //NetErrorPage.IsVisible = false;
-            Children.Remove(NetErrorPage);
-            Children.Add(new HomePage());
-            Children.Add(new CategoryPage());
 
             //初始化，检查是否存在已记住的密码
             /*
@@ -81,6 +78,10 @@ namespace XMart.Views
             {
                 GlobalVariables.IsLogged = false;
             }
+
+            Children.Remove(NetErrorPage);
+            Children.Add(new HomePage());
+            Children.Add(new CategoryPage());
 
             if (GlobalVariables.IsLogged)
             {

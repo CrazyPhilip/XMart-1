@@ -96,6 +96,32 @@ namespace XMart.Services
             CustomerListRD customerListRD = await RestSharpHelper<CustomerListRD>.GetAsync(url);
             return customerListRD;
         }
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="updateUserPara"></param>
+        /// <returns></returns>
+        public async Task<SimpleRD> UpdateUserInfo(UpdateUserPara updateUserPara)
+        {
+            string url = "/member/updateInfo";
+            var json = JsonConvert.SerializeObject(updateUserPara);
+
+            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+            return simpleRD;
+        }
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<LoginRD> GetUserInfo()
+        {
+            string url = "/member/getMemberInfo?id=" + GlobalVariables.LoggedUser.id;
+
+            LoginRD loginRD = await RestSharpHelper<LoginRD>.GetAsync(url);
+            return loginRD;
+        }
         #endregion
 
         #region 购物车
@@ -278,6 +304,7 @@ namespace XMart.Services
             string url = "/goods/home";
 
             HomeContentRD homeContentRD = await RestSharpHelper<HomeContentRD>.GetAsync(url);
+            //HomeContentRD homeContentRD = RestSharpHelper<HomeContentRD>.Get(url);
             return homeContentRD;
         }
 

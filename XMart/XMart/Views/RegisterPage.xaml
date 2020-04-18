@@ -104,7 +104,7 @@
                     </StackLayout>-->
 
                     <Picker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="50" WidthRequest="200" HorizontalOptions="CenterAndExpand" 
-                            ItemsSource="{Binding IdentityList}"  SelectedIndex="{Binding SelectedIdentityIndex}"
+                            ItemsSource="{Binding IdentityList}" SelectedIndex="{Binding SelectedIdentityIndex}"
                             FontSize="22"/>
 
                     <Frame Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">

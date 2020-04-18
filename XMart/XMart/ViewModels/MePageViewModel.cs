@@ -116,7 +116,7 @@ namespace XMart.ViewModels
 				UserName = GlobalVariables.LoggedUser.username;
 				UserId = GlobalVariables.LoggedUser.id.ToString();
 				UserType = GlobalVariables.LoggedUser.userType == "0" ? "客户" : "设计师";
-				UserAvatar = GlobalVariables.LoggedUser.file == null ? "star_yellow.png" : GlobalVariables.LoggedUser.file;
+				UserAvatar = GlobalVariables.LoggedUser.pricture == null ? "star_yellow.png" : GlobalVariables.LoggedUser.file;
 				CustomerVisible = GlobalVariables.LoggedUser.userType == "0" ? true : false;
 				DesignerVisible = !CustomerVisible;
 

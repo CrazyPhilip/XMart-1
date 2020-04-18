@@ -31,7 +31,7 @@
     <PackageReference Include="Xam.Plugin.TabView" Version="1.0.4" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991250" />
   </ItemGroup>
 
   <ItemGroup>

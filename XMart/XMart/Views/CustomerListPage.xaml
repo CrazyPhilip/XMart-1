@@ -7,7 +7,8 @@
              xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              mc:Ignorable="d"
              x:Class="XMart.Views.CustomerListPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="customerListPage">
 
     <ContentPage.Content>
         <Grid RowSpacing="0">
@@ -60,6 +61,12 @@
                                     <Label Text="{Binding buyCompanyName}" HorizontalOptions="Center"/>
                                     <Label Text="{Binding address}" HorizontalOptions="Center"/>
                                     <Label Text="{Binding email}" HorizontalOptions="Center"/>
+
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="EndAndExpand">
+                                        <ImageButton Source="call.png" HeightRequest="64" WidthRequest="64" BackgroundColor="Transparent" Command="{Binding Path=BindingContext.CallCommand,Source={x:Reference customerListPage}}" CommandParameter="{Binding username}"/>
+                                        <ImageButton Source="msg.png" HeightRequest="64" WidthRequest="64" BackgroundColor="Transparent" Command="{Binding Path=BindingContext.SendMessageCommand,Source={x:Reference customerListPage}}" CommandParameter="{Binding username}"/>
+                                        <ImageButton Source="email.png" HeightRequest="64" WidthRequest="64" BackgroundColor="Transparent" Command="{Binding Path=BindingContext.EmailCommand,Source={x:Reference customerListPage}}" CommandParameter="{Binding email}"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </Frame>
                         </StackLayout>

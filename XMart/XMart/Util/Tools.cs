@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -102,7 +103,49 @@ namespace XMart.Util
 
             return status;
         }
+
         */
 
+        /// <summary>
+        /// 正则表达式检测Email格式
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public static bool CheckEmail(string Email)
+        {
+            bool Flag = false;
+            string str = "([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,5})+";
+            string[] result = GetPathPoint(Email, str);
+            if (result != null)
+            {
+                Flag = result.Contains(Email) ? true : Flag;
+            }
+            return Flag;
+        }
+
+        /// <summary>
+        /// 获取正则表达式匹配结果集
+        /// </summary>
+        /// <param name="value">字符串</param>
+        /// <param name="regx">正则表达式</param>
+        /// <returns></returns>
+        private static string[] GetPathPoint(string value, string regx)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return null;
+            bool isMatch = Regex.IsMatch(value, regx);
+            if (!isMatch)
+                return null;
+            MatchCollection matchCol = Regex.Matches(value, regx);
+            string[] result = new string[matchCol.Count];
+            if (matchCol.Count > 0)
+            {
+                for (int i = 0; i < matchCol.Count; i++)
+                {
+                    result[i] = matchCol[i].Value;
+                }
+            }
+            return result;
+        }
     }
 }

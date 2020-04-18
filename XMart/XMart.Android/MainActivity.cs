@@ -14,6 +14,8 @@ using Plugin.Toast;
 using Plugin.Toast.Abstractions;
 using Xamarin.Essentials;
 using System.Threading.Tasks;
+using System.IO;
+using Android.Content;
 
 namespace XMart.Droid
 {
@@ -26,17 +28,6 @@ namespace XMart.Droid
         //微信相关
         private readonly string appID = "wx6990f0f3818a8c7e";//申请的appid
         private IWXAPI wxApi;
-
-        private string status;
-        public string Status
-        {
-            get { return status; }
-            set
-            {
-                WhenValueSet();
-                status = value;
-            }
-        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -75,8 +66,10 @@ namespace XMart.Droid
                     //
                     //Console.WriteLine(result);
                     //Status = "";
+
                     Thread the = new Thread(new ParameterizedThreadStart(Pay));
                     the.Start(sign);
+
                     //the.Join();
                     //Console.WriteLine(Pay(sign));
 
@@ -93,7 +86,7 @@ namespace XMart.Droid
                 }
                 catch (ThreadAbortException)
                 {
-                    MessagingCenter.Send(new object(), "PaySuccess", Status);
+                    //MessagingCenter.Send(new object(), "PaySuccess", Status);
                 }
 
             });
@@ -220,10 +213,9 @@ namespace XMart.Droid
             {
                 PayTask payTask = new PayTask(this);
                 var result = payTask.PayV2(sign.ToString(), true);
-                //Status = result["resultStatus"];
+                string Status = result["resultStatus"];
 
-                
-                Looper.Prepare();
+                //Looper.Prepare();
                 //switch (status)
                 //{
                 //    case "9000": Android.Widget.Toast.MakeText(this, "订单支付成功！", Android.Widget.ToastLength.Long).Show(); break;
@@ -233,16 +225,18 @@ namespace XMart.Droid
                 //    case "6002": Android.Widget.Toast.MakeText(this, "网络连接出错！", Android.Widget.ToastLength.Long).Show(); break;
                 //    default: break;
                 //}
-                switch (result["resultStatus"])
-                {
-                    case "9000": CrossToastPopUp.Current.ShowToastSuccess("订单支付成功！", ToastLength.Long); break;
-                    case "8000": CrossToastPopUp.Current.ShowToastWarning("正在处理中！", ToastLength.Long); break;
-                    case "4000": CrossToastPopUp.Current.ShowToastError("订单支付失败！", ToastLength.Long); break;
-                    case "6001": CrossToastPopUp.Current.ShowToastWarning("用户中途取消！", ToastLength.Long); break;
-                    case "6002": CrossToastPopUp.Current.ShowToastError("网络连接出错！", ToastLength.Long); break;
-                    default: break;
-                }
-                Looper.Loop();
+                //switch (result["resultStatus"])
+                //{
+                //    case "9000": CrossToastPopUp.Current.ShowToastSuccess("订单支付成功！", ToastLength.Long); break;
+                //    case "8000": CrossToastPopUp.Current.ShowToastWarning("正在处理中！", ToastLength.Long); break;
+                //    case "4000": CrossToastPopUp.Current.ShowToastError("订单支付失败！", ToastLength.Long); break;
+                //    case "6001": CrossToastPopUp.Current.ShowToastWarning("用户中途取消！", ToastLength.Long); break;
+                //    case "6002": CrossToastPopUp.Current.ShowToastError("网络连接出错！", ToastLength.Long); break;
+                //    default: break;
+                //}
+                //Looper.Loop();
+
+                RunOnUiThread(() => { MessagingCenter.Send(new object(), "PaySuccess", Status); });
 
                 //return result["resultStatus"];
                 //Thread.CurrentThread.Abort();
@@ -253,13 +247,76 @@ namespace XMart.Droid
             }
         }
 
+        private string Pay(string sign)
+        {
+            try
+            {
+                PayTask payTask = new PayTask(this);
+                var result = payTask.PayV2(sign, true);
+                //Status = result["resultStatus"];
+
+
+                //Looper.Prepare();
+                //switch (status)
+                //{
+                //    case "9000": Android.Widget.Toast.MakeText(this, "订单支付成功！", Android.Widget.ToastLength.Long).Show(); break;
+                //    case "8000": Android.Widget.Toast.MakeText(this, "正在处理中！", Android.Widget.ToastLength.Long).Show(); break;
+                //    case "4000": Android.Widget.Toast.MakeText(this, "订单支付失败！", Android.Widget.ToastLength.Long).Show(); break;
+                //    case "6001": Android.Widget.Toast.MakeText(this, "用户中途取消！", Android.Widget.ToastLength.Long).Show(); break;
+                //    case "6002": Android.Widget.Toast.MakeText(this, "网络连接出错！", Android.Widget.ToastLength.Long).Show(); break;
+                //    default: break;
+                //}
+                //switch (result["resultStatus"])
+                //{
+                //    case "9000": CrossToastPopUp.Current.ShowToastSuccess("订单支付成功！", ToastLength.Long); break;
+                //    case "8000": CrossToastPopUp.Current.ShowToastWarning("正在处理中！", ToastLength.Long); break;
+                //    case "4000": CrossToastPopUp.Current.ShowToastError("订单支付失败！", ToastLength.Long); break;
+                //    case "6001": CrossToastPopUp.Current.ShowToastWarning("用户中途取消！", ToastLength.Long); break;
+                //    case "6002": CrossToastPopUp.Current.ShowToastError("网络连接出错！", ToastLength.Long); break;
+                //    default: break;
+                //}
+                //Looper.Loop();
+
+                return result["resultStatus"];
+                //Thread.CurrentThread.Abort();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         public void WhenValueSet()
         {
-            MessagingCenter.Send(new object(), "PaySuccess", Status);
+            //MessagingCenter.Send(new object(), "PaySuccess", Status);
         }
 
+        #region 选取图片
+        public static readonly int PickImageId = 1000;
+        public TaskCompletionSource<Stream> PickImageTaskCompletionSource { set; get; }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            base.OnActivityResult(requestCode, resultCode, intent);
+
+            if (requestCode == PickImageId)
+            {
+                if ((resultCode == Result.Ok) && (intent != null))
+                {
+                    Android.Net.Uri uri = intent.Data;
+                    Stream stream = ContentResolver.OpenInputStream(uri);
+
+                    // Set the Stream as the completion of the Task
+                    PickImageTaskCompletionSource.SetResult(stream);
+                }
+                else
+                {
+                    PickImageTaskCompletionSource.SetResult(null);
+                }
+            }
+        }
+        #endregion
     }
 }
 

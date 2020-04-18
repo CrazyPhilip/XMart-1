@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:XMart.ViewModels"
              xmlns:controls="clr-namespace:XMart.Controls"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              x:Class="XMart.Views.EditUserInfoPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
@@ -34,12 +35,13 @@
 
             <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="0">
                 <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                <Label Text="修改个人信息" TextColor="Black" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}"/>
+                <Label Text="修改个人信息" Style="{StaticResource TitleLabel}"/>
+                <Button WidthRequest="60" Text="保存" TextColor="{DynamicResource PrimaryTextColor}" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}"/>
             </StackLayout>
 
-            <StackLayout Grid.Row="1" Margin="20,0" Spacing="0">
-                <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
+            <ScrollView Grid.Row="1">
+                <StackLayout Margin="20,0" Spacing="0">
+                    <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
                     <TableRoot>
                         <TableSection>
                             <EntryCell Placeholder="用户名" Label="用户名" Text="{Binding User.username}"/>
@@ -53,22 +55,40 @@
                     </TableRoot>
                 </TableView>-->
 
-                <Label Text="用户名" Style="{DynamicResource TitleLabelStyle}"/>
-                <Entry Placeholder="用户名" Text="{Binding User.username}" Style="{DynamicResource EntryStyle}"/>
+                    <Label Text="头像" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Frame HeightRequest="100" WidthRequest="100" Padding="0" CornerRadius="50"
+                       HorizontalOptions="Center" VerticalOptions="Start" Margin="0" HasShadow="True"
+                       BorderColor="White" IsClippedToBounds="True">
+                        <ff:CachedImage Source="{Binding Avatar}" Aspect="AspectFill"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding PickPhotoCommand}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
 
-                <Label Text="真实姓名" Style="{DynamicResource TitleLabelStyle}"/>
-                <Entry Placeholder="真实姓名" Text="{Binding User.personName}" Style="{DynamicResource EntryStyle}"/>
+                    <Label Text="用户名" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Entry Placeholder="用户名" Text="{Binding User.username}" Style="{DynamicResource EntryStyle}"/>
 
-                <Label Text="住址" Style="{DynamicResource TitleLabelStyle}"/>
-                <Entry Placeholder="住址" Text="{Binding User.address}" Style="{DynamicResource EntryStyle}"/>
+                    <Label Text="真实姓名" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Entry Placeholder="真实姓名" Text="{Binding User.personName}" Style="{DynamicResource EntryStyle}"/>
 
-                <Label Text="公司" Style="{DynamicResource TitleLabelStyle}"/>
-                <Entry Placeholder="公司" Text="{Binding User.buyCompanyName}" Style="{DynamicResource EntryStyle}"/>
+                    <Label Text="性别" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender}" FontSize="20"/>
 
-                <Label Text="电子邮件" Style="{DynamicResource TitleLabelStyle}"/>
-                <Entry Placeholder="电子邮件" Text="{Binding User.email}" Style="{DynamicResource EntryStyle}"/>
+                    <Label Text="公司" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Entry Placeholder="公司" Text="{Binding User.buyCompanyName}" Style="{DynamicResource EntryStyle}"/>
 
-            </StackLayout>
+                    <Label Text="住址" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Entry Placeholder="住址" Text="{Binding User.address}" Style="{DynamicResource EntryStyle}"/>
+
+                    <Label Text="电子邮件" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Entry Placeholder="电子邮件" Text="{Binding User.email}" Style="{DynamicResource EntryStyle}"/>
+
+                    <Label Text="个人简介" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Entry Placeholder="个人简介" HeightRequest="200" VerticalTextAlignment="Start" Text="{Binding User.description}" Style="{DynamicResource EntryStyle}"/>
+
+                </StackLayout>
+            </ScrollView>
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>
