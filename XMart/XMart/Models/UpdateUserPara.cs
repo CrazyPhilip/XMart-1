@@ -1,20 +1,17 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace XMart.Models
 {
     public class UpdateUserPara
     {
-        [JsonProperty("city", NullValueHandling = NullValueHandling.Ignore)]
-        public string city { get; set; }   //Comment
+        //[JsonProperty("city", NullValueHandling = NullValueHandling.Ignore)]
+        //public string city { get; set; }   //Comment
 
         [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string description { get; set; }   //Comment
 
-        [JsonProperty("district", NullValueHandling = NullValueHandling.Ignore)]
-        public string district { get; set; }   //Comment
+        //[JsonProperty("district", NullValueHandling = NullValueHandling.Ignore)]
+        //public string district { get; set; }   //Comment
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
         public string email { get; set; }   //Comment
@@ -31,8 +28,8 @@ namespace XMart.Models
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
         public string phone { get; set; }   //Comment
 
-        [JsonProperty("province", NullValueHandling = NullValueHandling.Ignore)]
-        public string province { get; set; }   //Comment
+        //[JsonProperty("province", NullValueHandling = NullValueHandling.Ignore)]
+        //public string province { get; set; }   //Comment
 
         [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
         public string sex { get; set; }   //Comment

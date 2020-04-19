@@ -36,7 +36,7 @@
             <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="0">
                 <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
                 <Label Text="修改个人信息" Style="{StaticResource TitleLabel}"/>
-                <Button WidthRequest="60" Text="保存" TextColor="{DynamicResource PrimaryTextColor}" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}"/>
+                <Button WidthRequest="60" Text="保存" TextColor="{DynamicResource PrimaryTextColor}" FontSize="18" BackgroundColor="Transparent" Command="{Binding SaveCommand}"/>
             </StackLayout>
 
             <ScrollView Grid.Row="1">
@@ -72,7 +72,7 @@
                     <Entry Placeholder="真实姓名" Text="{Binding User.personName}" Style="{DynamicResource EntryStyle}"/>
 
                     <Label Text="性别" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender}" FontSize="20"/>
+                    <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender,Mode=TwoWay}" FontSize="20"/>
 
                     <Label Text="公司" Style="{DynamicResource TitleLabelStyle}"/>
                     <Entry Placeholder="公司" Text="{Binding User.buyCompanyName}" Style="{DynamicResource EntryStyle}"/>

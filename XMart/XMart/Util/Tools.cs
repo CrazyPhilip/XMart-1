@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace XMart.Util
 {
@@ -147,5 +148,6 @@ namespace XMart.Util
             }
             return result;
         }
+
     }
 }

@@ -28,6 +28,20 @@ namespace XMart.Services
         }
 
         /// <summary>
+        /// 验证验证码
+        /// </summary>
+        /// <param name="tel"></param>
+        /// <param name="authCode"></param>
+        /// <returns></returns>
+        public async Task<SimpleRD> CheckAuthCode(string tel, string authCode)
+        {
+            string url = "/member/checkAuthCode?tel=" + tel +"&authcode=" + authCode;
+
+            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.GetAsync(url);
+            return simpleRD;
+        }
+
+        /// <summary>
         /// 注册 ok
         /// </summary>
         /// <param name="registerPara"></param>
@@ -121,6 +135,20 @@ namespace XMart.Services
 
             LoginRD loginRD = await RestSharpHelper<LoginRD>.GetAsync(url);
             return loginRD;
+        }
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="updateUserPara"></param>
+        /// <returns></returns>
+        public async Task<SimpleRD> UploadImage(string imgData)
+        {
+            string url = "/member/imageUpload";
+            var json = "{\"imgData\":\"" + imgData + "\",\"userId\":\"" + GlobalVariables.LoggedUser.id + "\"}";
+
+            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+            return simpleRD;
         }
         #endregion
 
