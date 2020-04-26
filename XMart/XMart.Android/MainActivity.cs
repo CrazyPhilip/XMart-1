@@ -16,6 +16,13 @@ using Xamarin.Essentials;
 using System.Threading.Tasks;
 using System.IO;
 using Android.Content;
+using XMart.Models;
+using Android.Provider;
+using Plugin.CurrentActivity;
+using Android.Database;
+using System.Drawing;
+using Android.Widget;
+using Android.Graphics.Drawables;
 
 namespace XMart.Droid
 {
@@ -51,6 +58,7 @@ namespace XMart.Droid
                 Window.AddFlags(WindowManagerFlags.ForceNotFullscreen);
             }
 
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);   //弹出框
             CarouselViewRenderer.Init();    //轮播图
             CachedImageRenderer.Init(true);
@@ -292,31 +300,6 @@ namespace XMart.Droid
             //MessagingCenter.Send(new object(), "PaySuccess", Status);
         }
 
-        #region 选取图片
-        public static readonly int PickImageId = 1000;
-        public TaskCompletionSource<Stream> PickImageTaskCompletionSource { set; get; }
-
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
-        {
-            base.OnActivityResult(requestCode, resultCode, intent);
-
-            if (requestCode == PickImageId)
-            {
-                if ((resultCode == Result.Ok) && (intent != null))
-                {
-                    Android.Net.Uri uri = intent.Data;
-                    Stream stream = ContentResolver.OpenInputStream(uri);
-
-                    // Set the Stream as the completion of the Task
-                    PickImageTaskCompletionSource.SetResult(stream);
-                }
-                else
-                {
-                    PickImageTaskCompletionSource.SetResult(null);
-                }
-            }
-        }
-        #endregion
     }
 }
 

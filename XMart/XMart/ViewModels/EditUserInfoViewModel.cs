@@ -11,6 +11,7 @@ using XMart.Util;
 using XMart.ResponseData;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
+using Plugin.Media;
 
 namespace XMart.ViewModels
 {
@@ -94,7 +95,7 @@ namespace XMart.ViewModels
             //User = GlobalVariables.LoggedUser;
             //Avatar = GlobalVariables.LoggedUser.pricture;
             GenderList = new List<string> { "男", "女", "保密" };
-            base64 = string.Empty;
+            base64 = "data:image/jpeg;base64,";
 
             InitUserInfo();
 
@@ -105,22 +106,38 @@ namespace XMart.ViewModels
 
             PickPhotoCommand = new Command(async () =>
             {
-                imageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
-                if (imageStream != null)
+                if (!CrossMedia.Current.IsPickPhotoSupported)
                 {
-                    Avatar = ImageSource.FromStream(() => imageStream);
-                    //byte[] bytes = new byte[imageStream.Length];
-                    //imageStream.Read(bytes, 0, bytes.Length);
-                    //imageStream.Seek(0, SeekOrigin.Begin);
-                    //base64 = Convert.ToBase64String(bytes);
+                    CrossToastPopUp.Current.ShowToastWarning("请打开权限。", ToastLength.Long);
+                    return;
                 }
+                var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    //PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium,
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.MaxWidthHeight,
+                    MaxWidthHeight = 128
+                });
+
+
+                if (file == null)
+                    return;
+
+                Avatar = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    byte[] bytes = new byte[stream.Length];
+                    stream.Read(bytes, 0, bytes.Length);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    base64 += Convert.ToBase64String(bytes);
+                    file.Dispose();
+                    return stream;
+                });
             }, () => { return true; });
 
             SaveCommand = new Command(() =>
             {
                 SaveUserInfo();
             }, () => { return true; });
-
 
         }
 
@@ -139,24 +156,24 @@ namespace XMart.ViewModels
 
                 if ( myTimer != null && myTimer.RemainTime.TotalSeconds > 0)
                 {
-
+                
                 }
                 else
                 {
-                    //SimpleRD sendAuthCodeRD = await _restSharpService.SendAuthCode(GlobalVariables.LoggedUser.phone);
-                    //myTimer = new MyTimer { EndDate = DateTime.Now.Add(new TimeSpan(900000000)) };
-                    //LoadAsync();
-                    //
-                    //if (sendAuthCodeRD.success)
-                    //{
-                    //    CrossToastPopUp.Current.ShowToastSuccess("请注意查收短信！", ToastLength.Short);
-                    //}
-                    //else
-                    //{
-                    //    CrossToastPopUp.Current.ShowToastWarning("错误，请稍后再试。", ToastLength.Short);
-                    //}
+                    SimpleRD sendAuthCodeRD = await _restSharpService.SendAuthCode(GlobalVariables.LoggedUser.phone);
+                    myTimer = new MyTimer { EndDate = DateTime.Now.Add(new TimeSpan(900000000)) };
+                    LoadAsync();
+                    
+                    if (sendAuthCodeRD.success)
+                    {
+                        CrossToastPopUp.Current.ShowToastSuccess("请注意查收短信！", ToastLength.Short);
+                    }
+                    else
+                    {
+                        CrossToastPopUp.Current.ShowToastWarning("错误，请稍后再试。", ToastLength.Short);
+                    }
                 }
-
+                
                 string authCode = await Application.Current.MainPage.DisplayPromptAsync("修改用户信息", string.Format( "请输入验证码：({0}s后重试)", RemainingTime), "确认", "取消", "6位验证码", 6, Keyboard.Numeric);
                 
                 if (authCode == null)
@@ -169,13 +186,13 @@ namespace XMart.ViewModels
                     CrossToastPopUp.Current.ShowToastWarning("请输入验证码。", ToastLength.Long);
                     return;
                 }
-
-                //SimpleRD checkAuthCodeRD = await _restSharpService.CheckAuthCode(GlobalVariables.LoggedUser.phone.ToString(), authCode);
-                //if (!checkAuthCodeRD.success)
-                //{
-                //    CrossToastPopUp.Current.ShowToastError("验证码错误。", ToastLength.Short);
-                //    return;
-                //}
+                
+                SimpleRD checkAuthCodeRD = await _restSharpService.CheckAuthCode(GlobalVariables.LoggedUser.phone.ToString(), authCode);
+                if (!checkAuthCodeRD.success)
+                {
+                    CrossToastPopUp.Current.ShowToastError("验证码错误。", ToastLength.Short);
+                    return;
+                }
 
                 UpdateUserPara updateUserPara = new UpdateUserPara
                 {
@@ -198,33 +215,8 @@ namespace XMart.ViewModels
                 SimpleRD updateUserInfoRD = await _restSharpService.UpdateUserInfo(updateUserPara);
                 SimpleRD uploadImageRD = new SimpleRD();
 
-                if (imageStream != null)
+                if (!string.IsNullOrWhiteSpace(base64))
                 {
-                    string base64 = string.Empty;
-                    if (imageStream.CanSeek)
-                    {
-                        byte[] bytes = new byte[imageStream.Length];
-                        imageStream.Read(bytes, 0, bytes.Length);
-                        imageStream.Seek(0, SeekOrigin.Begin);
-                        base64 = Convert.ToBase64String(bytes);
-                    }
-                    else
-                    {
-                        //imageStream.Dispose();
-                        
-                        MemoryStream ms = new MemoryStream();
-                        imageStream.CopyTo(ms);
-                        byte[] bytes = ms.ToArray();
-
-                        //BinaryFormatter formatter = new BinaryFormatter();
-                        //MemoryStream memoryStream = new MemoryStream();
-                        //formatter.Serialize(memoryStream, Avatar);
-                        //BinaryReader reader = new BinaryReader(memoryStream);
-                        //byte[] bytes = new byte[memoryStream.Length];
-                        //reader.Read(bytes, 0, bytes.Length);
-                        base64 = Convert.ToBase64String(bytes);
-                    }
-
                     uploadImageRD = await _restSharpService.UploadImage(base64);
                 }
 
