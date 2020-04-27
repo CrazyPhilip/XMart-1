@@ -140,6 +140,16 @@
                         </StackLayout>
                     </ScrollView>
 
+                    <Label Text="淘口令" Style="{DynamicResource SectionTitle}" Margin="5,15,5,0"/>
+                    <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="40" 
+                           CornerRadius="20" Padding="20,0,0,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
+                        <StackLayout Spacing="0" Orientation="Horizontal">
+                            <controls:MyEntry x:Name="PasteEntry" Text="{Binding PasteString}" Placeholder="输入淘口令，采购即拿返利" Style="{StaticResource SearchEntry}" MaxLength="100" FontSize="14"/>
+                            <Button Text="拿返利" BackgroundColor="{DynamicResource SkyBlue}" CornerRadius="20" HeightRequest="40" Padding="0" TextColor="White" 
+                                    Command="{Binding GetRebateCommand}"/>
+                        </StackLayout>
+                    </Frame>
+
                     <!--官方精选
                     <StackLayout Orientation="Horizontal" Spacing="0" Margin="5,0" HorizontalOptions="Fill">
                         <Label Text="官方精选" Style="{DynamicResource SectionTitle}"/>

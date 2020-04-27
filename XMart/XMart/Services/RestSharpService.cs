@@ -470,5 +470,14 @@ namespace XMart.Services
         }
         #endregion
 
+        #region 微信
+        public string GetWechatAccessToken()
+        {
+            string url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+
+            string result = RestSharpHelper<string>.GetWithoutDeserialization(url);
+            return result;
+        }
+        #endregion
     }
 }

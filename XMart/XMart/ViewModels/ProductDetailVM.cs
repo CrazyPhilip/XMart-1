@@ -127,9 +127,8 @@ namespace XMart.ViewModels
             {
                 if (GlobalVariables.IsLogged)
                 {
-                    string para = "?productId=" + Product.productId + "&userId=" + GlobalVariables.LoggedUser.id;
-                    MessagingCenter.Send(new object(), "Register");//首先进行注册，然后订阅注册的结果。
-                    MessagingCenter.Send(new object(), "ShareToFriend", para);
+                    var page = new ShareView(Product);
+                    PopupNavigation.Instance.PushAsync(page);
                 }
                 else
                 {

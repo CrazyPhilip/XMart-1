@@ -109,7 +109,7 @@ namespace XMart.ViewModels
 
 		}
 
-		private void InitMePage()
+		public void InitMePage()
 		{
 			try
 			{

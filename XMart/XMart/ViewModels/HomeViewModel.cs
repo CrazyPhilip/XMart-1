@@ -11,6 +11,7 @@ using XMart.Services;
 using XMart.Views;
 using XMart.Util;
 using System.Threading;
+using Newtonsoft.Json.Linq;
 
 namespace XMart.ViewModels
 {
@@ -114,12 +115,22 @@ namespace XMart.ViewModels
             set { SetProperty(ref memberVisible, value); }
         }
 
+        private string pasteString;   //Comment
+        public string PasteString
+        {
+            get { return pasteString; }
+            set { SetProperty(ref pasteString, value); }
+        }
+
+
+
         public Command<long> ItemTapCommand { set; get; }
         public Command<int> FindMoreCommand { get; set; }
         public Command<int> CarouselTappedCommand { get; set; }
         public Command SearchCommand { get; set; }
         public Command<string> NavigateCommand { get; set; }
         public Command MoreCatCommand { get; set; }
+        public Command GetRebateCommand { get; set; }
 
         public HomeViewModel()
         {
@@ -192,6 +203,28 @@ namespace XMart.ViewModels
                 Application.Current.MainPage.Navigation.PushModalAsync(findMorePage);
             }, () => { return true; });
 
+            GetRebateCommand = new Command(() =>
+            {
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(PasteString))
+                    {
+                        string paras = PasteString.Split('#')[2];
+                        byte[] bytes = Convert.FromBase64String(paras);
+                        string decodedString = System.Text.Encoding.Default.GetString(bytes);
+
+                        JObject json = JObject.Parse(decodedString);
+                        ProductDetailPage productDetailPage = new ProductDetailPage(json["p"].ToString());
+                        Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+                    }
+                }
+                catch (Exception)
+                {
+                    CrossToastPopUp.Current.ShowToastError("出现错误。", ToastLength.Short);
+                    throw;
+                }
+            }, () => { return true; });
+
         }
 
         private async void InitHomePage()
@@ -250,5 +283,10 @@ namespace XMart.ViewModels
             }
         }
 
+        private void CheckPasteString(string paste)
+        {
+            
+
+        }
     }
 }

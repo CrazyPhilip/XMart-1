@@ -12,6 +12,8 @@ using XMart.ResponseData;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 using Plugin.Media;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace XMart.ViewModels
 {
@@ -118,7 +120,6 @@ namespace XMart.ViewModels
                     MaxWidthHeight = 128
                 });
 
-
                 if (file == null)
                     return;
 
@@ -196,12 +197,26 @@ namespace XMart.ViewModels
 
                 UpdateUserPara updateUserPara = new UpdateUserPara
                 {
-                    id = User.id.ToString(),
+                    id = User.id,
                     phone = GlobalVariables.LoggedUser.phone,
                     password = Password,
                     email = User.email,
                     username = User.username,
-                    description = User.description
+                    description = User.description,
+                    userType = User.userType,
+                    address = User.address,
+                    balance = User.balance,
+                    file = "",
+                    points = User.points,
+                    state = User.state,
+                    rebateTotal = User.rebateTotal,
+                    created = User.created,
+                    updated = User.updated,
+                    personName = User.personName,
+                    country = User.country,
+                    companyProvince = User.companyProvince,
+                    companyName = User.buyCompanyName,
+                    invitePhone = ""
                 };
 
                 switch (Gender)
@@ -222,6 +237,20 @@ namespace XMart.ViewModels
 
                 if (updateUserInfoRD.success && uploadImageRD.success)
                 {
+                    LoginRD loginRD = await _restSharpService.GetUserInfo();
+                    if (loginRD.result.message == null)
+                    {
+                        GlobalVariables.LoggedUser = loginRD.result;   //将登录用户的信息保存成全局静态变量
+                        GlobalVariables.IsLogged = true;
+
+                        string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+                        JObject log = new JObject();
+                        log.Add("LoginTime", DateTime.UtcNow);
+                        log.Add("UserInfo", JsonConvert.SerializeObject(loginRD.result));
+                        //string text = "State:Checked\n" + "Account:" + Tel + "\nPassword:" + loginRD.result + "\nLoginTime:" + DateTime.UtcNow;
+                        File.WriteAllText(fileName, log.ToString());
+                    }
+
                     CrossToastPopUp.Current.ShowToastSuccess("修改成功！", ToastLength.Short);
                     await Application.Current.MainPage.Navigation.PopModalAsync();
                 }

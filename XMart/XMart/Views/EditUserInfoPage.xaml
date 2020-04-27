@@ -71,6 +71,9 @@
                     <Label Text="真实姓名" Style="{DynamicResource TitleLabelStyle}"/>
                     <Entry Placeholder="真实姓名" Text="{Binding User.personName}" Style="{DynamicResource EntryStyle}"/>
 
+                    <Label Text="密码" Style="{DynamicResource TitleLabelStyle}"/>
+                    <Entry Placeholder="密码" Text="{Binding Password}" Style="{DynamicResource EntryStyle}"/>
+
                     <Label Text="性别" Style="{DynamicResource TitleLabelStyle}"/>
                     <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender,Mode=TwoWay}" FontSize="20"/>
 

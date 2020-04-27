@@ -23,17 +23,18 @@ using Android.Database;
 using System.Drawing;
 using Android.Widget;
 using Android.Graphics.Drawables;
+using Com.Tencent.MM.Opensdk.Modelbase;
 
 namespace XMart.Droid
 {
-    [Activity(MainLauncher = false, Label = "美而好", Icon = "@mipmap/xmart", Theme = "@style/MainTheme",
+    [Activity(Name = "XMart.Droid.MainActivity", MainLauncher = false, Label = "美而好", Icon = "@mipmap/xmart", Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
 
         //微信相关
-        private readonly string appID = "wx6990f0f3818a8c7e";//申请的appid
+        private readonly string appID = "wxfad74b8fe74b6c22";//申请的appid
         private IWXAPI wxApi;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -112,9 +113,10 @@ namespace XMart.Droid
                 // send oauth request
                 SendAuth.Req req = new SendAuth.Req();
                 req.Scope = "snsapi_userinfo";
-                req.State = "wechat_sdk_demo_test";
+                req.State = "xmart_wechat_login";
                 bool result = wxApi.SendReq(req);
 
+                //wxApi.HandleIntent(GetIntent(), this);
             });
             
             //分享小程序给朋友
@@ -206,6 +208,51 @@ namespace XMart.Droid
             wxApi = WXAPIFactory.CreateWXAPI(this, appID, true);
             return wxApi.RegisterApp(appID);
         }
+
+        //微信直接发送给app的消息处理回调
+        public void onReq(BaseReq baseReq)
+        {
+
+        }
+
+        //app发送消息给微信，处理返回消息的回调
+        public void onResp(BaseResp resp)
+        {
+            const int RETURN_MSG_TYPE_LOGIN = 1;
+            const int RETURN_MSG_TYPE_SHARE = 2;
+
+            switch (resp.MyErrCode)
+            {
+
+                case BaseResp.ErrCode.ErrAuthDenied:
+                case BaseResp.ErrCode.ErrUserCancel:
+                    if (RETURN_MSG_TYPE_SHARE == resp.Type)
+                        CrossToastPopUp.Current.ShowToastError("分享失败", Plugin.Toast.Abstractions.ToastLength.Short);
+                    else 
+                        CrossToastPopUp.Current.ShowToastError("登录失败", Plugin.Toast.Abstractions.ToastLength.Short);
+                    break;
+                case BaseResp.ErrCode.ErrOk:
+                    switch (resp.Type)
+                    {
+                        case RETURN_MSG_TYPE_LOGIN:
+                            //拿到了微信返回的code,立马再去请求access_token
+                            string code = ((SendAuth.Resp)resp).Code;
+
+                            //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
+                            Console.WriteLine("在这里" + code);
+
+                            break;
+
+                        case RETURN_MSG_TYPE_SHARE:
+                            CrossToastPopUp.Current.ShowToastSuccess("登录成功", Plugin.Toast.Abstractions.ToastLength.Short);
+                            Finish();
+                            break;
+                    }
+                    break;
+            }
+        }
+
+
         /*
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
