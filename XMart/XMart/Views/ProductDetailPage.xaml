@@ -12,7 +12,7 @@
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
             <ScrollView Grid.Row="0">
@@ -30,10 +30,10 @@
                         </DataTemplate>
                     </cv:CarouselViewControl.ItemTemplate>
                 </cv:CarouselViewControl>-->
-                    <ff:CachedImage Source="{Binding Product.productImageBig}" HeightRequest="300"/>
+                    <ff:CachedImage Source="{Binding Product.productImageBig}" HeightRequest="200"/>
 
                     <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Orientation="Vertical" Padding="10">
-                        <Grid HeightRequest="60" RowSpacing="0">
+                        <Grid HeightRequest="50" RowSpacing="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>

@@ -36,15 +36,14 @@
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
             <ff:CachedImage Grid.Row="0" Grid.RowSpan="3" Source="backgroud.jpg" Aspect="Fill"/>
 
-            <Label Grid.Row="0" Text="个人中心" TextColor="Black" FontSize="24" FontAttributes="Bold"
-                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Row="0" Text="个人中心" Style="{StaticResource TitleLabel}"/>
             <Button Grid.Row="0" Text="退出" TextColor="Crimson" BackgroundColor="Transparent" FontSize="18"
                    HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Command="{Binding LoginOutCommand}"/>
 

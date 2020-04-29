@@ -15,7 +15,7 @@
     </ContentView.Resources>
 
     <ContentView.Content>
-        <Frame HeightRequest="25" WidthRequest="100" CornerRadius="15" BackgroundColor="White" HasShadow="False" Padding="0" BorderColor="LightGray">
+        <Frame HeightRequest="20" WidthRequest="80" CornerRadius="10" BackgroundColor="White" HasShadow="False" Padding="0" BorderColor="LightGray">
             <Grid ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />

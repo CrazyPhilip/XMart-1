@@ -9,13 +9,22 @@ namespace XMart.Services
 {
     public static class RestSharpHelper<T>
     {
-        static RestClient _restClient = new RestClient("http://120.26.3.153:7777");
+        static RestClient _restClient = new RestClient("http://47.114.101.147:7777");
+        //static RestClient _restClient = new RestClient("http://120.26.3.153:7777");
 
         public static async Task<T> PostAsync(string url, string json)
         {
             var requestPost = new RestRequest(url, Method.POST);
             requestPost.AddParameter("application/json", json, ParameterType.RequestBody);
             IRestResponse<T> responsePost = await _restClient.ExecuteAsync<T>(requestPost);
+            /*
+            if (responsePost.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responsePost.ErrorException);
+                throw twilioException;
+            }
+            */
             T t = JsonConvert.DeserializeObject<T>(responsePost.Content);
             return t;
         }
@@ -24,6 +33,14 @@ namespace XMart.Services
         {
             var requestGet = new RestRequest(url, Method.GET);
             IRestResponse<T> responseGet = await _restClient.ExecuteAsync<T>(requestGet);
+            /*
+            if (responseGet.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responseGet.ErrorException);
+                throw twilioException;
+            }
+            */
             T t = JsonConvert.DeserializeObject<T>(responseGet.Content);
             return t;
         }
@@ -32,6 +49,14 @@ namespace XMart.Services
         {
             var requestGet = new RestRequest(url, Method.GET);
             IRestResponse responseGet = _restClient.Execute(requestGet);
+            /*
+            if (responseGet.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responseGet.ErrorException);
+                throw twilioException;
+            }
+            */
             T t = JsonConvert.DeserializeObject<T>(responseGet.Content);
             return t;
         }
@@ -41,6 +66,14 @@ namespace XMart.Services
             var requestPost = new RestRequest(url, Method.POST);
             requestPost.AddParameter("application/json", json, ParameterType.RequestBody);
             IRestResponse<T> responsePost = _restClient.Execute<T>(requestPost);
+            /*
+            if (responsePost.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responsePost.ErrorException);
+                throw twilioException;
+            }
+            */
             T t = JsonConvert.DeserializeObject<T>(responsePost.Content);
             return t;
         }
@@ -49,6 +82,14 @@ namespace XMart.Services
         {
             var requestGet = new RestRequest(url, Method.GET);
             IRestResponse responseGet = await _restClient.ExecuteAsync(requestGet);
+            /*
+            if (responseGet.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responseGet.ErrorException);
+                throw twilioException;
+            }
+            */
             return responseGet.Content; 
         }
 
@@ -57,6 +98,14 @@ namespace XMart.Services
             var requestPost = new RestRequest(url, Method.POST);
             requestPost.AddParameter("application/json", json, ParameterType.RequestBody);
             IRestResponse responsePost = await _restClient.ExecuteAsync(requestPost);
+            /*
+            if (responsePost.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responsePost.ErrorException);
+                throw twilioException;
+            }
+            */
             return responsePost.Content;
         }
 
@@ -64,6 +113,14 @@ namespace XMart.Services
         {
             var requestGet = new RestRequest(url, Method.GET);
             IRestResponse responseGet = _restClient.Execute(requestGet);
+            /*
+            if (responseGet.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responseGet.ErrorException);
+                throw twilioException;
+            }
+            */
             return responseGet.Content;
         }
 
@@ -72,6 +129,14 @@ namespace XMart.Services
             var requestPost = new RestRequest(url, Method.POST);
             requestPost.AddParameter("application/json", json, ParameterType.RequestBody);
             IRestResponse responsePost = _restClient.Execute(requestPost);
+            /*
+            if (responsePost.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, responsePost.ErrorException);
+                throw twilioException;
+            }
+            */
             return responsePost.Content;
         }
     }

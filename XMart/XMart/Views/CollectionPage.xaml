@@ -26,12 +26,12 @@
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
-            <Label Grid.Row="0" TextColor="Black" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Grid.Row="0" Style="{StaticResource TitleLabel}">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="我的收藏（"/>
@@ -41,7 +41,7 @@
                 </Label.FormattedText>
             </Label>
             <ImageButton Grid.Row="0" Source="refresh.png" BackgroundColor="Transparent" 
-                         HeightRequest="30" WidthRequest="30" Padding="0" Margin="10,0"
+                         HeightRequest="20" WidthRequest="20" Padding="0" Margin="10,0"
                          HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
 
             <Label Grid.Row="1" Text="没有收藏商品，快去逛一逛吧" FontSize="18" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
@@ -50,7 +50,7 @@
                 <StackLayout x:Name="CollectionItemStack" BindableLayout.ItemsSource="{Binding ProductList}" Orientation="Vertical">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Frame HeightRequest="140" CornerRadius="5" Margin="5,0" Style="{StaticResource BaseFrame}" HorizontalOptions="Fill">
+                            <Frame HeightRequest="120" CornerRadius="5" Margin="5,0" Style="{StaticResource BaseFrame}" HorizontalOptions="Fill">
                                 <Grid RowSpacing="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
@@ -58,7 +58,7 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="4*"/>
                                         <ColumnDefinition Width="6*"/>
                                     </Grid.ColumnDefinitions>

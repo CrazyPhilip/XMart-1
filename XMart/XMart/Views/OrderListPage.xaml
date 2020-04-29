@@ -13,14 +13,14 @@
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
             <Label Grid.Row="0" Text="订单管理" Style="{StaticResource TitleLabel}"/>
             <ImageButton Grid.Row="0" Source="refresh.png" BackgroundColor="Transparent" 
-                         HeightRequest="30" WidthRequest="30" Padding="0" Margin="10,0"
+                         HeightRequest="20" WidthRequest="20" Padding="0" Margin="10,0"
                          HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
 
             <Label Grid.Row="1" Text="没有订单，快去逛一逛吧" FontSize="18" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
@@ -72,7 +72,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" BindableLayout.ItemsSource="{Binding goodsList}" Orientation="Vertical">
+                                        <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" BindableLayout.ItemsSource="{Binding goodsList}" Orientation="Vertical" BackgroundColor="AliceBlue">
                                             <BindableLayout.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid HeightRequest="50">

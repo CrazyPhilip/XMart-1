@@ -13,7 +13,7 @@
     <ContentPage.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
-            <Setter Property="WidthRequest" Value="100"/>
+            <Setter Property="WidthRequest" Value="80"/>
             <Setter Property="HeightRequest" Value="30"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
@@ -35,15 +35,15 @@
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackLayout Grid.Row="0" Orientation="Horizontal" VerticalOptions="EndAndExpand" Spacing="0">
                 <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                <Frame Style="{StaticResource BaseFrame}" HeightRequest="40" HorizontalOptions="FillAndExpand"
-                       CornerRadius="20" Padding="20,0" BorderColor="LightGray">
+                <Frame Style="{StaticResource BaseFrame}" HeightRequest="30" HorizontalOptions="FillAndExpand"
+                       CornerRadius="15" Padding="15,0" BorderColor="LightGray">
                     <controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
                                       Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
                 </Frame>
@@ -51,7 +51,7 @@
             </StackLayout>
 
             <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="0">
                     <Label Text="综合排序" Style="{DynamicResource LabelStyle}">
                         <Label.Behaviors>
                             <behaviors:RadioBehavior x:Name="ComprehensiveRankingRadio" GroupName="SortGroup" IsChecked="True"/>
@@ -185,7 +185,7 @@
                     <StackLayout x:Name="ItemStack" BindableLayout.ItemsSource="{Binding ProductList}" Orientation="Vertical">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Frame HeightRequest="140" CornerRadius="5" Margin="5,0" Style="{StaticResource BaseFrame}" HorizontalOptions="Fill">
+                                <Frame HeightRequest="120" CornerRadius="5" Margin="5,0" Style="{StaticResource BaseFrame}" HorizontalOptions="Fill">
                                     <Grid RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
@@ -193,7 +193,7 @@
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="140"/>
+                                            <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="4*"/>
                                             <ColumnDefinition Width="6*"/>
                                         </Grid.ColumnDefinitions>

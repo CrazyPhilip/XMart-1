@@ -13,12 +13,12 @@
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
-            <Label Grid.Row="0" Text="我的客户" TextColor="Black" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Grid.Row="0" Text="我的客户" Style="{StaticResource TitleLabel}"/>
 
             <cv:CarouselViewControl Grid.Row="1" x:Name="carouselView" ItemsSource="{Binding CustomerList}" ShowIndicators="True">
                 <cv:CarouselViewControl.ItemTemplate>

@@ -31,7 +31,7 @@
             <ScrollView>
                 <StackLayout Orientation="Vertical" HorizontalOptions="Center" Spacing="0">
                     <!--轮播图-->
-                    <Frame Style="{StaticResource BaseFrame}" HeightRequest="200" Margin="5,50,5,0" CornerRadius="0">
+                    <Frame Style="{StaticResource BaseFrame}" HeightRequest="150" Margin="5,40,5,0" CornerRadius="0">
                         <cv:CarouselViewControl x:Name="carousel" ItemsSource="{Binding CarouselList}"
                                                 ShowArrows="False" ShowIndicators="True" Orientation="Horizontal">
                             <cv:CarouselViewControl.ItemTemplate>
@@ -61,10 +61,10 @@
                         <StackLayout x:Name="CatStack" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding CatList}" Spacing="0">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame Style="{StaticResource BaseFrame}" HeightRequest="130" WidthRequest="100" Margin="5">
+                                    <Frame Style="{StaticResource BaseFrame}" HeightRequest="110" WidthRequest="80" Margin="5" HorizontalOptions="Start">
                                         <Grid WidthRequest="100" RowSpacing="0" Margin="0">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="100"/>
+                                                <RowDefinition Height="80"/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
 
@@ -98,10 +98,10 @@
                         <StackLayout x:Name="HotProductStack" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding HotProductList}" Spacing="0">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame Style="{StaticResource BaseFrame}" HeightRequest="180" WidthRequest="120" Margin="5">
-                                        <Grid WidthRequest="120" RowSpacing="0">
+                                    <Frame Style="{StaticResource BaseFrame}" HeightRequest="160" WidthRequest="100" Margin="5" HorizontalOptions="Start">
+                                        <Grid WidthRequest="100" RowSpacing="0">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="120"/>
+                                                <RowDefinition Height="100"/>
                                                 <RowDefinition Height="20"/>
                                                 <RowDefinition Height="20"/>
                                                 <RowDefinition Height="20"/>
@@ -109,7 +109,7 @@
 
                                             <ff:CachedImage Grid.Row="0" Source="{Binding picUrl}" HeightRequest="80" WidthRequest="80" Aspect="AspectFill"/>
 
-                                            <ff:CachedImage Grid.Row="0" Source="discount.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="End" VerticalOptions="Start"/>
+                                            <ff:CachedImage Grid.Row="0" Source="discount.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Start"/>
                                             <Label Grid.Row="1" Text="{Binding productName}" TextColor="{DynamicResource PrimaryTextColor}" FontSize="16" LineBreakMode="TailTruncation"/>
                                             <Label Grid.Row="2" FontSize="18" FontAttributes="Bold" IsVisible="{Binding Path=BindingContext.MemberVisible,Source={x:Reference Name=homePage}}">
                                                 <Label.FormattedText>
@@ -140,12 +140,12 @@
                         </StackLayout>
                     </ScrollView>
 
-                    <Label Text="淘口令" Style="{DynamicResource SectionTitle}" Margin="5,15,5,0"/>
-                    <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="40" 
-                           CornerRadius="20" Padding="20,0,0,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
+                    <Label Text="淘口令" Style="{DynamicResource SectionTitle}" Margin="5,15,5,0" TextColor="{DynamicResource ThickPink}"/>
+                    <Frame Style="{StaticResource BaseFrame}" BorderColor="{DynamicResource SkyBlue}" HeightRequest="30" 
+                           CornerRadius="15" Padding="15,0,0,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
                         <StackLayout Spacing="0" Orientation="Horizontal">
                             <controls:MyEntry x:Name="PasteEntry" Text="{Binding PasteString}" Placeholder="输入淘口令，采购即拿返利" Style="{StaticResource SearchEntry}" MaxLength="100" FontSize="14"/>
-                            <Button Text="拿返利" BackgroundColor="{DynamicResource SkyBlue}" CornerRadius="20" HeightRequest="40" Padding="0" TextColor="White" 
+                            <Button Text="拿返利" BackgroundColor="{DynamicResource SkyBlue}" CornerRadius="15" HeightRequest="30" Padding="0" TextColor="White" 
                                     Command="{Binding GetRebateCommand}"/>
                         </StackLayout>
                     </Frame>
@@ -379,8 +379,8 @@
             </ScrollView>
 
             <!--头部-->
-            <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="40" 
-                   CornerRadius="20" Padding="20,0,10,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
+            <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
+                   CornerRadius="15" Padding="15,0,10,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
                 <StackLayout Orientation="Horizontal" Spacing="0">
                     <ImageButton Source="Resource/drawable/search.png" Style="{StaticResource EarImageButton}"/>
                     <controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"

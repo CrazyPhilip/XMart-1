@@ -166,7 +166,7 @@ namespace XMart.ViewModels
                 {
                     CrossToastPopUp.Current.ShowToastError(loginRD.message, ToastLength.Long);
                 }*/
-                if (loginRD.result.message == null)
+                if (loginRD.success)
                 {
                     CrossToastPopUp.Current.ShowToastSuccess("欢迎您登录美而好家具！", ToastLength.Long);
 
@@ -185,7 +185,7 @@ namespace XMart.ViewModels
                 }
                 else
                 {
-                    CrossToastPopUp.Current.ShowToastError(loginRD.result.message, ToastLength.Long);
+                    CrossToastPopUp.Current.ShowToastError(loginRD.message, ToastLength.Long);
                 }
             }
             catch (Exception)

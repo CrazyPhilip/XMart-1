@@ -14,9 +14,9 @@
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
             <!--头部-->
@@ -36,7 +36,7 @@
                     HeightRequest="30" WidthRequest="50" CornerRadius="15" Padding="0" Margin="10,0" FontSize="18"
                     HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding AllCheckCommand}"/>-->
             <ImageButton Grid.Row="0" Source="refresh.png" BackgroundColor="Transparent" 
-                    HeightRequest="30" WidthRequest="30" Padding="0" Margin="10,0"
+                    HeightRequest="20" WidthRequest="20" Padding="0" Margin="10,0"
                     HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
             
             <!--购物车商品列表-->
@@ -44,12 +44,12 @@
                 <StackLayout x:Name="ItemStack" BindableLayout.ItemsSource="{Binding ItemList,Mode=TwoWay}" Orientation="Vertical">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Frame HeightRequest="140" CornerRadius="5" Margin="5,0" Style="{StaticResource BaseFrame}" HorizontalOptions="Fill">
+                            <Frame HeightRequest="120" CornerRadius="5" Margin="5,0" Style="{StaticResource BaseFrame}" HorizontalOptions="Fill">
                                 <Grid RowSpacing="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                         <RowDefinition/>
-                                        <RowDefinition Height="40"/>
+                                        <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
@@ -62,7 +62,7 @@
                                     <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding productImg}"/>
                                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" 
                                            FontSize="18" TextColor="{DynamicResource PrimaryTextColor}" VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="Medium"
+                                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="14"
                                            VerticalOptions="Center" VerticalTextAlignment="Center"/>
                                     <!--<Picker Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Title="规格......" WidthRequest="80" HorizontalOptions="CenterAndExpand"/>
                                     <Label Grid.Row="1" Grid.Column="2" Text="{Binding Source={x:Reference NumberStepper}, Path=Value}"/>
@@ -137,17 +137,17 @@
                 <CheckBox x:Name="AllCheckedButton" Color="{StaticResource MainColor}" 
                           IsChecked="{Binding IsAllChecked,Mode=TwoWay}" CheckedChanged="AllCheckedButton_CheckedChanged"/>-->
 
-                <Label Text="合计：" HorizontalOptions="Start" VerticalOptions="Center" FontSize="22"/>
+                <Label Text="合计：" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18"/>
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" TextColor="{StaticResource ThickPink}">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="￥" FontSize="22"/>
-                            <Span Text="{Binding TotalSelectedPrice}" FontSize="24" FontAttributes="Bold"/>
+                            <Span Text="￥" FontSize="18"/>
+                            <Span Text="{Binding TotalSelectedPrice}" FontSize="22" FontAttributes="Bold"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
 
-                <Label HorizontalOptions="EndAndExpand" VerticalOptions="Center" FontSize="22">
+                <Label HorizontalOptions="EndAndExpand" VerticalOptions="Center" FontSize="18">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="已选:"/>
@@ -156,8 +156,8 @@
                     </Label.FormattedText>
                 </Label>
 
-                <Button x:Name="OrderButton" Text="结算" HeightRequest="40" WidthRequest="80" Padding="0" CornerRadius="20" BackgroundColor="{StaticResource ThickPink}" TextColor="White"
-                        HorizontalOptions="End" VerticalOptions="Center" FontSize="22" Command="{Binding OrderCommand}"/>
+                <Button x:Name="OrderButton" Text="结算" HeightRequest="30" WidthRequest="60" Padding="0" CornerRadius="15" BackgroundColor="{StaticResource ThickPink}" TextColor="White"
+                        HorizontalOptions="End" VerticalOptions="Center" FontSize="18" Command="{Binding OrderCommand}"/>
 
             </StackLayout>
 
