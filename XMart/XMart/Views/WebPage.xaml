@@ -1,17 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              x:Class="XMart.Views.WebPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
         <Grid>
 
-            <ActivityIndicator x:Name="defaultActivityIndicator" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
-            <Label x:Name="labelLoading" Text="Loading..." IsVisible="false" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+            <WebView x:Name="Web" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="400" WidthRequest="400" BackgroundColor="Red"
+                     Navigated="WebView_Navigated" Navigating="WebView_Navigating" android:WebView.MixedContentMode="AlwaysAllow" /> 
 
-            <WebView x:Name="Web" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="1000" WidthRequest="1000"
-                     Navigated="WebView_Navigated" Navigating="WebView_Navigating" />
+            <ActivityIndicator x:Name="defaultActivityIndicator" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label x:Name="labelLoading" Text="Loading..." IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center"/>
 
+            <ImageButton x:Name="BackButton" Source="back_gray.png" BackgroundColor="Transparent"
+                     HeightRequest="30" WidthRequest="30" CornerRadius="15" VerticalOptions="StartAndExpand"
+                     HorizontalOptions="StartAndExpand" Margin="10" Clicked="BackButton_Clicked"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

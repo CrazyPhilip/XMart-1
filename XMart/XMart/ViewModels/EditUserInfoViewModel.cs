@@ -228,14 +228,8 @@ namespace XMart.ViewModels
                 }
 
                 SimpleRD updateUserInfoRD = await _restSharpService.UpdateUserInfo(updateUserPara);
-                SimpleRD uploadImageRD = new SimpleRD();
-
-                if (!string.IsNullOrWhiteSpace(base64))
-                {
-                    uploadImageRD = await _restSharpService.UploadImage(base64);
-                }
-
-                if (updateUserInfoRD.success && uploadImageRD.success)
+                
+                if (updateUserInfoRD.success)
                 {
                     LoginRD loginRD = await _restSharpService.GetUserInfo();
                     if (loginRD.result.message == null)

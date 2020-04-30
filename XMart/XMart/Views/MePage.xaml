@@ -52,6 +52,10 @@
                        HorizontalOptions="Start" VerticalOptions="CenterAndExpand" Margin="20,0,0,0"
                    BorderColor="White" IsClippedToBounds="True">
                     <ff:CachedImage Source="{Binding UserAvatar}" Aspect="AspectFill"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NavigateCommand}" 
+                                              CommandParameter="XMart.Views.UploadAvatarPage"/>
+                    </Frame.GestureRecognizers>
                 </Frame>
 
                 <StackLayout HorizontalOptions="Start" VerticalOptions="CenterAndExpand">

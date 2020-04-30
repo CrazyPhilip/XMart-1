@@ -187,7 +187,17 @@
                             </Label.FormattedText>
                         </Label>-->
                     </StackLayout>
-                    
+
+                    <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
+                        <Label Text="透明工厂" TextColor="{DynamicResource PrimaryTextColor}" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="工厂编号：605"/>
+                        <Label Text="工厂名：瑞耀家具生产厂"/>
+                        <Label Text="工厂负责人：谭某某"/>
+                        <Label Text="工厂地址：四川成都"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CameraCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
                     <!--
                     <StackLayout Orientation="Vertical" BackgroundColor="White" Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
                         <WebView x:Name="webView" Source="{Binding HtmlSource}" HeightRequest="400" WidthRequest="400" HorizontalOptions="Fill" VerticalOptions="Fill"/>
@@ -242,6 +252,10 @@
             <ImageButton x:Name="BackButton" Source="back_gray.png" BackgroundColor="Transparent"
                      HeightRequest="30" WidthRequest="30" CornerRadius="15" VerticalOptions="StartAndExpand"
                      HorizontalOptions="StartAndExpand" Margin="10" Command="{Binding BackCommand}"/>
+
+            <ImageButton Source="_3d.png" BackgroundColor="Transparent"
+                     HeightRequest="30" WidthRequest="30" CornerRadius="15" VerticalOptions="StartAndExpand"
+                     HorizontalOptions="EndAndExpand" Margin="10" Command="{Binding ThreeDCommand}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

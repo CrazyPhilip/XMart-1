@@ -25,5 +25,9 @@ namespace XMart.Views
             labelLoading.IsVisible = true;
         }
 
+        private void BackButton_Clicked(object sender, System.EventArgs e)
+        {
+            Navigation.PopModalAsync();
+        }
     }
 }

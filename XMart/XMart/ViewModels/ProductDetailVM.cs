@@ -66,6 +66,8 @@ namespace XMart.ViewModels
         public Command CallServiceCommand { get; set; }
         public Command StarCommand { get; set; }
         public Command SpeakCommand { get; set; }
+        public Command CameraCommand { get; set; }
+        public Command ThreeDCommand { get; set; }
 
         RestSharpService _restSharpService = new RestSharpService();
 
@@ -175,6 +177,18 @@ namespace XMart.ViewModels
                 {
                     DependencyService.Get<ITextToSpeech>().Speak(Product.productName + " 市场价" + Product.mallPrice + "元");
                 }
+            }, () => { return true; });
+
+            CameraCommand = new Command(() =>
+            {
+                CameraListPage cameraListPage = new CameraListPage();
+                Application.Current.MainPage.Navigation.PushModalAsync(cameraListPage);
+            }, () => { return true; });
+
+            ThreeDCommand = new Command(() =>
+            {
+                WebPage webPage = new WebPage("https://editor.zgyvrqj.com/rotateview.aspx?rotate_id=115711");
+                Application.Current.MainPage.Navigation.PushModalAsync(webPage);
             }, () => { return true; });
 
             InitProductDetailPageAsync(productId);
