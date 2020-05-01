@@ -40,10 +40,10 @@
                 <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18" Command="{Binding SearchCommand}"/>
             </StackLayout>
 
-            <tb:TabViewControl Grid.Row="1" VerticalOptions="FillAndExpand"
+            <tb:TabViewControl Grid.Row="1" VerticalOptions="FillAndExpand" HeaderSelectionUnderlineWidth="50" HeaderTabTextFontSize="20"
                                HeaderTabTextColor="Gray" HeaderSelectionUnderlineColor="{StaticResource SkyBlue}" HeaderBackgroundColor="Transparent">
                 <tb:TabViewControl.ItemSource>
-                    <tb:TabItem HeaderText="找单品" HeaderTabTextFontSize="20">
+                    <tb:TabItem HeaderText="找单品">
                         <!--二级分类-->
                         <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand">
                             <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SubCategoryList}" 
@@ -68,7 +68,7 @@
                         </ScrollView>
                     </tb:TabItem>
 
-                    <tb:TabItem HeaderText="找品牌" HeaderTabTextFontSize="20">
+                    <tb:TabItem HeaderText="找品牌">
                         <StackLayout Spacing="0">
                             <ScrollView x:Name="CommentScrollView" VerticalOptions="FillAndExpand">
                                 <StackLayout VerticalOptions="FillAndExpand">

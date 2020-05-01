@@ -50,7 +50,8 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>-->
 
-                            <Frame HasShadow="True" BorderColor="DarkGray" CornerRadius="5" HeightRequest="400" WidthRequest="200" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                            <Frame HasShadow="True" BorderColor="DarkGray" CornerRadius="5" HeightRequest="400" WidthRequest="200" 
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                 <StackLayout>
                                     <ff:CachedImage Source="star_yellow.png" Aspect="AspectFill" HeightRequest="150"
                                                     WidthRequest="150" HorizontalOptions="Center" />

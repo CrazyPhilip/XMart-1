@@ -12,6 +12,7 @@ using Rg.Plugins.Popup.Services;
 using XMart.Views;
 using Xamarin.Essentials;
 using Newtonsoft.Json.Linq;
+using CarouselView.FormsPlugin.Abstractions;
 
 namespace XMart.ViewModels
 {
@@ -190,9 +191,8 @@ namespace XMart.ViewModels
                 WebPage webPage = new WebPage("https://editor.zgyvrqj.com/rotateview.aspx?rotate_id=115711");
                 Application.Current.MainPage.Navigation.PushModalAsync(webPage);
             }, () => { return true; });
-
+            
             InitProductDetailPageAsync(productId);
-
         }
 
         /// <summary>
