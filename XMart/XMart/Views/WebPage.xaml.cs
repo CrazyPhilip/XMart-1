@@ -13,6 +13,13 @@ namespace XMart.Views
             Web.Source = url;
         }
 
+        public WebPage(HtmlWebViewSource htmlWebViewSource)
+        {
+            InitializeComponent();
+
+            Web.Source = htmlWebViewSource;
+        }
+
         private void WebView_Navigated(object sender, WebNavigatedEventArgs e)
         {
             defaultActivityIndicator.IsRunning = false;    //指示器关闭

@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             x:Class="XMart.Views.ProductIntroView">
+    
+  <ContentView.Content>
+        <ScrollView>
+            <StackLayout Spacing="10">
+                <ff:CachedImage Source="{Binding Product.productImageBig}" HeightRequest="200"/>
+
+                <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Orientation="Vertical" Padding="10">
+                    <Grid HeightRequest="50" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="￥" FontSize="14" TextColor="{StaticResource SkyBlue}" />
+                                    <Span Text="{Binding Product.mallPrice}" FontSize="26" TextColor="{StaticResource SkyBlue}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding MemberPriceVisible}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="￥" FontSize="14" TextColor="{StaticResource ThickPink}"/>
+                                    <Span Text="{Binding Product.memberPrice}" FontSize="26" TextColor="{StaticResource ThickPink}" FontAttributes="Bold"/>
+                                    <Span Text="会员价" FontSize="14" TextColor="{StaticResource ThickPink}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <ImageButton Grid.Row="0" Grid.Column="2" Source="{Binding StarSource}" Command="{Binding StarCommand}"
+                                         HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent"/>
+                        <Label Grid.Row="1" Grid.Column="2" Text="收藏" FontSize="14" 
+                                   HorizontalOptions="Center" VerticalOptions="Center" 
+                                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                    </Grid>
+
+                    <Label VerticalOptions="Center" VerticalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="热卖" TextColor="Crimson" FontSize="12"/>
+                                <Span Text="{Binding Product.productName}" TextColor="{DynamicResource PrimaryTextColor}" FontAttributes="Bold" FontSize="22"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding Product.subTitle}" FontSize="18"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding SpeakCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
+                    <Label Text="产品规格"  TextColor="{DynamicResource PrimaryTextColor}" FontSize="20" FontAttributes="Bold"/>
+                    <StackLayout BindableLayout.ItemsSource="{Binding Product.itemAttributeValues}" IsVisible="{Binding MemberPriceVisible}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label VerticalOptions="Center" FontSize="18">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding attributeValue}" TextColor="{DynamicResource PrimaryTextColor}"/>
+                                            <Span Text="  ￥" TextColor="{StaticResource SkyBlue}"/>
+                                            <Span Text="{Binding mallPrice}" TextColor="{StaticResource SkyBlue}"/>
+                                            <Span Text="  ￥" TextColor="{StaticResource ThickPink}" FontAttributes="Bold"/>
+                                            <Span Text="{Binding memberPrice}" TextColor="{StaticResource ThickPink}" FontSize="22" FontAttributes="Bold"/>
+                                            <Span Text="会员价" TextColor="{StaticResource ThickPink}" FontSize="14"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <StackLayout BindableLayout.ItemsSource="{Binding Product.itemAttributeValues}" IsVisible="{Binding VisitorVisible}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label VerticalOptions="Center" FontSize="18">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding attributeValue}" TextColor="Black"/>
+                                            <Span Text="  ￥" TextColor="{StaticResource SkyBlue}"/>
+                                            <Span Text="{Binding mallPrice}" TextColor="{StaticResource SkyBlue}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
+                    <Label Text="产品详情" TextColor="{DynamicResource PrimaryTextColor}" FontSize="20" FontAttributes="Bold"/>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="产品编号："/>
+                                <Span Text="{Binding Product.productId}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="品牌系列："/>
+                                <Span Text="{Binding Product.series}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="风格："/>
+                                <Span Text="{Binding Product.style}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="主要材质："/>
+                                <Span Text="{Binding Product.mainMaterial}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="颜色："/>
+                                <Span Text="{Binding Product.color}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="单位："/>
+                                <Span Text="{Binding Product.unit}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+
+                <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
+                    <Label Text="透明工厂" TextColor="{DynamicResource PrimaryTextColor}" FontSize="20" FontAttributes="Bold"/>
+                    <Label Text="工厂编号：605"/>
+                    <Label Text="工厂名：瑞耀家具生产厂"/>
+                    <Label Text="工厂负责人：谭某某"/>
+                    <Label Text="工厂地址：四川成都"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CameraCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="Fill"
+                                 BindableLayout.ItemsSource="{Binding Product.productImageSmall}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <ff:CachedImage Source="{Binding .}" HeightRequest="300" Aspect="AspectFit" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

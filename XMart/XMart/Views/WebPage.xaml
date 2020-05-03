@@ -8,7 +8,7 @@
         <Grid>
 
             <WebView x:Name="Web" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="400" WidthRequest="400" BackgroundColor="Red"
-                     Navigated="WebView_Navigated" Navigating="WebView_Navigating" android:WebView.MixedContentMode="AlwaysAllow" /> 
+                     Navigated="WebView_Navigated" Navigating="WebView_Navigating" android:WebView.MixedContentMode="AlwaysAllow" android:WebView.DisplayZoomControls="True" android:WebView.EnableZoomControls="True"/> 
 
             <ActivityIndicator x:Name="defaultActivityIndicator" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Label x:Name="labelLoading" Text="Loading..." IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center"/>

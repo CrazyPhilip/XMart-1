@@ -68,7 +68,8 @@ namespace XMart.ViewModels
         public Command StarCommand { get; set; }
         public Command SpeakCommand { get; set; }
         public Command CameraCommand { get; set; }
-        public Command ThreeDCommand { get; set; }
+        public Command DetailCommand { get; set; }
+        public Command<string> OpenWebCommand { get; set; }
 
         RestSharpService _restSharpService = new RestSharpService();
 
@@ -186,12 +187,22 @@ namespace XMart.ViewModels
                 Application.Current.MainPage.Navigation.PushModalAsync(cameraListPage);
             }, () => { return true; });
 
-            ThreeDCommand = new Command(() =>
+            OpenWebCommand = new Command<string>((url) =>
             {
-                WebPage webPage = new WebPage("https://editor.zgyvrqj.com/rotateview.aspx?rotate_id=115711");
+                WebPage webPage = new WebPage(url);
+                Application.Current.MainPage.Navigation.PushModalAsync(webPage);
+            }, (url) => { return true; });
+
+            DetailCommand = new Command(() =>
+            {
+                HtmlWebViewSource htmlWebViewSource = new HtmlWebViewSource
+                {
+                    Html = Product.detail
+                };
+                WebPage webPage = new WebPage(htmlWebViewSource);
                 Application.Current.MainPage.Navigation.PushModalAsync(webPage);
             }, () => { return true; });
-            
+
             InitProductDetailPageAsync(productId);
         }
 

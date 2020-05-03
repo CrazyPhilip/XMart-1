@@ -24,6 +24,7 @@ using System.Drawing;
 using Android.Widget;
 using Android.Graphics.Drawables;
 using Com.Tencent.MM.Opensdk.Modelbase;
+using Xam.Plugin.WebView.Droid;
 
 namespace XMart.Droid
 {
@@ -44,7 +45,7 @@ namespace XMart.Droid
 
             Resources.DisplayMetrics.ScaledDensity = 2;//告诉android不要把自己大小单位缩放
             //double systemDensity = DeviceDisplay.MainDisplayInfo.Density;
-            //Resources.DisplayMetrics.Density = (float)systemDensity / 2.55F;
+            Resources.DisplayMetrics.Density = 2;
             //var temp = Resources.DisplayMetrics;
             //var device = DeviceDisplay.MainDisplayInfo;
             App.ScreenWidth = Resources.DisplayMetrics.WidthPixels;
@@ -63,6 +64,8 @@ namespace XMart.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);   //弹出框
             CarouselViewRenderer.Init();    //轮播图
             CachedImageRenderer.Init(true);
+            //Forms.SetFlags("CarouselView_Experimental");
+            FormsWebViewRenderer.Initialize();
 
             //支付宝
             MessagingCenter.Subscribe<object, string>(this, "Pay", (sender, sign) =>
