@@ -81,6 +81,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="TextToSpeech_Android.cs" />
+    <Compile Include="WXEntryActivity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XamWebViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\pcas.json" />
@@ -190,7 +194,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.3.0.991250</Version>
+      <Version>4.6.0.726</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -339,6 +343,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\_3d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\alipay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\wxpay.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

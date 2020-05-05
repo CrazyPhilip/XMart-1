@@ -11,6 +11,7 @@ using XMart.Views;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using XMart.Util;
+using Rg.Plugins.Popup.Services;
 
 namespace XMart.ViewModels
 {
@@ -111,8 +112,11 @@ namespace XMart.ViewModels
 
             PayCommand = new Command(() =>
             {
-                PlaceAnOrder();
-                InitOrderDetailPage(orderId);
+                var page = new PayView();
+                PopupNavigation.Instance.PushAsync(page);
+
+                //PlaceAnOrder();
+                //InitOrderDetailPage(orderId);
             }, () => { return true; });
 
             DeleteOrderCommand = new Command(() =>

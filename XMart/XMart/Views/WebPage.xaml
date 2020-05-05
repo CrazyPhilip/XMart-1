@@ -2,13 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:XMart.Controls"
              x:Class="XMart.Views.WebPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
         <Grid>
 
+            <!--
             <WebView x:Name="Web" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="400" WidthRequest="400" BackgroundColor="Red"
-                     Navigated="WebView_Navigated" Navigating="WebView_Navigating" android:WebView.MixedContentMode="AlwaysAllow" android:WebView.DisplayZoomControls="True" android:WebView.EnableZoomControls="True"/> 
+                     Navigated="WebView_Navigated" Navigating="WebView_Navigating" android:WebView.MixedContentMode="AlwaysAllow" android:WebView.DisplayZoomControls="True" android:WebView.EnableZoomControls="True">
+                
+            </WebView>-->
+            <controls:XamWebView x:Name="Web"/>
 
             <ActivityIndicator x:Name="defaultActivityIndicator" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Label x:Name="labelLoading" Text="Loading..." IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center"/>

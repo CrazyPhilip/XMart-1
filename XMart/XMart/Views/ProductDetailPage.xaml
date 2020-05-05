@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:tb="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView"
              xmlns:controls="clr-namespace:XMart.Controls"
@@ -16,7 +17,7 @@
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
 
@@ -136,7 +137,7 @@
                                 </StackLayout>
 
                                 <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
-                                    <Label Text="产品规格"  TextColor="{DynamicResource PrimaryTextColor}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="产品规格"  TextColor="{DynamicResource PrimaryTextColor}" FontSize="16" FontAttributes="Bold"/>
                                     <StackLayout BindableLayout.ItemsSource="{Binding Product.itemAttributeValues}" IsVisible="{Binding MemberPriceVisible}">
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate>
@@ -173,7 +174,7 @@
                                 </StackLayout>
 
                                 <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
-                                    <Label Text="产品详情" TextColor="{DynamicResource PrimaryTextColor}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="产品详情" TextColor="{DynamicResource PrimaryTextColor}" FontSize="16" FontAttributes="Bold"/>
                                     <Label>
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -229,7 +230,7 @@
                                 </StackLayout>
 
                                 <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
-                                    <Label Text="透明工厂" TextColor="{DynamicResource PrimaryTextColor}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="透明工厂" TextColor="{DynamicResource PrimaryTextColor}" FontSize="16" FontAttributes="Bold"/>
                                     <Label Text="工厂编号：605"/>
                                     <Label Text="工厂名：瑞耀家具生产厂"/>
                                     <Label Text="工厂负责人：谭某某"/>
@@ -252,15 +253,18 @@
                     </tb:TabItem>
 
                     <tb:TabItem HeaderText="详情">
-                        <!--
-                        <WebView x:Name="webView" HeightRequest="400" WidthRequest="400" HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" IsEnabled="True">
-                            <WebView.Source>
+
+                        <controls:XamWebView x:Name="webView" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="400" WidthRequest="400"
+                                 android:WebView.MixedContentMode="AlwaysAllow" 
+                                 android:WebView.DisplayZoomControls="True" 
+                                 android:WebView.EnableZoomControls="True">
+                            <controls:XamWebView.Source>
                                 <HtmlWebViewSource Html="{Binding Product.detail}"/>
-                            </WebView.Source>
-                        </WebView>
-                        <hl:HtmlLabel TextType="Html" Text="{Binding Product.detail}"/>
-                        <xp:FormsWebView Source="https://www.baidu.com/" ContentType="Internet" HeightRequest="200" />-->
-                        <controls:HybridWebView Uri="{Binding Product.detail}" HeightRequest="200"/>
+                            </controls:XamWebView.Source>
+                        </controls:XamWebView>
+                        <!--<hl:HtmlLabel TextType="Html" Text="{Binding Product.detail}"/>
+                        <xp:FormsWebView Source="https://www.baidu.com/" ContentType="Internet" HeightRequest="200" />
+                        <controls:HybridWebView Uri="{Binding Product.detail}" HeightRequest="200"/>-->
                     </tb:TabItem>
                 </tb:TabViewControl.ItemSource>
             </tb:TabViewControl>
@@ -461,22 +465,22 @@
                 <ImageButton Grid.Row="0" Grid.Column="0" Source="message.png" 
                              HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent"
                              Command="{Binding CallServiceCommand}"/>
-                <Label Grid.Row="1" Grid.Column="0" Text="联系客服" FontSize="16" 
+                <Label Grid.Row="1" Grid.Column="0" Text="联系客服" FontSize="14" 
                        HorizontalOptions="Center" VerticalOptions="Center" 
                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
 
                 <ImageButton Grid.Row="0" Grid.Column="1" Source="add2cart.png" 
                              HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent"
                              Command="{Binding AddToCartCommand}"/>
-                <Label Grid.Row="1" Grid.Column="1" Text="加购物车" FontSize="16" 
+                <Label Grid.Row="1" Grid.Column="1" Text="加购物车" FontSize="14" 
                        HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
 
                 <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" x:Name="AddToCartBtn" Text="立即采购" 
-                        BackgroundColor="{StaticResource ThickPink}" TextColor="White" FontSize="18"
+                        BackgroundColor="{StaticResource ThickPink}" TextColor="White" FontSize="16"
                         Command="{Binding AddToCartCommand}"/>
 
                 <Button Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" x:Name="BuyButton" Text="推荐"
-                        BackgroundColor="{StaticResource LightPink}" TextColor="White" FontSize="18"
+                        BackgroundColor="{StaticResource LightPink}" TextColor="White" FontSize="16"
                         Command="{Binding ShareCommand}"/>
             </Grid>
 

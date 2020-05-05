@@ -50,6 +50,8 @@
                 <Label Text="关于美而好" Style="{DynamicResource SectionTiltleLabel}"/>
                 <Label Text="版本号：1.7.1"/>
                 <Label Text="开发者：西南交大人工智能研究院、成都万云互联科技有限公司"/>
+                <Label Text="Copyright©2019"/>
+                <Label Text="万云互联 版权所有"/>
                 <Label Text="隐私政策"/>
                 <Label Text="权限说明"/>
                 <Label Text="帮助"/>

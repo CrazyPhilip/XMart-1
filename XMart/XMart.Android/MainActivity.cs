@@ -25,18 +25,22 @@ using Android.Widget;
 using Android.Graphics.Drawables;
 using Com.Tencent.MM.Opensdk.Modelbase;
 using Xam.Plugin.WebView.Droid;
+using Newtonsoft.Json.Linq;
 
 namespace XMart.Droid
 {
-    [Activity(Name = "XMart.Droid.MainActivity", MainLauncher = false, Label = "美而好", Icon = "@mipmap/xmart", Theme = "@style/MainTheme",
+    [Activity(Name = "com.wyhl.XMart.MainActivity", MainLauncher = false, Label = "美而好", Icon = "@mipmap/xmart", Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IWXAPIEventHandler
     {
         internal static MainActivity Instance { get; private set; }
 
         //微信相关
         private readonly string appID = "wxfad74b8fe74b6c22";//申请的appid
+        private readonly string appSecret = "bd6a3cf325e5ac237bc8f788b61a7706";//申请的appid
         private IWXAPI wxApi;
+
+        //private MyHandler handler;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -44,13 +48,19 @@ namespace XMart.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             Resources.DisplayMetrics.ScaledDensity = 2;//告诉android不要把自己大小单位缩放
-            //double systemDensity = DeviceDisplay.MainDisplayInfo.Density;
+            double systemDensity = DeviceDisplay.MainDisplayInfo.Density;
             Resources.DisplayMetrics.Density = 2;
             //var temp = Resources.DisplayMetrics;
             //var device = DeviceDisplay.MainDisplayInfo;
             App.ScreenWidth = Resources.DisplayMetrics.WidthPixels;
             App.ScreenHeight = Resources.DisplayMetrics.HeightPixels;
-            
+
+            //var width = Resources.DisplayMetrics.WidthPixels;
+            //var height = Resources.DisplayMetrics.HeightPixels;
+            //var density = Resources.DisplayMetrics.Density; //屏幕密度
+            //App.ScreenWidth = width / density; //屏幕宽度
+            //App.ScreenHeight = height / density; //屏幕高度 含24个单位的标题栏高度 通过OnSizeAllocated获取的高度不含标题栏高度
+
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat)
             {
                 //透明状态栏                
@@ -72,35 +82,12 @@ namespace XMart.Droid
             {
                 try
                 {
-                    //Func<string, string> test = Pay;
-                    //IAsyncResult asyncResult = test.BeginInvoke(sign, null, null);
-                    //string result = test.EndInvoke(asyncResult);
-                    //
-                    //Console.WriteLine(result);
-                    //Status = "";
-
                     Thread the = new Thread(new ParameterizedThreadStart(Pay));
                     the.Start(sign);
-
-                    //the.Join();
-                    //Console.WriteLine(Pay(sign));
-
-                    //Task<string> task = new Task<string>(async () => await Pay(sign));
-                    //var result = await Pay(sign);
-                    //task.Wait();
-                    //task.RunSynchronously();
-                    //Console.WriteLine(result);
-
-                    //PayDelegate payDelegate = Pay;
-                    //Task<string> task = Task<string>.Factory.FromAsync(payDelegate.BeginInvoke(sign, Callback, "a delegate asynchronous call"), payDelegate.EndInvoke);
-                    //Task<string> task = Task<string>.Factory.FromAsync(payDelegate.BeginInvoke, payDelegate.EndInvoke, sign, "a delegate asynchronous call");
-                    //task.ContinueWith(t => MessagingCenter.Send(new object(), "PaySuccess", t.Result));
                 }
                 catch (ThreadAbortException)
                 {
-                    //MessagingCenter.Send(new object(), "PaySuccess", Status);
                 }
-
             });
 
             //微信相关
@@ -119,7 +106,6 @@ namespace XMart.Droid
                 req.State = "xmart_wechat_login";
                 bool result = wxApi.SendReq(req);
 
-                //wxApi.HandleIntent(GetIntent(), this);
             });
             
             //分享小程序给朋友
@@ -205,56 +191,6 @@ namespace XMart.Droid
 
             LoadApplication(new App());
         }
-
-        private bool RegToWx()
-        {
-            wxApi = WXAPIFactory.CreateWXAPI(this, appID, true);
-            return wxApi.RegisterApp(appID);
-        }
-
-        //微信直接发送给app的消息处理回调
-        public void onReq(BaseReq baseReq)
-        {
-
-        }
-
-        //app发送消息给微信，处理返回消息的回调
-        public void onResp(BaseResp resp)
-        {
-            const int RETURN_MSG_TYPE_LOGIN = 1;
-            const int RETURN_MSG_TYPE_SHARE = 2;
-
-            switch (resp.MyErrCode)
-            {
-
-                case BaseResp.ErrCode.ErrAuthDenied:
-                case BaseResp.ErrCode.ErrUserCancel:
-                    if (RETURN_MSG_TYPE_SHARE == resp.Type)
-                        CrossToastPopUp.Current.ShowToastError("分享失败", Plugin.Toast.Abstractions.ToastLength.Short);
-                    else 
-                        CrossToastPopUp.Current.ShowToastError("登录失败", Plugin.Toast.Abstractions.ToastLength.Short);
-                    break;
-                case BaseResp.ErrCode.ErrOk:
-                    switch (resp.Type)
-                    {
-                        case RETURN_MSG_TYPE_LOGIN:
-                            //拿到了微信返回的code,立马再去请求access_token
-                            string code = ((SendAuth.Resp)resp).Code;
-
-                            //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
-                            Console.WriteLine("在这里" + code);
-
-                            break;
-
-                        case RETURN_MSG_TYPE_SHARE:
-                            CrossToastPopUp.Current.ShowToastSuccess("登录成功", Plugin.Toast.Abstractions.ToastLength.Short);
-                            Finish();
-                            break;
-                    }
-                    break;
-            }
-        }
-
 
         /*
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -345,11 +281,102 @@ namespace XMart.Droid
         }
         #endregion
 
-        public void WhenValueSet()
+        #region 微信
+        private bool RegToWx()
         {
-            //MessagingCenter.Send(new object(), "PaySuccess", Status);
+            wxApi = WXAPIFactory.CreateWXAPI(this, appID, true);
+            wxApi.HandleIntent(Intent, this);
+            return wxApi.RegisterApp(appID);
         }
 
+        //微信直接发送给app的消息处理回调
+        void IWXAPIEventHandler.OnReq(BaseReq p0)
+        {
+            throw new NotImplementedException();
+        }
+
+        //app发送消息给微信，处理返回消息的回调
+        void IWXAPIEventHandler.OnResp(BaseResp resp)
+        {
+            const int RETURN_MSG_TYPE_LOGIN = 1;
+            const int RETURN_MSG_TYPE_SHARE = 2;
+
+            CrossToastPopUp.Current.ShowToastSuccess("微信回调成功1", Plugin.Toast.Abstractions.ToastLength.Short);
+
+            switch (resp.MyErrCode)
+            {
+                case BaseResp.ErrCode.ErrAuthDenied:
+                case BaseResp.ErrCode.ErrUserCancel:
+                    if (RETURN_MSG_TYPE_SHARE == resp.Type)
+                        CrossToastPopUp.Current.ShowToastError("分享失败", Plugin.Toast.Abstractions.ToastLength.Short);
+                    else
+                        CrossToastPopUp.Current.ShowToastError("登录失败", Plugin.Toast.Abstractions.ToastLength.Short);
+                    break;
+                case BaseResp.ErrCode.ErrOk:
+                    switch (resp.Type)
+                    {
+                        case RETURN_MSG_TYPE_LOGIN:
+                            //拿到了微信返回的code,立马再去请求access_token
+                            string code = ((SendAuth.Resp)resp).Code;
+
+                            //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
+                            Console.WriteLine("在这里" + code);
+
+                            break;
+
+                        case RETURN_MSG_TYPE_SHARE:
+                            CrossToastPopUp.Current.ShowToastSuccess("登录成功", Plugin.Toast.Abstractions.ToastLength.Short);
+                            Finish();
+                            break;
+                    }
+                    break;
+            }
+        }
+
+        /*
+        class MyHandler : Handler
+        {
+            private string TAG = "MyHandler";
+            private WeakReference<MainActivity> wxEntryActivityWeakReference;
+
+            public MyHandler(MainActivity wxEntryActivity)
+            {
+                wxEntryActivityWeakReference = new WeakReference<MainActivity>(wxEntryActivity);
+            }
+
+
+            public void handleMessage(Message msg)
+            {
+                int tag = msg.What;
+                switch (tag)
+                {
+                    case NetworkUtil.GET_TOKEN:
+                        Bundle data = msg.Data;
+                        JObject json = null;
+                        try
+                        {
+                            json = new JObject(data.GetString("result"));
+                            string openId, accessToken, refreshToken, scope;
+                            openId = json["openid"].ToString();
+                            accessToken = json["access_token"].ToString();
+                            refreshToken = json["refresh_token"].ToString();
+                            scope = json["scope"].ToString();
+                            WXEntryActivity wxentry;
+                            wxEntryActivityWeakReference.TryGetTarget(out wxentry);
+                            Intent intent = new Intent(wxentry, typeof(LoginActivity));
+                            intent.PutExtra("openId", openId);
+                            intent.PutExtra("accessToken", accessToken);
+                            intent.PutExtra("refreshToken", refreshToken);
+                            intent.PutExtra("scope", scope);
+                            wxentry.StartActivity(intent);
+                        }
+                        catch (JSONException ex)
+                        {
+                            Log.Error(TAG, ex.Message);
+                        }
+                        break;
+                }*/
+        #endregion
     }
 }
 
