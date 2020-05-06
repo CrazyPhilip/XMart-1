@@ -122,8 +122,6 @@ namespace XMart.ViewModels
             set { SetProperty(ref pasteString, value); }
         }
 
-
-
         public Command<long> ItemTapCommand { set; get; }
         public Command<int> FindMoreCommand { get; set; }
         public Command<int> CarouselTappedCommand { get; set; }
@@ -166,6 +164,10 @@ namespace XMart.ViewModels
 
             SearchCommand = new Command(() =>
             {
+                SearchPage searchPage = new SearchPage();
+                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
+
+                /*
                 if (!Tools.IsNetConnective())
                 {
                     CrossToastPopUp.Current.ShowToastError("无网络连接，请检查网络。", ToastLength.Long);
@@ -181,7 +183,7 @@ namespace XMart.ViewModels
                     ProductListPage productListPage = new ProductListPage(SearchString);
                     SearchString = "";
                     Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
-                }
+                }*/
             }, () => { return true; });
 
             NavigateCommand = new Command<string>((pageName) =>

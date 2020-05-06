@@ -28,14 +28,14 @@
             <ff:CachedImage Grid.Row="0" Grid.Column="0" Source="wxpay.png" HeightRequest="40" WidthRequest="40"/>
             <Label Grid.Row="0" Grid.Column="1" Text="微信支付" VerticalOptions="Center" HorizontalOptions="Start" FontSize="18">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ShareCommand}" CommandParameter="3"/>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding PayCommand}" CommandParameter="0"/>
                 </Label.GestureRecognizers>
             </Label>
 
             <ff:CachedImage Grid.Row="1" Grid.Column="0" Source="alipay.png" HeightRequest="40" WidthRequest="40"/>
             <Label Grid.Row="1" Grid.Column="1" Text="支付宝" VerticalOptions="Center" HorizontalOptions="Start" FontSize="18">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ShareCommand}" CommandParameter="0"/>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding PayCommand}" CommandParameter="1"/>
                 </Label.GestureRecognizers>
             </Label>
         </Grid>

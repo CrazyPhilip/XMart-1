@@ -9,7 +9,8 @@ namespace XMart.Services
 {
     public class LocalDatabaseHelper
 	{
-		readonly SQLiteAsyncConnection database;
+		//readonly SQLiteAsyncConnection database;
+
 
 		/// <summary>
 		/// 构造函数
@@ -17,13 +18,13 @@ namespace XMart.Services
 		/// <param name="dbPath">数据库路径</param>
 		public LocalDatabaseHelper(string dbPath)
 		{
-			database = new SQLiteAsyncConnection(dbPath);
+			//database = new SQLiteAsyncConnection(dbPath);
 		}
 
 		#region 可见操作
 		public Task<CreateTableResult> CreateUserInfo()
 		{
-			var result = database.CreateTableAsync<UserInfo>();
+			var result = Database.CreateTableAsync<UserInfo>();
 			database.CreateIndexAsync("UserInfo", "id", true);
 			return result;
 		}
@@ -51,7 +52,7 @@ namespace XMart.Services
 		}
 		#endregion
 
-		/*
+
 		#region 基本操作
 		/// <summary>
 		/// 创建表
@@ -69,9 +70,10 @@ namespace XMart.Services
 		/// 创建表
 		/// </summary>
 		/// <returns>Created=0;Migrated=1</returns>
-		private Task<CreateTableResult> CreatTable()
+		private async Task<CreateTableResult> CreatTable()
 		{
-			return database.CreateTableAsync<T>();
+			var result = await database.CreateTableAsync<T>();
+			return result;
 		}
 
 		/// <summary>
@@ -96,20 +98,21 @@ namespace XMart.Services
 			return database.DropTableAsync<T>();
 		}
 
+		/*
 		/// <summary>
 		/// 获取表中所有数据
 		/// </summary>
 		/// <returns></returns>
 		private Task<List<T>> GetAllItems()
 		{
-			return database.Table<T>().ToListAsync();
-		}
+			return database.Table().ToListAsync();
+		}*/
 
-		private Task<List<T>> Query(string sql)
+		private Task<List<T>> Query<T>(string sql)
 		{
 			return database.QueryAsync<T>(sql);
 		}
 		#endregion
-		*/
+
 	}
 }

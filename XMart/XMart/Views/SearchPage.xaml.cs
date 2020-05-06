@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XMart.ViewModels;
-using XMart.Models;
-using Rg.Plugins.Popup.Pages;
 
 namespace XMart.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PayView : PopupPage
+    public partial class SearchPage : ContentPage
     {
-        public PayView(OrderDetail orderDetail)
+        public SearchPage()
         {
             InitializeComponent();
 
-            BindingContext = new PayViewModel(orderDetail);
+            BindingContext = new SearchViewModel();
         }
     }
 }

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:XMart.Controls"
+             mc:Ignorable="d"
+             x:Class="XMart.Views.SearchPage">
+    
+    <ContentPage.Resources>
+        <Style x:Key="SubLabel" TargetType="Label">
+            <Setter Property="HeightRequest" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
+                   CornerRadius="15" Padding="15,0,10,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
+                <StackLayout Orientation="Horizontal" Spacing="0">
+                    <ImageButton Source="Resource/drawable/search.png" Style="{StaticResource EarImageButton}"/>
+                    <controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"
+                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
+                    <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="40" FontSize="18" Padding="0" Command="{Binding SearchCommand}"/>
+                </StackLayout>
+            </Frame>
+            
+            <Label Text="搜索历史"/>
+
+            <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SearchHistoryList}" BackgroundColor="{DynamicResource ControlBackgroundColor}"
+                                Wrap="Wrap" JustifyContent="Start" AlignContent="Start" HeightRequest="200">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding searchedString}" Style="{DynamicResource SubLabel}"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

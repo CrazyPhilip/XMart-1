@@ -14,18 +14,18 @@ namespace XMart
         public static double ScreenWidth;
         public static double ScreenHeight;
 
-        private static LocalDatabaseHelper database;   //Comment
-        public static LocalDatabaseHelper Database
-        {
-            get
-            {
-                if (database == null)
-                {
-                    database = new LocalDatabaseHelper(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "XMartSQLite.db3"));
-                }
-                return database;
-            }
-        }
+        //private static LocalDatabaseHelper database;   //Comment
+        //public static LocalDatabaseHelper Database
+        //{
+        //    get
+        //    {
+        //        if (database == null)
+        //        {
+        //            database = new LocalDatabaseHelper(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "XMartSQLite.db3"));
+        //        }
+        //        return database;
+        //    }
+        //}
 
         public App()
         {
