@@ -26,7 +26,7 @@ namespace XMart.Views
 
             BindingContext = categoryViewModel;
 
-            InitCategories();
+            //InitCategories();
             //ParentStack.Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
             //categoryViewModel.GetSubCategories(categoryViewModel.ParentCategoryList[0].id);
         }
@@ -48,6 +48,9 @@ namespace XMart.Views
                 CategoryRD categoryRD = await _restSharpService.GetCategories();
 
                 categoryViewModel.categoryList = categoryRD.result;
+
+                //LocalDatabaseService localDatabaseService = new LocalDatabaseService();
+                await LocalDatabaseHelper<Category>.InsertAll(categoryViewModel.categoryList);
 
                 foreach (var item in categoryViewModel.categoryList)
                 {

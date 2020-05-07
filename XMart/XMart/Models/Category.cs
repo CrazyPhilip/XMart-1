@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using SQLite;
 
 namespace XMart.Models
 {
@@ -13,6 +14,7 @@ namespace XMart.Models
         [JsonProperty("icon", NullValueHandling = NullValueHandling.Ignore)]
         public string icon { get; set; }   //Comment
 
+        [PrimaryKey]
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public int id { get; set; }   //Comment
 
@@ -37,8 +39,8 @@ namespace XMart.Models
         [JsonProperty("updated", NullValueHandling = NullValueHandling.Ignore)]
         public string updated { get; set; }   //Comment
 
-        //[JsonIgnore]
-        //public bool Checked { get; set; }
+        [JsonIgnore]
+        public bool Checked { get; set; }
 
     }
 

@@ -44,10 +44,14 @@
                 <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
                 <Frame Style="{StaticResource BaseFrame}" HeightRequest="30" HorizontalOptions="FillAndExpand"
                        CornerRadius="15" Padding="15,0" BorderColor="LightGray">
-                    <controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
-                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
+                    <!--<controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
+                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>-->
+                    <Label Text="{Binding SearchString}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
                 </Frame>
-                <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18" Command="{Binding SearchCommand}"/>
+                <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
 
             <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">

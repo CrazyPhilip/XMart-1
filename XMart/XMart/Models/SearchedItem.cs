@@ -13,6 +13,8 @@ namespace XMart.Models
         [JsonProperty("searchedString", NullValueHandling = NullValueHandling.Ignore)]
         public string searchedString { get; set; }   //Comment
 
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public int id { get; set; }   //Comment
 
     }
 }

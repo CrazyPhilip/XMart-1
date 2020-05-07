@@ -12,8 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\LocalDatabaseHelper.cs" />
-    <Compile Remove="Services\LocalDatabaseService.cs" />
+    <Compile Remove="Services\LocalDatabase.cs" />
   </ItemGroup>
 
   <ItemGroup>

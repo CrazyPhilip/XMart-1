@@ -13,11 +13,18 @@ namespace XMart.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchPage : ContentPage
     {
+        SearchViewModel searchViewModel = new SearchViewModel();
+
         public SearchPage()
         {
             InitializeComponent();
 
-            BindingContext = new SearchViewModel();
+            BindingContext = searchViewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            searchViewModel.InitSearchPage();
         }
     }
 }

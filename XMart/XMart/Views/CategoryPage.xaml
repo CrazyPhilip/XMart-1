@@ -40,7 +40,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <!--顶部-->
+            <!--顶部
             <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
                    CornerRadius="15" Padding="15,0,10,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
                 <StackLayout Orientation="Horizontal" Spacing="0">
@@ -49,20 +49,41 @@
                                       Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
                     <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="40" FontSize="18" Padding="0" Command="{Binding SearchCommand}"/>
                 </StackLayout>
+            </Frame>-->
+
+            <!--头部-->
+            <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
+                   CornerRadius="15" Padding="15,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
+                <!--<StackLayout Orientation="Horizontal" Spacing="0">
+                    <ImageButton Source="Resource/drawable/search.png" Style="{StaticResource EarImageButton}"/>
+                    <controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"
+                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
+                    <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="40" FontSize="18" Padding="0" Command="{Binding SearchCommand}"/>
+                </StackLayout>-->
+                <StackLayout Orientation="Horizontal" Spacing="0">
+                    <ff:CachedImage Source="Resource/drawable/search.png" WidthRequest="20" HeightRequest="20"/>
+                    <!--<controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"/>-->
+                    <Label Text="立体装置画" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
+                    <Label Text="搜索" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
             </Frame>
 
             <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="0">
                 <!--一级分类-->
                 <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
-                    <StackLayout x:Name="ParentStack" BindableLayout.ItemsSource="{Binding ParentCategoryList}" Orientation="Vertical">
+                    <StackLayout x:Name="ParentStack" BindableLayout.ItemsSource="{Binding ParentCategoryList}" Orientation="Vertical"> 
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <Label Text="{Binding name}" Style="{DynamicResource ParentLabel}">
                                     <Label.Behaviors>
-                                        <behaviors:RadioBehavior x:Name="ParentRadio" GroupName="ParentGroup" IsChecked="{Binding Checked,Mode=OneWayToSource}"/>
+                                        <behaviors:RadioBehavior x:Name="ParentRadio" GroupName="ParentGroup" IsChecked="{Binding Checked}"/>
                                     </Label.Behaviors>
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference ParentRadio}, Path=IsChecked}" Value="True">
+                                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference ParentRadio}, Path=IsChecked, Mode=TwoWay}" Value="True">
                                             <Setter Property="TextColor" Value="{StaticResource ThickPink}" />
                                             <Setter Property="FontSize" Value="20" />
                                             <Setter Property="FontAttributes" Value="Bold"/>

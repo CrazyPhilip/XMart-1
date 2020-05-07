@@ -125,7 +125,7 @@ namespace XMart.ViewModels
             ProductList = new ObservableCollection<ProductListItem>();
             ProductNum = 0;
             TotalProductNum = 0;
-            SearchString = string.Empty;
+            SearchString = "搜索商品更便捷···";
             Page = 1;
             _Size = 20;
             Sort = "0";
@@ -137,6 +137,10 @@ namespace XMart.ViewModels
 
             SearchCommand = new Command(() =>
             {
+                SearchPage searchPage = new SearchPage();
+                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
+
+                /*
                 if (string.IsNullOrEmpty(SearchString))
                 {
                     CrossToastPopUp.Current.ShowToastWarning("请输入关键词", ToastLength.Short);
@@ -146,7 +150,7 @@ namespace XMart.ViewModels
                     ProductList.Clear();
                     ProductNum = 0;
                     Search(SearchString);
-                }
+                }*/
             }, () => { return true; });
 
             //TappedCommand = new Command<ProductListItem>((productListItem) =>
@@ -257,6 +261,9 @@ namespace XMart.ViewModels
 
             SearchCommand = new Command(() =>
             {
+                SearchPage searchPage = new SearchPage();
+                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
+                /*
                 if (string.IsNullOrEmpty(SearchString))
                 {
                     CrossToastPopUp.Current.ShowToastWarning("请输入关键词", ToastLength.Short);
@@ -266,7 +273,7 @@ namespace XMart.ViewModels
                     ProductList.Clear();
                     ProductNum = 0;
                     Search(SearchString);
-                }
+                }*/
             }, () => { return true; });
 
             //TappedCommand = new Command<ProductListItem>((productListItem) =>

@@ -4,54 +4,42 @@ using System.Text;
 using SQLite;
 using System.Threading.Tasks;
 using XMart.Models;
+using System.Linq;
 
 namespace XMart.Services
 {
-    public class LocalDatabaseHelper
+	public static class LocalDatabaseHelper<T> where T : new()
 	{
-		//readonly SQLiteAsyncConnection database;
-
-
-		/// <summary>
-		/// 构造函数
-		/// </summary>
-		/// <param name="dbPath">数据库路径</param>
-		public LocalDatabaseHelper(string dbPath)
+		static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
 		{
-			//database = new SQLiteAsyncConnection(dbPath);
+			return new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+		});
+
+		static SQLiteAsyncConnection Database => lazyInitializer.Value;
+		static bool initialized = false;
+
+		static LocalDatabaseHelper()
+		{
+			InitializeAsync().SafeFireAndForget(false);
 		}
 
-		#region 可见操作
-		public Task<CreateTableResult> CreateUserInfo()
+		static async Task InitializeAsync()
 		{
-			var result = Database.CreateTableAsync<UserInfo>();
-			database.CreateIndexAsync("UserInfo", "id", true);
-			return result;
-		}
+			if (!initialized)
+			{
+				if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(SearchedItem).Name))
+				{
+					await Database.CreateTablesAsync(CreateFlags.None, typeof(SearchedItem)).ConfigureAwait(false);
+					initialized = true;
+				}
 
-		public Task<UserInfo> GetUserInfo()
-		{
-			return database.Table<UserInfo>().FirstOrDefaultAsync();
+				if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Category).Name))
+				{
+					await Database.CreateTablesAsync(CreateFlags.None, typeof(Category)).ConfigureAwait(false);
+					initialized = true;
+				}
+			}
 		}
-
-		public Task<int> SaveUserInfo(UserInfo userInfo)
-		{
-			database.DeleteAllAsync<UserInfo>();   //先清空
-			return database.InsertOrReplaceAsync(userInfo);
-		}
-
-		public Task<int> SaveCategories(List<Category> list)
-		{
-			//database.DeleteAllAsync<UserInfo>();   //先清空
-			return database.InsertAllAsync(list);
-		}
-
-		public Task<List<Category>> GetCategories()
-		{
-			return database.Table<Category>().ToListAsync();
-		}
-		#endregion
-
 
 		#region 基本操作
 		/// <summary>
@@ -59,10 +47,10 @@ namespace XMart.Services
 		/// </summary>
 		/// <param name="objectName">创建对象的类名</param>
 		/// <returns>Created=0;Migrated=1</returns>
-		private Task<CreateTableResult> CreatTable(string objectName)
+		public static async Task<CreateTableResult> CreateTable(string objectName)
 		{
 			Type type = Type.GetType(objectName);
-			var result = database.CreateTableAsync(type);
+			var result = await Database.CreateTableAsync(type);
 			return result;
 		}
 
@@ -70,9 +58,9 @@ namespace XMart.Services
 		/// 创建表
 		/// </summary>
 		/// <returns>Created=0;Migrated=1</returns>
-		private async Task<CreateTableResult> CreatTable()
+		public static async Task<CreateTableResult> CreateTable()
 		{
-			var result = await database.CreateTableAsync<T>();
+			var result = await Database.CreateTableAsync<T>();
 			return result;
 		}
 
@@ -81,11 +69,11 @@ namespace XMart.Services
 		/// </summary>
 		/// <param name="objectName">创建对象的类名</param>
 		/// <returns></returns>
-		private Task<int> DropTable(string objectName)
+		public static async Task<int> DropTable(string objectName)
 		{
 			Type type = Type.GetType(objectName);
 			TableMapping map = new TableMapping(type);
-			var result = database.DropTableAsync(map);
+			var result = await Database.DropTableAsync(map);
 			return result;
 		}
 
@@ -93,24 +81,53 @@ namespace XMart.Services
 		/// 删除表
 		/// </summary>
 		/// <returns></returns>
-		private Task<int> DropTable()
+		public static async Task<int> DropTable()
 		{
-			return database.DropTableAsync<T>();
+			return await Database.DropTableAsync<T>();
 		}
 
-		/*
 		/// <summary>
 		/// 获取表中所有数据
 		/// </summary>
 		/// <returns></returns>
-		private Task<List<T>> GetAllItems()
+		public static async Task<List<T>> GetAllItems()
 		{
-			return database.Table().ToListAsync();
-		}*/
+			return await Database.Table<T>().ToListAsync();
+		}
 
-		private Task<List<T>> Query<T>(string sql)
+		public static async Task<List<T>> Query(string sql)
 		{
-			return database.QueryAsync<T>(sql);
+			return await Database.QueryAsync<T>(sql);
+		}
+
+		/// <summary>
+		/// 插入或替换
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		public static async Task<int> InsertOrReplaceAsync(T t)
+		{
+			return await Database.InsertOrReplaceAsync(t);
+		}
+
+		/// <summary>
+		/// 全部插入
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		public static async Task<int> InsertAll(List<T> ts)
+		{
+			return await Database.InsertAllAsync(ts);
+		}
+
+		/// <summary>
+		/// 删除表中所有数据
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		public static async Task<int> DeleteAllItems()
+		{
+			return await Database.DeleteAllAsync<T>();
 		}
 		#endregion
 

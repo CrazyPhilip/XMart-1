@@ -140,6 +140,7 @@
                         </StackLayout>
                     </ScrollView>
 
+                    <!--
                     <Label Text="淘口令" Style="{DynamicResource SectionTitle}" Margin="5,15,5,0" TextColor="{DynamicResource ThickPink}"/>
                     <Frame Style="{StaticResource BaseFrame}" BorderColor="{DynamicResource SkyBlue}" HeightRequest="30" 
                            CornerRadius="15" Padding="15,0,0,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
@@ -148,7 +149,7 @@
                             <Button Text="拿返利" BackgroundColor="{DynamicResource SkyBlue}" CornerRadius="15" HeightRequest="30" Padding="0" TextColor="White" 
                                     Command="{Binding GetRebateCommand}"/>
                         </StackLayout>
-                    </Frame>
+                    </Frame>-->
 
                     <!--官方精选
                     <StackLayout Orientation="Horizontal" Spacing="0" Margin="5,0" HorizontalOptions="Fill">
@@ -380,7 +381,7 @@
 
             <!--头部-->
             <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
-                   CornerRadius="15" Padding="15,0,10,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
+                   CornerRadius="15" Padding="15,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
                 <!--<StackLayout Orientation="Horizontal" Spacing="0">
                     <ImageButton Source="Resource/drawable/search.png" Style="{StaticResource EarImageButton}"/>
                     <controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"
@@ -388,10 +389,10 @@
                     <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="40" FontSize="18" Padding="0" Command="{Binding SearchCommand}"/>
                 </StackLayout>-->
                 <StackLayout Orientation="Horizontal" Spacing="0">
-                    <ImageButton Source="Resource/drawable/search.png" Style="{StaticResource EarImageButton}"/>
+                    <ff:CachedImage Source="Resource/drawable/search.png" WidthRequest="20" HeightRequest="20"/>
                     <!--<controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"/>-->
                     <Label Text="立体装置画" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
-                    <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="40" FontSize="18" Padding="0"/>
+                    <Label Text="搜索" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>

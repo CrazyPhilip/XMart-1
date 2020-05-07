@@ -101,13 +101,6 @@ namespace XMart.ViewModels
             set { SetProperty(ref brandChoiceList, value); }
         }
 
-        private string searchString;   //Comment
-        public string SearchString
-        {
-            get { return searchString; }
-            set { SetProperty(ref searchString, value); }
-        }
-
         private bool memberVisible;   //Comment
         public bool MemberVisible
         {
@@ -140,9 +133,6 @@ namespace XMart.ViewModels
 
             InitHomePage();
 
-            //TimerCallback timerDelegate = new TimerCallback(Tick);
-            //timer = new Timer(timerDelegate, null, 0, 5000); //5秒执行一次Tick方法
-            
             CarouselTappedCommand = new Command<int>((position) =>
             {
                 string url = CarouselList[position].fullUrl;
@@ -167,23 +157,6 @@ namespace XMart.ViewModels
                 SearchPage searchPage = new SearchPage();
                 Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
 
-                /*
-                if (!Tools.IsNetConnective())
-                {
-                    CrossToastPopUp.Current.ShowToastError("无网络连接，请检查网络。", ToastLength.Long);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(SearchString))
-                {
-                    CrossToastPopUp.Current.ShowToastWarning("请输入关键词", ToastLength.Short);
-                }
-                else
-                {
-                    ProductListPage productListPage = new ProductListPage(SearchString);
-                    SearchString = "";
-                    Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
-                }*/
             }, () => { return true; });
 
             NavigateCommand = new Command<string>((pageName) =>
@@ -285,10 +258,5 @@ namespace XMart.ViewModels
             }
         }
 
-        private void CheckPasteString(string paste)
-        {
-            
-
-        }
     }
 }

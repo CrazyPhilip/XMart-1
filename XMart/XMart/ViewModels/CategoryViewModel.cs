@@ -30,13 +30,6 @@ namespace XMart.ViewModels
             set { SetProperty(ref subCategoryList, value); }
         }
 
-        private string searchString;   //Comment
-        public string SearchString
-        {
-            get { return searchString; }
-            set { SetProperty(ref searchString, value); }
-        }
-
         public List<Category> categoryList { get; set; }
 
         public Command SearchCommand { get; set; }
@@ -47,37 +40,16 @@ namespace XMart.ViewModels
         public CategoryViewModel()
         {
             ParentCategoryList = new ObservableCollection<Category>();
-
             SubCategoryList = new ObservableCollection<Category>();
-
             categoryList = new List<Category>();
-
-            SearchString = "";
 
             //InitCategories();
 
-            //Application.Current.MainPage.FindByName<StackLayout>("ParentStack").Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
-            //GetSubCategories(ParentCategoryList[0].id);
-            
             SearchCommand = new Command(() =>
             {
-                if (!Tools.IsNetConnective())
-                {
-                    CrossToastPopUp.Current.ShowToastError("无网络连接，请检查网络。", ToastLength.Long);
-                    return;
-                }
+                SearchPage searchPage = new SearchPage();
+                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
 
-                if (string.IsNullOrEmpty(SearchString))
-                {
-                    CrossToastPopUp.Current.ShowToastWarning("请输入关键词", ToastLength.Short);
-                }
-                else
-                {
-                    ProductListPage productListPage = new ProductListPage(SearchString);
-                    SearchString = "";
-
-                    Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
-                }
             }, () => { return true; });
 
             ReloadCommand = new Command(() =>
@@ -87,10 +59,6 @@ namespace XMart.ViewModels
 
             ParentCategoryTappedCommand = new Command<int>((parentId) =>
             {
-                //foreach (var item in ParentCategoryList)
-                //{
-                //    item.Checked = item.id == parentId;
-                //}
                 GetSubCategories(parentId);
             }, (id) => { return true; });
 
@@ -107,6 +75,7 @@ namespace XMart.ViewModels
             }, (id) => { return true; });
         }
 
+        /*
         /// <summary>
         /// 初始化
         /// </summary>
@@ -135,9 +104,10 @@ namespace XMart.ViewModels
 
                 //ParentStack.Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
                 //GetSubCategories(0);
-                
+
+                //Application.Current.FindByName<ContentPage>("categoryPage").FindByName<StackLayout>("ParentStack").Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
                 //Application.Current.MainPage.FindByName<StackLayout>("ParentStack").Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
-                //GetSubCategories(ParentCategoryList[0].id);
+                GetSubCategories(ParentCategoryList[0].id);
                 //ParentCategoryList[0].Checked = true;
                 //GetSubCategories(ParentCategoryList[0].id);
 
@@ -146,7 +116,7 @@ namespace XMart.ViewModels
             {
                 throw;
             }
-        }
+        }*/
 
         /// <summary>
         /// 获取二级目录

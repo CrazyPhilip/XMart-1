@@ -21,22 +21,25 @@ namespace XMart.ViewModels
             set { SetProperty(ref searchString, value); }
         }
 
-        private ObservableCollection<SearchedItem> searchHistoryList;   //Comment
-        public ObservableCollection<SearchedItem> SearchHistoryList
+        private ObservableCollection<string> searchHistoryList;   //Comment
+        public ObservableCollection<string> SearchHistoryList
         {
             get { return searchHistoryList; }
             set { SetProperty(ref searchHistoryList, value); }
         }
 
-        LocalDatabase localDatabase = new LocalDatabase();
+        LocalDatabaseService localDatabaseService = new LocalDatabaseService();
 
-        public Command SearchCommand { get; set; }
+        public Command<string> SearchCommand { get; set; }
+        public Command ClearCommand { get; set; }
 
         public SearchViewModel()
         {
-            InitSearchPage();
+            SearchHistoryList = new ObservableCollection<string>();
 
-            SearchCommand = new Command(() =>
+            //InitSearchPage();
+
+            SearchCommand = new Command<string>((str) =>
             {
                 if (!Tools.IsNetConnective())
                 {
@@ -44,31 +47,52 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                if (string.IsNullOrEmpty(SearchString))
+                if (string.IsNullOrEmpty(str))
                 {
                     CrossToastPopUp.Current.ShowToastWarning("请输入关键词", ToastLength.Short);
                 }
                 else
                 {
-                    SearchedItem searchedItem = new SearchedItem
+                    if (!SearchHistoryList.Contains(str))
                     {
-                        createTime = DateTime.UtcNow.ToString(),
-                        searchedString = SearchString
-                    };
-                    localDatabase.SaveSearchedItem(searchedItem);
+                        SearchedItem searchedItem = new SearchedItem
+                        {
+                            createTime = DateTime.UtcNow.ToString(),
+                            searchedString = str
+                        };
+                        localDatabaseService.InsertSearchedItem(searchedItem);
+                    }
 
-                    ProductListPage productListPage = new ProductListPage(SearchString);
+                    ProductListPage productListPage = new ProductListPage(str);
                     SearchString = "";
                     Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
+                }
+            }, (str) => { return true; });
+
+            ClearCommand = new Command(async () =>
+            {
+                bool action = await Application.Current.MainPage.DisplayAlert("确认", "删除所有搜索历史？", "确认", "取消");
+                if (action)
+                {
+                    await localDatabaseService.DeleteAllSearchedItem();
+                    InitSearchPage();
                 }
             }, () => { return true; });
 
         }
 
-        private async void InitSearchPage()
+        public async void InitSearchPage()
         {
-            List<SearchedItem> list = await localDatabase.GetAllSearchedItem();
-            SearchHistoryList = new ObservableCollection<SearchedItem>(list);
+            SearchHistoryList.Clear();
+            List<SearchedItem> list = await localDatabaseService.GetAllSearchedItem();
+
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    SearchHistoryList.Add(item.searchedString);
+                }
+            }
         }
     }
 }
