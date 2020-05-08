@@ -40,5 +40,14 @@ namespace XMart.Services
 			return LocalDatabaseHelper<SearchedItem>.DeleteAllItems();
 		}
 		#endregion
+
+		/// <summary>
+		/// 清除所有数据
+		/// </summary>
+		/// <returns></returns>
+		public Task<int> ClearAllData()
+		{
+			return LocalDatabaseHelper<SearchedItem>.ClearDatabase();
+		}
 	}
 }

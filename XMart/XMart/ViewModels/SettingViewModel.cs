@@ -4,6 +4,9 @@ using System.Text;
 using Xamarin.Forms;
 using XMart.Themes;
 using XMart.Util;
+using XMart.Services;
+using Plugin.Toast;
+using Plugin.Toast.Abstractions;
 
 namespace XMart.ViewModels
 {
@@ -18,6 +21,8 @@ namespace XMart.ViewModels
 
         public Command BackCommand { get; set; }
         public Command ThemeCommand { get; set; }
+        public Command ClearCacheCommand { get; set; }
+
 
         public SettingViewModel()
         {
@@ -43,6 +48,16 @@ namespace XMart.ViewModels
                             mergedDictionaries.Add(new LightTheme());
                             break;
                     }
+                }
+            }, () => { return true; });
+
+            ClearCacheCommand = new Command(async () =>
+            {
+                LocalDatabaseService localDatabaseService = new LocalDatabaseService();
+                int total = await localDatabaseService.ClearAllData();
+                if (total > 0)
+                {
+                    CrossToastPopUp.Current.ShowToastSuccess("清理完成，共清理" + total.ToString() + "条数据", ToastLength.Long);
                 }
             }, () => { return true; });
 

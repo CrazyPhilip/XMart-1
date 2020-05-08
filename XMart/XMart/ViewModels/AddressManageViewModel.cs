@@ -37,9 +37,13 @@ namespace XMart.ViewModels
         }
 
         public Command<AddressInfo> EditCommand { get; set; }
+        public Command<AddressInfo> DeleteCommand { get; set; }
+        public Command<AddressInfo> SetDefaultCommand { get; set; }
         public Command BackCommand { get; set; }
         public Command AddAddressCommand { get; set; }
         public Command RefreshCommand { get; set; }
+
+        RestSharpService _restSharpService = new RestSharpService();
 
         public AddressManageViewModel()
         {
@@ -47,20 +51,72 @@ namespace XMart.ViewModels
 
             EditCommand = new Command<AddressInfo>((address) =>
             {
-                AddressInfo addressInfo = new AddressInfo();
+                //AddressInfo addressInfo = new AddressInfo();
+                //
+                //foreach (var item in AddressList)
+                //{
+                //    if (item.addressId == address.addressId)
+                //    {
+                //        addressInfo = item;
+                //        break;
+                //    }
+                //}
 
-                foreach (var item in AddressList)
-                {
-                    if (item.addressId == address.addressId)
-                    {
-                        addressInfo = item;
-                        break;
-                    }
-                }
-
-                EditAddressPage editAddressPage = new EditAddressPage(addressInfo);
+                EditAddressPage editAddressPage = new EditAddressPage(address);
                 Application.Current.MainPage.Navigation.PushModalAsync(editAddressPage);
             }, (id) => { return true; });
+
+            DeleteCommand = new Command<AddressInfo>(async (address) =>
+            {
+                try
+                {
+                    SimpleRD simpleRD = await _restSharpService.DeleteAddressById(address.addressId);
+
+                    if (simpleRD.success)
+                    {
+                        CrossToastPopUp.Current.ShowToastSuccess("删除成功！", ToastLength.Long);
+                        InitAddressList();
+                    }
+                    else
+                    {
+                        CrossToastPopUp.Current.ShowToastError(simpleRD.message, ToastLength.Long);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }, (address) => { return true; });
+
+            SetDefaultCommand = new Command<AddressInfo>(async (address) =>
+            {
+                try
+                {
+                    if (!Tools.IsNetConnective())
+                    {
+                        CrossToastPopUp.Current.ShowToastError("无网络连接，请检查网络。", ToastLength.Long);
+                        return;
+                    }
+
+                    address.isDefault = true;
+
+                    SimpleRD simpleRD = await _restSharpService.UpdateAddress(address);
+
+                    if (simpleRD.success)
+                    {
+                        CrossToastPopUp.Current.ShowToastSuccess("更新默认收货地址！", ToastLength.Long);
+                        InitAddressList();
+                    }
+                    else
+                    {
+                        CrossToastPopUp.Current.ShowToastError(simpleRD.message, ToastLength.Long);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }, (address) => { return true; });
 
             AddAddressCommand = new Command(() =>
             {
@@ -80,10 +136,7 @@ namespace XMart.ViewModels
                 IsRefreshing = false;
             }, () => { return true; });
 
-            if (GlobalVariables.IsLogged)
-            {
-                InitAddressList();
-            }
+            InitAddressList();
         }
 
         /// <summary>
@@ -121,5 +174,6 @@ namespace XMart.ViewModels
                 throw;
             }
         }
+
     }
 }

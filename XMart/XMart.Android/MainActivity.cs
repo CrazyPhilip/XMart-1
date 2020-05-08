@@ -76,6 +76,7 @@ namespace XMart.Droid
             CachedImageRenderer.Init(true);
             //Forms.SetFlags("CarouselView_Experimental");
             FormsWebViewRenderer.Initialize();
+            Forms.SetFlags("SwipeView_Experimental");
 
             //支付宝
             MessagingCenter.Subscribe<object, string>(this, "Pay", (sender, sign) =>

@@ -9,7 +9,7 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="分类"
              x:Name="categoryPage">
-    
+
     <ContentPage.Resources>
         <Style x:Key="ParentLabel" TargetType="Label">
             <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
@@ -20,6 +20,22 @@
             <Setter Property="VerticalOptions" Value="Start"/>
             <Setter Property="VerticalTextAlignment" Value="Center"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="{StaticResource ThickPink}" />
+                                <Setter Property="FontSize" Value="20" />
+                                <Setter Property="FontAttributes" Value="Bold"/>
+                                <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
         </Style>
         <Style x:Key="SubLabel" TargetType="Label">
             <Setter Property="HeightRequest" Value="30"/>
@@ -39,27 +55,14 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
-            <!--顶部
-            <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
-                   CornerRadius="15" Padding="15,0,10,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
-                <StackLayout Orientation="Horizontal" Spacing="0">
-                    <ImageButton Source="Resource/drawable/search.png" Style="{StaticResource EarImageButton}"/>
-                    <controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"
-                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
-                    <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="40" FontSize="18" Padding="0" Command="{Binding SearchCommand}"/>
-                </StackLayout>
-            </Frame>-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
             <!--头部-->
-            <Frame Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
+            <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource BaseFrame}" BorderColor="LightGray" HeightRequest="30" 
                    CornerRadius="15" Padding="15,0" Margin="5" HorizontalOptions="Fill" VerticalOptions="Start">
-                <!--<StackLayout Orientation="Horizontal" Spacing="0">
-                    <ImageButton Source="Resource/drawable/search.png" Style="{StaticResource EarImageButton}"/>
-                    <controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"
-                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
-                    <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="40" FontSize="18" Padding="0" Command="{Binding SearchCommand}"/>
-                </StackLayout>-->
                 <StackLayout Orientation="Horizontal" Spacing="0">
                     <ff:CachedImage Source="Resource/drawable/search.png" WidthRequest="20" HeightRequest="20"/>
                     <!--<controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"/>-->
@@ -72,60 +75,109 @@
                 </StackLayout>
             </Frame>
 
-            <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="0">
-                <!--一级分类-->
-                <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
-                    <StackLayout x:Name="ParentStack" BindableLayout.ItemsSource="{Binding ParentCategoryList}" Orientation="Vertical"> 
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <Label Text="{Binding name}" Style="{DynamicResource ParentLabel}">
-                                    <Label.Behaviors>
-                                        <behaviors:RadioBehavior x:Name="ParentRadio" GroupName="ParentGroup" IsChecked="{Binding Checked}"/>
-                                    </Label.Behaviors>
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference ParentRadio}, Path=IsChecked, Mode=TwoWay}" Value="True">
-                                            <Setter Property="TextColor" Value="{StaticResource ThickPink}" />
-                                            <Setter Property="FontSize" Value="20" />
-                                            <Setter Property="FontAttributes" Value="Bold"/>
-                                            <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer x:Name="ParentGR" NumberOfTapsRequired="1"
+            <CollectionView Grid.Row="1" Grid.Column="0" x:Name="ParentCollection" ItemsSource="{Binding ParentCategoryList}" 
+                            SelectionMode="Single" SelectedItem="{Binding BindingContext.SelectedParent,Source={x:Reference categoryPage}}"
+                            SelectionChangedCommand="{Binding Path=BindingContext.ParentCategoryTappedCommand,Source={x:Reference categoryPage}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding name}" Style="{DynamicResource ParentLabel}">
+<!--
+                            <Label.Behaviors>
+                                <behaviors:RadioBehavior x:Name="ParentRadio" GroupName="ParentGroup" IsChecked="{Binding Checked}"/>
+                            </Label.Behaviors>
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference ParentRadio}, Path=IsChecked, Mode=TwoWay}" Value="True">
+                                    <Setter Property="TextColor" Value="{StaticResource ThickPink}" />
+                                    <Setter Property="FontSize" Value="20" />
+                                    <Setter Property="FontAttributes" Value="Bold"/>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                            
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="ParentGR" NumberOfTapsRequired="1"
                                                               Command="{Binding Path=BindingContext.ParentCategoryTappedCommand,Source={x:Reference categoryPage}}"
                                                               CommandParameter="{Binding id}"/>
-                                    </Label.GestureRecognizers>
-                                </Label>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </ScrollView>
+                            </Label.GestureRecognizers>
+                            -->
+                        </Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-                <!--二级分类-->
-                <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                    <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SubCategoryList}" BackgroundColor="{DynamicResource ControlBackgroundColor}"
-                                Wrap="Wrap" JustifyContent="SpaceAround" AlignContent="Start">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout HeightRequest="100" Margin="5" Orientation="Vertical">
-                                    <Frame CornerRadius="5" Style="{StaticResource BaseFrame}" BackgroundColor="White">
-                                        <ff:CachedImage HeightRequest="80" WidthRequest="80" Source="{Binding icon}" Aspect="AspectFill"/>
-                                    </Frame>
-                                    <Label Text="{Binding name}" Style="{DynamicResource SubLabel}"/>
+            <CollectionView Grid.Row="1" Grid.Column="1" x:Name="SubCollection" ItemsSource="{Binding SubCategoryList}" SelectionMode="None" BackgroundColor="{DynamicResource ControlBackgroundColor}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout HeightRequest="100" Margin="5" Orientation="Vertical">
+                            <Frame CornerRadius="5" Style="{StaticResource BaseFrame}" BackgroundColor="White">
+                                <ff:CachedImage HeightRequest="80" WidthRequest="80" Source="{Binding icon}" Aspect="AspectFill"/>
+                            </Frame>
+                            <Label Text="{Binding name}" Style="{DynamicResource SubLabel}"/>
 
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer x:Name="CategorySelected" NumberOfTapsRequired="1"
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="CategorySelected" NumberOfTapsRequired="1"
                                                               Command="{Binding Path=BindingContext.SubCategoryTappedCommand,Source={x:Reference categoryPage}}"
                                                               CommandParameter="{Binding id}"/>
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </FlexLayout>
-                </ScrollView>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-            </StackLayout>
+            <!--一级分类
+            <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+                <StackLayout x:Name="ParentStack" BindableLayout.ItemsSource="{Binding ParentCategoryList}" Orientation="Vertical">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding name}" Style="{DynamicResource ParentLabel}">
+                                <Label.Behaviors>
+                                    <behaviors:RadioBehavior x:Name="ParentRadio" GroupName="ParentGroup" IsChecked="{Binding Checked}"/>
+                                </Label.Behaviors>
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference ParentRadio}, Path=IsChecked, Mode=TwoWay}" Value="True">
+                                        <Setter Property="TextColor" Value="{StaticResource ThickPink}" />
+                                        <Setter Property="FontSize" Value="20" />
+                                        <Setter Property="FontAttributes" Value="Bold"/>
+                                        <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="ParentGR" NumberOfTapsRequired="1"
+                                                              Command="{Binding Path=BindingContext.ParentCategoryTappedCommand,Source={x:Reference categoryPage}}"
+                                                              CommandParameter="{Binding id}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+-->
+            <!--二级分类
+            <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SubCategoryList}" BackgroundColor="{DynamicResource ControlBackgroundColor}"
+                                Wrap="Wrap" JustifyContent="SpaceAround" AlignContent="Start">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout HeightRequest="100" Margin="5" Orientation="Vertical">
+                                <Frame CornerRadius="5" Style="{StaticResource BaseFrame}" BackgroundColor="White">
+                                    <ff:CachedImage HeightRequest="80" WidthRequest="80" Source="{Binding icon}" Aspect="AspectFill"/>
+                                </Frame>
+                                <Label Text="{Binding name}" Style="{DynamicResource SubLabel}"/>
 
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="CategorySelected" NumberOfTapsRequired="1"
+                                                              Command="{Binding Path=BindingContext.SubCategoryTappedCommand,Source={x:Reference categoryPage}}"
+                                                              CommandParameter="{Binding id}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

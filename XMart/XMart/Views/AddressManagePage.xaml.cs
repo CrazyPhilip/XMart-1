@@ -31,7 +31,7 @@ namespace XMart.Views
 
         protected override void OnAppearing()
         {
-            addressManageViewModel.InitAddressList();
+            //addressManageViewModel.InitAddressList();
         }
     }
 }

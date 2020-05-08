@@ -129,6 +129,21 @@ namespace XMart.Services
 		{
 			return await Database.DeleteAllAsync<T>();
 		}
+
+		/// <summary>
+		/// 删除表中所有数据
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		public static async Task<int> ClearDatabase()
+		{
+			int total = 0;
+
+			total += await Database.DeleteAllAsync<SearchedItem>();
+			total += await Database.DeleteAllAsync<Category>();
+
+			return total;
+		}
 		#endregion
 
 	}

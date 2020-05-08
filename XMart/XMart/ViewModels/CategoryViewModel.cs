@@ -30,11 +30,18 @@ namespace XMart.ViewModels
             set { SetProperty(ref subCategoryList, value); }
         }
 
+        private Category selectedParent;   //Comment
+        public Category SelectedParent
+        {
+            get { return selectedParent; }
+            set { SetProperty(ref selectedParent, value); }
+        }
+
         public List<Category> categoryList { get; set; }
 
         public Command SearchCommand { get; set; }
         public Command ReloadCommand { get; set; }
-        public Command<int> ParentCategoryTappedCommand { get; set; }
+        public Command ParentCategoryTappedCommand { get; set; }
         public Command<int> SubCategoryTappedCommand { get; set; }
 
         public CategoryViewModel()
@@ -43,7 +50,7 @@ namespace XMart.ViewModels
             SubCategoryList = new ObservableCollection<Category>();
             categoryList = new List<Category>();
 
-            //InitCategories();
+            InitCategories();
 
             SearchCommand = new Command(() =>
             {
@@ -57,10 +64,10 @@ namespace XMart.ViewModels
 
             }, () => { return true; });
 
-            ParentCategoryTappedCommand = new Command<int>((parentId) =>
+            ParentCategoryTappedCommand = new Command(() =>
             {
-                GetSubCategories(parentId);
-            }, (id) => { return true; });
+                GetSubCategories(SelectedParent.id);
+            }, () => { return true; });
 
             SubCategoryTappedCommand = new Command<int>((id) =>
             {
@@ -70,12 +77,14 @@ namespace XMart.ViewModels
                     {
                         ProductListPage productListPage = new ProductListPage(item);
                         Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
+                        break;
                     }
                 }
+
             }, (id) => { return true; });
         }
 
-        /*
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -102,21 +111,15 @@ namespace XMart.ViewModels
                     }
                 }
 
-                //ParentStack.Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
-                //GetSubCategories(0);
-
-                //Application.Current.FindByName<ContentPage>("categoryPage").FindByName<StackLayout>("ParentStack").Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
-                //Application.Current.MainPage.FindByName<StackLayout>("ParentStack").Children[0].Behaviors[0].SetValue(RadioBehavior.IsCheckedProperty, true);
                 GetSubCategories(ParentCategoryList[0].id);
-                //ParentCategoryList[0].Checked = true;
-                //GetSubCategories(ParentCategoryList[0].id);
+                SelectedParent = ParentCategoryList[0];
 
             }
             catch (Exception)
             {
                 throw;
             }
-        }*/
+        }
 
         /// <summary>
         /// 获取二级目录
