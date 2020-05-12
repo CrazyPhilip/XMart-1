@@ -11,15 +11,24 @@ using XMart.Util;
 
 namespace XMart.Services
 {
-    public class RestSharpService
+    public static class RestSharpService
     {
+        //private static readonly Lazy<RestSharpService> lazy = new Lazy<RestSharpService>(() => new RestSharpService());
+        //
+        //public static RestSharpService Instance { get { return lazy.Value; } }
+        //
+        //private RestSharpService() 
+        //{ 
+        //
+        //}
+
         #region 会员注册登录
         /// <summary>
         /// 发送验证码 ok
         /// </summary>
         /// <param name="tel">手机号</param>
         /// <returns></returns>
-        public async Task<SimpleRD> SendAuthCode(string tel)
+        public static async Task<SimpleRD> SendAuthCode(string tel)
         {
             string url = "/member/getAuthCode?tel=" + tel;
 
@@ -33,7 +42,7 @@ namespace XMart.Services
         /// <param name="tel"></param>
         /// <param name="authCode"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> CheckAuthCode(string tel, string authCode)
+        public static async Task<SimpleRD> CheckAuthCode(string tel, string authCode)
         {
             string url = "/member/checkAuthCode?tel=" + tel +"&authcode=" + authCode;
 
@@ -46,7 +55,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="registerPara"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> Register(RegisterPara registerPara)
+        public static async Task<SimpleRD> Register(RegisterPara registerPara)
         {
             string url = "/member/registerByInvite";
             var json = JsonConvert.SerializeObject(registerPara);
@@ -60,7 +69,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="resetPwdPara"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> ResetPwd(ResetPwdPara resetPwdPara)
+        public static async Task<SimpleRD> ResetPwd(ResetPwdPara resetPwdPara)
         {
             string url = "/User/resetPwd";
             var json = JsonConvert.SerializeObject(resetPwdPara);
@@ -75,7 +84,7 @@ namespace XMart.Services
         /// <param name="tel">手机号</param>
         /// <param name="pwd">密码</param>
         /// <returns></returns>
-        public async Task<LoginRD> Login(LoginPara loginPara)
+        public static async Task<LoginRD> Login(LoginPara loginPara)
         {
             string url = "/member/loginByTel";
             var json = JsonConvert.SerializeObject(loginPara);
@@ -89,7 +98,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="loginPara"></param>
         /// <returns></returns>
-        public async Task<LoginRD> LoginByAuthCode(LoginPara loginPara)
+        public static async Task<LoginRD> LoginByAuthCode(LoginPara loginPara)
         {
             string url = "/member/loginByAuthCode";
             var json = JsonConvert.SerializeObject(loginPara);
@@ -103,7 +112,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="tel"></param>
         /// <returns></returns>
-        public async Task<CustomerListRD> GetCustomers(string tel)
+        public static async Task<CustomerListRD> GetCustomers(string tel)
         {
             string url = "/member/getClient?phone=" + tel;
 
@@ -116,7 +125,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="updateUserPara"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> UpdateUserInfo(UpdateUserPara updateUserPara)
+        public static async Task<SimpleRD> UpdateUserInfo(UpdateUserPara updateUserPara)
         {
             string url = "/member/updateInfo";
             var json = JsonConvert.SerializeObject(updateUserPara);
@@ -129,7 +138,7 @@ namespace XMart.Services
         /// 获取用户信息
         /// </summary>
         /// <returns></returns>
-        public async Task<LoginRD> GetUserInfo()
+        public static async Task<LoginRD> GetUserInfo()
         {
             string url = "/member/getMemberInfo?id=" + GlobalVariables.LoggedUser.id;
 
@@ -142,7 +151,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="updateUserPara"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> UploadImage(string imgData)
+        public static async Task<SimpleRD> UploadImage(string imgData)
         {
             string url = "/member/imageUpload";
             var json = "{\"imgData\":\"" + imgData + "\",\"userId\":\"" + GlobalVariables.LoggedUser.id + "\"}";
@@ -158,7 +167,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="memberId">用户Id</param>
         /// <returns></returns>
-        public async Task<CartItemListRD> GetCartItemList(string memberId)
+        public static async Task<CartItemListRD> GetCartItemList(string memberId)
         {
             string url = "/member/cartList";
             string json = "{\"userId\":" + memberId + "}";
@@ -167,7 +176,7 @@ namespace XMart.Services
             return cartItemListRD;
         }
 
-        public async Task<SimpleRD> AddToCart(string memberId, string productId, string num, string attributeValue)
+        public static async Task<SimpleRD> AddToCart(string memberId, string productId, string num, string attributeValue)
         {
             string url = "/member/addCart";
             string json = "{\"userId\":" + memberId + ", \"productId\":" + productId + ", \"productNum\":" + num + ", \"attributesValues\":\"" + attributeValue  + "\"}";
@@ -177,7 +186,7 @@ namespace XMart.Services
             return simpleRD;
         }
 
-        public async Task<StupidRD> DeleteItemInCart(CartItemInfo cartItemInfo)
+        public static async Task<StupidRD> DeleteItemInCart(CartItemInfo cartItemInfo)
         {
             string url = "/member/cartDel";
             string json = "{\"userId\":" + GlobalVariables.LoggedUser.id 
@@ -197,7 +206,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="memberId"></param>
         /// <returns></returns>
-        public async Task<AddressRD> GetAddressListById(string memberId)
+        public static async Task<AddressRD> GetAddressListById(string memberId)
         {
             string url = "/member/addressList";
             string json = "{\"userId\":" + memberId + "}";
@@ -211,7 +220,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="addressInfo"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> AddAddress(AddressInfo addressInfo)
+        public static async Task<SimpleRD> AddAddress(AddressInfo addressInfo)
         {
             string url = "/member/addAddress";
             string json = JsonConvert.SerializeObject(addressInfo);
@@ -225,7 +234,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="addressInfo"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> UpdateAddress(AddressInfo addressInfo)
+        public static async Task<SimpleRD> UpdateAddress(AddressInfo addressInfo)
         {
             string url = "/member/updateAddress";
             string json = JsonConvert.SerializeObject(addressInfo);
@@ -239,7 +248,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="addressInfo"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> DeleteAddressById(long addressId)
+        public static async Task<SimpleRD> DeleteAddressById(long addressId)
         {
             string url = "/member/delAddress";
             string json = "{\"addressId\":" + addressId + "}";
@@ -256,7 +265,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="orderPara"></param>
         /// <returns></returns>
-        public StupidRD Order(OrderPara orderPara)
+        public static StupidRD Order(OrderPara orderPara)
         {
             string url = "/member/addOrder";
             string json = JsonConvert.SerializeObject(orderPara);  //序列化
@@ -270,7 +279,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public OrderDetailRD GetOrderDetailByOrderId(long orderId)
+        public static OrderDetailRD GetOrderDetailByOrderId(long orderId)
         {
             string url = "/member/orderDetail?orderId=" + orderId.ToString();
 
@@ -283,7 +292,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public async Task<OrderListRD> GetOrderListById(int userId, int page, int size)
+        public static async Task<OrderListRD> GetOrderListById(int userId, int page, int size)
         {
             string url = "/member/orderList?userId=" + userId.ToString()
                 + "&page=" + page.ToString()
@@ -298,7 +307,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="orderDetail"></param>
         /// <returns></returns>
-        public async Task<SimpleRD> CancelOrder(OrderDetail orderDetail)
+        public static async Task<SimpleRD> CancelOrder(OrderDetail orderDetail)
         {
             string url = "/member/cancelOrder";
             string json = JsonConvert.SerializeObject(orderDetail);  //序列化
@@ -312,7 +321,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        public async Task<StupidRD> DeleteOrder(string orderId)
+        public static async Task<StupidRD> DeleteOrder(string orderId)
         {
             string url = "/member/delOrder?orderId=" + orderId;
 
@@ -327,7 +336,7 @@ namespace XMart.Services
         /// 获取首页相关内容信息
         /// </summary>
         /// <returns></returns>
-        public async Task<HomeContentRD> GetHomeContent()
+        public static async Task<HomeContentRD> GetHomeContent()
         {
             string url = "/goods/home";
 
@@ -340,7 +349,7 @@ namespace XMart.Services
         /// 获取分类列表
         /// </summary>
         /// <returns></returns>
-        public async Task<CategoryRD> GetCategories()
+        public static async Task<CategoryRD> GetCategories()
         {
             string url = "/goods/SearchAllItemCat";
 
@@ -358,7 +367,7 @@ namespace XMart.Services
         /// <param name="priceGt"></param>
         /// <param name="priceLte"></param>
         /// <returns></returns>
-        public async Task<ProductListRD> GetProductList(int page, int size, string sort, long cid, int priceGt, int priceLte)
+        public static async Task<ProductListRD> GetProductList(int page, int size, string sort, long cid, int priceGt, int priceLte)
         {
             string url = "/goods/allGoods?page=" + page.ToString()
                 + "&size=" + size.ToString()
@@ -376,9 +385,9 @@ namespace XMart.Services
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public async Task<ProductDetailRD> GetProductDetail(string productId)
+        public static async Task<ProductDetailRD> GetProductDetail(string productId)
         {
-            string url = "/goods/productDet?productId=" + productId;
+            string url = "/goods/productDet?productId=" + productId + "&userId=" + GlobalVariables.LoggedUser.id;
             ProductDetailRD productDetailRD = await RestSharpHelper<ProductDetailRD>.GetAsync(url);
             return productDetailRD;
         }
@@ -394,7 +403,7 @@ namespace XMart.Services
         /// <param name="priceGt"></param>
         /// <param name="priceLte"></param>
         /// <returns></returns>
-        public async Task<ProductListRD> FuzzySearch(string index, int sequence, int page, int size, string sort, int priceGt, int priceLte)
+        public static async Task<ProductListRD> FuzzySearch(string index, int sequence, int page, int size, string sort, int priceGt, int priceLte)
         {
             string url = "/goods/SearchLike?page=" + page.ToString()
                 + "&index=" + index
@@ -413,7 +422,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public async Task<StupidRD> AddToCollection(string productId)
+        public static async Task<StupidRD> AddToCollection(string productId)
         {
             string url = string.Format("/goods/AddCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
 
@@ -425,7 +434,7 @@ namespace XMart.Services
         /// 获取收藏商品列表
         /// </summary>
         /// <returns></returns>
-        public async Task<ProductListRD> GetCollections()
+        public static async Task<ProductListRD> GetCollections()
         {
             string url = "/goods/GetCollection?userId=" + GlobalVariables.LoggedUser.id;
 
@@ -437,7 +446,7 @@ namespace XMart.Services
         /// 取消收藏商品
         /// </summary>
         /// <returns></returns>
-        public async Task<StupidRD> DeleteCollection(string productId)
+        public static async Task<StupidRD> DeleteCollection(string productId)
         {
             string url = string.Format("/goods/deleteCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
 
@@ -450,7 +459,7 @@ namespace XMart.Services
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public async Task<string> JudgeCollection(string productId)
+        public static async Task<string> JudgeCollection(string productId)
         {
             string url = string.Format("/goods/judgeCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
 
@@ -461,7 +470,7 @@ namespace XMart.Services
         #endregion
 
         #region 支付宝
-        public string GetAliPaySign(string json)
+        public static string GetAliPaySign(string json)
         {
             string url = "/AlipyController/appAliPay";
             
@@ -471,7 +480,7 @@ namespace XMart.Services
         #endregion
 
         #region 微信
-        public string GetWechatAccessToken()
+        public static string GetWechatAccessToken()
         {
             string url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 

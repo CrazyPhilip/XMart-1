@@ -7,8 +7,22 @@ using System.Threading.Tasks;
 
 namespace XMart.Services
 {
-    public static class RestSharpHelper<T>
+    public sealed class RestSharpHelper<T>
     {
+        //private static readonly object padlock = new object();
+
+        private static readonly Lazy<RestSharpHelper<T>> lazy = new Lazy<RestSharpHelper<T>>(() => new RestSharpHelper<T>());
+
+        public static RestSharpHelper<T> Instance
+        {
+            get { return lazy.Value; }
+        }
+
+        private RestSharpHelper()
+        {
+
+        }
+
         static RestClient _restClient = new RestClient("http://47.114.101.147:7777");
         //static RestClient _restClient = new RestClient("http://120.26.3.153:7777");
 

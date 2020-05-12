@@ -114,7 +114,7 @@ namespace XMart.ViewModels
         public Command<string> SortCommand { get; set; }
         public Command<string> PriceRangeCommand { get; set; }
 
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         /// <summary>
         /// 点击分类进入商品列表
@@ -381,7 +381,7 @@ namespace XMart.ViewModels
                 int gt = string.IsNullOrEmpty(PriceGt) ? -1 : int.Parse(PriceGt);
                 int lte = string.IsNullOrEmpty(PriceLte) ? -1 : int.Parse(PriceLte);
 
-                ProductListRD productListRD = await _restSharpService.FuzzySearch(searchString, Sequence, Page, _Size, Sort, gt, lte);
+                ProductListRD productListRD = await RestSharpService.FuzzySearch(searchString, Sequence, Page, _Size, Sort, gt, lte);
 
                 TotalProductNum = productListRD.result.total;
                 ProductNum += productListRD.result.data.Count;
@@ -405,8 +405,8 @@ namespace XMart.ViewModels
         private async void Search(string searchString, int page, int size, string sort, int sequence, string priceGt, string priceLte)
         {
             IndicatorIsRunning = true;
-            RestSharpService _restSharpService = new RestSharpService();
-            ProductListRD productListRD = await _restSharpService.FuzzySearch(searchString, sequence, page, size, sort, int.Parse(priceGt), int.Parse(priceLte));
+            //RestSharpService _restSharpService = new RestSharpService();
+            ProductListRD productListRD = await RestSharpService.FuzzySearch(searchString, sequence, page, size, sort, int.Parse(priceGt), int.Parse(priceLte));
 
             TotalProductNum = productListRD.result.total;
             ProductNum += productListRD.result.data.Count;
@@ -441,7 +441,7 @@ namespace XMart.ViewModels
                 int gt = string.IsNullOrEmpty(PriceGt) ? -1 : int.Parse(PriceGt);
                 int lte = string.IsNullOrEmpty(PriceLte) ? -1 : int.Parse(PriceLte);
 
-                ProductListRD productListRD = await _restSharpService.GetProductList(Page, _Size, Sort, cid, gt, lte);
+                ProductListRD productListRD = await RestSharpService.GetProductList(Page, _Size, Sort, cid, gt, lte);
 
                 TotalProductNum = productListRD.result.total;
                 ProductNum += productListRD.result.data.Count;
@@ -466,8 +466,8 @@ namespace XMart.ViewModels
             IndicatorIsRunning = true;
             long cid = subCategoryInfo.id;
 
-            RestSharpService _restSharpService = new RestSharpService();
-            ProductListRD productListRD = await _restSharpService.GetProductList(page, size, sort, cid, int.Parse(priceGt), int.Parse(priceLte));
+            //RestSharpService _restSharpService = new RestSharpService();
+            ProductListRD productListRD = await RestSharpService.GetProductList(page, size, sort, cid, int.Parse(priceGt), int.Parse(priceLte));
 
             TotalProductNum = productListRD.result.total;
             ProductNum += productListRD.result.data.Count;

@@ -43,7 +43,7 @@ namespace XMart.ViewModels
         public Command AddAddressCommand { get; set; }
         public Command RefreshCommand { get; set; }
 
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         public AddressManageViewModel()
         {
@@ -70,7 +70,7 @@ namespace XMart.ViewModels
             {
                 try
                 {
-                    SimpleRD simpleRD = await _restSharpService.DeleteAddressById(address.addressId);
+                    SimpleRD simpleRD = await RestSharpService.DeleteAddressById(address.addressId);
 
                     if (simpleRD.success)
                     {
@@ -100,7 +100,7 @@ namespace XMart.ViewModels
 
                     address.isDefault = true;
 
-                    SimpleRD simpleRD = await _restSharpService.UpdateAddress(address);
+                    SimpleRD simpleRD = await RestSharpService.UpdateAddress(address);
 
                     if (simpleRD.success)
                     {
@@ -152,11 +152,11 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
+                //RestSharpService _restSharpService = new RestSharpService();
 
                 string memberId = GlobalVariables.LoggedUser.id.ToString();
 
-                AddressRD addressRD = await _restSharpService.GetAddressListById(memberId);
+                AddressRD addressRD = await RestSharpService.GetAddressListById(memberId);
 
                 if (addressRD.result.Count != 0)
                 {

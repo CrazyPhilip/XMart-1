@@ -86,8 +86,8 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
-                CategoryRD categoryRD = await _restSharpService.GetCategories();
+                //RestSharpService _restSharpService = new RestSharpService();
+                CategoryRD categoryRD = await RestSharpService.GetCategories();
 
                 List<Category> categoryList = categoryRD.result;
 

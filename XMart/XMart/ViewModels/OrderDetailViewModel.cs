@@ -73,7 +73,7 @@ namespace XMart.ViewModels
             set { SetProperty(ref cancelButtonEnable, value); }
         }
 
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         public Command CancelCommand { get; set; }
         public Command HomeCommand { get; set; }
@@ -155,7 +155,7 @@ namespace XMart.ViewModels
         {
             try
             {
-                StupidRD stupidRD = await _restSharpService.DeleteOrder(Order.orderId.ToString());
+                StupidRD stupidRD = await RestSharpService.DeleteOrder(Order.orderId.ToString());
 
                 if (stupidRD.success)
                 {
@@ -186,7 +186,7 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                SimpleRD simpleRD = await _restSharpService.CancelOrder(Order);
+                SimpleRD simpleRD = await RestSharpService.CancelOrder(Order);
 
                 if (simpleRD.success)
                 {
@@ -220,7 +220,7 @@ namespace XMart.ViewModels
                 IndicatorIsRunning = true;
                 PayBtnVisible = false;
 
-                OrderDetailRD orderDetailRD = _restSharpService.GetOrderDetailByOrderId(orderId);
+                OrderDetailRD orderDetailRD = RestSharpService.GetOrderDetailByOrderId(orderId);
 
                 if (orderDetailRD.success)
                 {

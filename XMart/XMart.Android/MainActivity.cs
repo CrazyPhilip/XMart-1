@@ -48,10 +48,20 @@ namespace XMart.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             Resources.DisplayMetrics.ScaledDensity = 2;//告诉android不要把自己大小单位缩放
-            double systemDensity = DeviceDisplay.MainDisplayInfo.Density;
+            //double systemDensity = DeviceDisplay.MainDisplayInfo.Density;
             Resources.DisplayMetrics.Density = 2;
             //var temp = Resources.DisplayMetrics;
             //var device = DeviceDisplay.MainDisplayInfo;
+            //if (DeviceDisplay.MainDisplayInfo.Density >= 3)
+            //{
+            //    Resources.DisplayMetrics.ScaledDensity = 1.5F;//告诉android不要把自己大小单位缩放
+            //    Resources.DisplayMetrics.Density = 2.5F;
+            //}
+            //else
+            //{
+            //    Resources.DisplayMetrics.ScaledDensity = 2;//告诉android不要把自己大小单位缩放
+            //    Resources.DisplayMetrics.Density = 2;
+            //}
             App.ScreenWidth = Resources.DisplayMetrics.WidthPixels;
             App.ScreenHeight = Resources.DisplayMetrics.HeightPixels;
 

@@ -133,14 +133,14 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
+                //RestSharpService _restSharpService = new RestSharpService();
 
                 string memberId = GlobalVariables.LoggedUser.id.ToString();
                 string productId = Product.productId.ToString();
                 string num = ProductNum.ToString();
                 string attributeValue = Product.itemAttributeValues[Index].attributeValue;
 
-                SimpleRD simpleRD = await _restSharpService.AddToCart(memberId, productId, num, attributeValue);
+                SimpleRD simpleRD = await RestSharpService.AddToCart(memberId, productId, num, attributeValue);
 
                 if (simpleRD.message == "success")
                 {

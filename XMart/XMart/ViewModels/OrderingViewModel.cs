@@ -144,7 +144,7 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
+                //RestSharpService _restSharpService = new RestSharpService();
                 OrderPara orderPara = new OrderPara
                 {
                     addressId = AddressId,
@@ -161,7 +161,7 @@ namespace XMart.ViewModels
                     item.salePrice = item.memberPrice;
                 }
 
-                StupidRD stupidRD = _restSharpService.Order(orderPara);
+                StupidRD stupidRD = RestSharpService.Order(orderPara);
 
                 if (stupidRD.result != 0)
                 {
@@ -199,11 +199,11 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
+                //RestSharpService _restSharpService = new RestSharpService();
 
                 string memberId = GlobalVariables.LoggedUser.id.ToString();
 
-                AddressRD addressRD = await _restSharpService.GetAddressListById(memberId);
+                AddressRD addressRD = await RestSharpService.GetAddressListById(memberId);
 
                 if (addressRD.result.Count != 0)
                 {

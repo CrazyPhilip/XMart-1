@@ -103,12 +103,12 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
-                SimpleRD uploadImageRD = await _restSharpService.UploadImage(base64);
+                //RestSharpService _restSharpService = new RestSharpService();
+                SimpleRD uploadImageRD = await RestSharpService.UploadImage(base64);
 
                 if (uploadImageRD.success)
                 {
-                    LoginRD loginRD = await _restSharpService.GetUserInfo();
+                    LoginRD loginRD = await RestSharpService.GetUserInfo();
                     if (loginRD.result.message == null)
                     {
                         GlobalVariables.LoggedUser = loginRD.result;   //将登录用户的信息保存成全局静态变量

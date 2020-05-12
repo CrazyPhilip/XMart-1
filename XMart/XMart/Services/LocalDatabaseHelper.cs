@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace XMart.Services
 {
-	public static class LocalDatabaseHelper<T> where T : new()
+	public sealed class LocalDatabaseHelper<T> where T : new()
 	{
 		static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
 		{
@@ -17,6 +17,12 @@ namespace XMart.Services
 
 		static SQLiteAsyncConnection Database => lazyInitializer.Value;
 		static bool initialized = false;
+
+		static LocalDatabaseHelper<T> instance = new LocalDatabaseHelper<T>();
+		public static LocalDatabaseHelper<T> Instance
+		{
+			get { return instance; }
+		}
 
 		static LocalDatabaseHelper()
 		{

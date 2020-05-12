@@ -122,9 +122,9 @@ namespace XMart.ViewModels
 					return;
 				}
 
-				RestSharpService _restSharpService = new RestSharpService();
+				//RestSharpService _restSharpService = new RestSharpService();
 				int size = 10;
-				OrderListRD orderListRD = await _restSharpService.GetOrderListById(GlobalVariables.LoggedUser.id, page, size);
+				OrderListRD orderListRD = await RestSharpService.GetOrderListById(GlobalVariables.LoggedUser.id, page, size);
 
 				if (orderListRD.result.data.Count != 0)
 				{

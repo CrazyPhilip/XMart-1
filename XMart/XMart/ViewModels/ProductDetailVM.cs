@@ -71,7 +71,7 @@ namespace XMart.ViewModels
         public Command DetailCommand { get; set; }
         public Command<string> OpenWebCommand { get; set; }
 
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         public ProductDetailVM(string productId)
         {
@@ -220,11 +220,11 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                ProductDetailRD productDetailRD = await _restSharpService.GetProductDetail(productId);
+                ProductDetailRD productDetailRD = await RestSharpService.GetProductDetail(productId);
 
                 if (GlobalVariables.IsLogged)
                 {
-                    string judgeRD = await _restSharpService.JudgeCollection(productId);
+                    string judgeRD = await RestSharpService.JudgeCollection(productId);
 
                     var json = JObject.Parse(judgeRD);
                     isCollected = (bool)json["success"];
@@ -269,7 +269,7 @@ namespace XMart.ViewModels
                 if (IsCollected)
                 {
                     //取消收藏
-                    StupidRD stupidRD = await _restSharpService.DeleteCollection(Product.productId.ToString());
+                    StupidRD stupidRD = await RestSharpService.DeleteCollection(Product.productId.ToString());
 
                     if (stupidRD.success)
                     {
@@ -285,7 +285,7 @@ namespace XMart.ViewModels
                 else
                 {
                     //收藏
-                    StupidRD stupidRD = await _restSharpService.AddToCollection(Product.productId.ToString());
+                    StupidRD stupidRD = await RestSharpService.AddToCollection(Product.productId.ToString());
 
                     if (stupidRD.success)
                     {

@@ -90,7 +90,7 @@ namespace XMart.ViewModels
         public Command PickPhotoCommand { get; set; }
         public Command SaveCommand { get; set; }
 
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         public EditUserInfoViewModel()
         {
@@ -161,7 +161,7 @@ namespace XMart.ViewModels
                 }
                 else
                 {
-                    SimpleRD sendAuthCodeRD = await _restSharpService.SendAuthCode(GlobalVariables.LoggedUser.phone);
+                    SimpleRD sendAuthCodeRD = await RestSharpService.SendAuthCode(GlobalVariables.LoggedUser.phone);
                     myTimer = new MyTimer { EndDate = DateTime.Now.Add(new TimeSpan(900000000)) };
                     LoadAsync();
                     
@@ -188,7 +188,7 @@ namespace XMart.ViewModels
                     return;
                 }
                 
-                SimpleRD checkAuthCodeRD = await _restSharpService.CheckAuthCode(GlobalVariables.LoggedUser.phone.ToString(), authCode);
+                SimpleRD checkAuthCodeRD = await RestSharpService.CheckAuthCode(GlobalVariables.LoggedUser.phone.ToString(), authCode);
                 if (!checkAuthCodeRD.success)
                 {
                     CrossToastPopUp.Current.ShowToastError("验证码错误。", ToastLength.Short);
@@ -227,11 +227,11 @@ namespace XMart.ViewModels
                     default: updateUserPara.sex = "-1"; break;
                 }
 
-                SimpleRD updateUserInfoRD = await _restSharpService.UpdateUserInfo(updateUserPara);
+                SimpleRD updateUserInfoRD = await RestSharpService.UpdateUserInfo(updateUserPara);
                 
                 if (updateUserInfoRD.success)
                 {
-                    LoginRD loginRD = await _restSharpService.GetUserInfo();
+                    LoginRD loginRD = await RestSharpService.GetUserInfo();
                     if (loginRD.result.message == null)
                     {
                         GlobalVariables.LoggedUser = loginRD.result;   //将登录用户的信息保存成全局静态变量
@@ -273,7 +273,7 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                LoginRD loginRD = await _restSharpService.GetUserInfo();
+                LoginRD loginRD = await RestSharpService.GetUserInfo();
 
                 if (loginRD.result != null)
                 {
@@ -299,7 +299,6 @@ namespace XMart.ViewModels
 
         #region 计时器
 
-        #endregion
         public void LoadAsync()
         {
             //IsEnable = false;
@@ -328,5 +327,7 @@ namespace XMart.ViewModels
             //ButtonColor = Color.FromHex("FFCC00");
             UnloadAsync();
         }
+
+        #endregion
     }
 }

@@ -82,8 +82,8 @@ namespace XMart.ViewModels
                 IndicatorIsRunning = true;
                 ProductList.Clear();
 
-                RestSharpService _restSharpService = new RestSharpService();
-                ProductListRD productListRD = await _restSharpService.GetCollections();
+                //RestSharpService _restSharpService = new RestSharpService();
+                ProductListRD productListRD = await RestSharpService.GetCollections();
 
                 if (productListRD.result.total > 0)
                 {

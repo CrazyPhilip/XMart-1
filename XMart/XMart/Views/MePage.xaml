@@ -121,7 +121,7 @@
 
                 <Frame Grid.Row="0" Grid.Column="0">
                     <StackLayout>
-                        <ff:CachedImage Source="money_today.png"/>
+                        <ff:CachedImage Source="money_today.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="今日收益" Style="{DynamicResource tiltle}"/>
                         <Label Text="看看今天赚了多少钱" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -129,7 +129,7 @@
 
                 <Frame Grid.Row="0" Grid.Column="1">
                     <StackLayout>
-                        <ff:CachedImage Source="money_all.png"/>
+                        <ff:CachedImage Source="money_all.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="总收益" Style="{DynamicResource tiltle}"/>
                         <Label Text="看看一共收益了多少" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -137,7 +137,7 @@
 
                 <Frame Grid.Row="1" Grid.Column="0">
                     <StackLayout>
-                        <ff:CachedImage Source="money_withdraw.png"/>
+                        <ff:CachedImage Source="money_withdraw.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="可提现" Style="{DynamicResource tiltle}"/>
                         <Label Text="提现出来就可以用了" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -145,7 +145,7 @@
 
                 <Frame Grid.Row="1" Grid.Column="1">
                     <StackLayout>
-                        <ff:CachedImage Source="customers.png"/>
+                        <ff:CachedImage Source="customers.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="我的客户" Style="{DynamicResource tiltle}"/>
                         <Label Text="查看客户列表" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -157,7 +157,7 @@
 
                 <Frame Grid.Row="2" Grid.Column="0">
                     <StackLayout>
-                        <ff:CachedImage Source="orders.png"/>
+                        <ff:CachedImage Source="orders.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="我的订单" Style="{DynamicResource tiltle}"/>
                         <Label Text="查看订单列表" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -169,7 +169,7 @@
 
                 <Frame Grid.Row="2" Grid.Column="1">
                     <StackLayout>
-                        <ff:CachedImage Source="star_blue.png"/>
+                        <ff:CachedImage Source="star_blue.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="我的收藏" Style="{DynamicResource tiltle}"/>
                         <Label Text="查看收藏列表" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -181,7 +181,7 @@
 
                 <Frame Grid.Row="3" Grid.Column="0">
                     <StackLayout>
-                        <ff:CachedImage Source="location.png"/>
+                        <ff:CachedImage Source="location.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="地址管理" Style="{DynamicResource tiltle}"/>
                         <Label Text="管理您的所有收货地址" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -193,7 +193,7 @@
 
                 <Frame Grid.Row="3" Grid.Column="1">
                     <StackLayout>
-                        <ff:CachedImage Source="setting.png"/>
+                        <ff:CachedImage Source="setting.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="系统设置" Style="{DynamicResource tiltle}"/>
                         <Label Text="自定义APP设置" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -238,7 +238,7 @@
 
                 <Frame Grid.Row="0" Grid.Column="0">
                     <StackLayout>
-                        <ff:CachedImage Source="orders.png"/>
+                        <ff:CachedImage Source="orders.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="我的订单" Style="{DynamicResource tiltle}"/>
                         <Label Text="查看订单列表" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -250,7 +250,7 @@
 
                 <Frame Grid.Row="0" Grid.Column="1">
                     <StackLayout>
-                        <ff:CachedImage Source="star_blue.png"/>
+                        <ff:CachedImage Source="star_blue.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="我的收藏" Style="{DynamicResource tiltle}"/>
                         <Label Text="查看收藏列表" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -262,7 +262,7 @@
 
                 <Frame Grid.Row="1" Grid.Column="0">
                     <StackLayout>
-                        <ff:CachedImage Source="location.png"/>
+                        <ff:CachedImage Source="location.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="地址管理" Style="{DynamicResource tiltle}"/>
                         <Label Text="管理您的所有收货地址" Style="{DynamicResource description}"/>
                     </StackLayout>
@@ -274,7 +274,7 @@
 
                 <Frame Grid.Row="1" Grid.Column="1">
                     <StackLayout>
-                        <ff:CachedImage Source="setting.png"/>
+                        <ff:CachedImage Source="setting.png" HeightRequest="24" WidthRequest="24"/>
                         <Label Text="系统设置" Style="{DynamicResource tiltle}"/>
                         <Label Text="自定义APP设置" Style="{DynamicResource description}"/>
                     </StackLayout>

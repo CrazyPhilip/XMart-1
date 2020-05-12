@@ -122,7 +122,7 @@ namespace XMart.ViewModels
 		public Command SelectCountyCommand { get; set; }
 		public Command SelectTownCommand { get; set; }
 
-		RestSharpService _restSharpService = new RestSharpService();
+		//RestSharpService _restSharpService = new RestSharpService();
 
 		public EditAddressViewModel()
 		{
@@ -311,7 +311,7 @@ namespace XMart.ViewModels
 		{
 			try
 			{
-				SimpleRD simpleRD = await _restSharpService.DeleteAddressById(AddressId);
+				SimpleRD simpleRD = await RestSharpService.DeleteAddressById(AddressId);
 
 				if (simpleRD.success)
 				{
@@ -358,7 +358,7 @@ namespace XMart.ViewModels
 					isDefault = IsDefault
 				};
 
-				SimpleRD simpleRD = await _restSharpService.UpdateAddress(addressInfo);
+				SimpleRD simpleRD = await RestSharpService.UpdateAddress(addressInfo);
 
 				if (simpleRD.success)
 				{
@@ -405,7 +405,7 @@ namespace XMart.ViewModels
 					isDefault = IsDefault
 				};
 
-				SimpleRD simpleRD = await _restSharpService.AddAddress(addressInfo);
+				SimpleRD simpleRD = await RestSharpService.AddAddress(addressInfo);
 
 				if (simpleRD.success)
 				{

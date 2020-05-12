@@ -138,7 +138,7 @@
                           IsChecked="{Binding IsAllChecked,Mode=TwoWay}" CheckedChanged="AllCheckedButton_CheckedChanged"/>-->
 
                 <Label Text="合计：" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18"/>
-                <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" TextColor="{StaticResource ThickPink}">
+                <Label HorizontalOptions="FillAndExpand" VerticalOptions="Center" TextColor="{StaticResource ThickPink}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="￥" FontSize="18"/>
@@ -147,7 +147,7 @@
                     </Label.FormattedText>
                 </Label>
 
-                <Label HorizontalOptions="EndAndExpand" VerticalOptions="Center" FontSize="18">
+                <Label HorizontalOptions="FillAndExpand" VerticalOptions="Center" FontSize="18">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="已选:"/>

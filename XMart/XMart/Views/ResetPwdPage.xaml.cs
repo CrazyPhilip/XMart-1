@@ -14,7 +14,7 @@ namespace XMart.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ResetPwdPage : ContentPage
     {
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
         ResetPwdViewModel resetPwdViewModel = new ResetPwdViewModel();
 
         public ResetPwdPage()
@@ -48,7 +48,7 @@ namespace XMart.Views
                 return;
             }
 
-            SimpleRD simpleRD = await _restSharpService.SendAuthCode(resetPwdViewModel.Tel);
+            SimpleRD simpleRD = await RestSharpService.SendAuthCode(resetPwdViewModel.Tel);
 
             if (simpleRD.code == 200)
             {
@@ -123,7 +123,7 @@ namespace XMart.Views
                 newPwd = resetPwdViewModel.Pwd
             };
 
-            SimpleRD simpleRD = await _restSharpService.ResetPwd(resetPwdPara);
+            SimpleRD simpleRD = await RestSharpService.ResetPwd(resetPwdPara);
 
             if (simpleRD.code == 200)
             {

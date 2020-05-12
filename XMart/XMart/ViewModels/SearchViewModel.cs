@@ -39,7 +39,7 @@ namespace XMart.ViewModels
 
             //InitSearchPage();
 
-            SearchCommand = new Command<string>((str) =>
+            SearchCommand = new Command<string>(async (str) =>
             {
                 if (!Tools.IsNetConnective())
                 {
@@ -60,12 +60,12 @@ namespace XMart.ViewModels
                             createTime = DateTime.UtcNow.ToString(),
                             searchedString = str
                         };
-                        localDatabaseService.InsertSearchedItem(searchedItem);
+                        await LocalDatabaseHelper<SearchedItem>.InsertOrReplaceAsync(searchedItem);
                     }
 
                     ProductListPage productListPage = new ProductListPage(str);
                     SearchString = "";
-                    Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
+                    await Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
                 }
             }, (str) => { return true; });
 

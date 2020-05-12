@@ -23,5 +23,6 @@ namespace XMart.Views
 
             BindingContext = editUserInfoViewModel;
         }
+
     }
 }

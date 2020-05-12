@@ -144,8 +144,8 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
-                CustomerListRD customerListRD = await _restSharpService.GetCustomers(GlobalVariables.LoggedUser.phone.ToString());
+                //RestSharpService _restSharpService = new RestSharpService();
+                CustomerListRD customerListRD = await RestSharpService.GetCustomers(GlobalVariables.LoggedUser.phone.ToString());
 
                 if (customerListRD.result.Count > 0)
                 {

@@ -10,6 +10,7 @@ using Xamarin.Essentials;
 using Plugin.Toast;
 using Plugin.Toast.Abstractions;
 using Xamarin.Forms.Xaml;
+using System.Security.Authentication.ExtendedProtection;
 
 namespace XMart.Views
 {
@@ -121,5 +122,6 @@ namespace XMart.Views
         {
             InitAsync();
         }
+
     }
 }

@@ -56,7 +56,7 @@ namespace XMart.ViewModels
 
         private string Tel { get; set; }
         public MyTimer myTimer { get; set; }
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         public Command LoginCommand { get; set; }
         public Command CheckInputCommand { get; set; }
@@ -106,7 +106,7 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                SimpleRD simpleRD = await _restSharpService.SendAuthCode(Tel);
+                SimpleRD simpleRD = await RestSharpService.SendAuthCode(Tel);
 
                 if (simpleRD.code == 200)
                 {
@@ -152,7 +152,7 @@ namespace XMart.ViewModels
                     tel = Tel
                 };
 
-                LoginRD loginRD = await _restSharpService.LoginByAuthCode(loginPara);
+                LoginRD loginRD = await RestSharpService.LoginByAuthCode(loginPara);
 
                 /*
                 if (loginRD.code == 200)

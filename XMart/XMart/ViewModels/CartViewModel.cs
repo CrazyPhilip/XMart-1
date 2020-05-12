@@ -48,7 +48,7 @@ namespace XMart.ViewModels
         public Command<long> CheckedChangedCommand { get; set; }
         public Command RefreshCommand { get; set; }    //
 
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         public CartViewModel()
         {
@@ -157,7 +157,7 @@ namespace XMart.ViewModels
                     }
 
                     string memberId = GlobalVariables.LoggedUser.id.ToString();
-                    CartItemListRD cartItemListRD = await _restSharpService.GetCartItemList(memberId);
+                    CartItemListRD cartItemListRD = await RestSharpService.GetCartItemList(memberId);
 
                     /*
                     List<CartItemInfo> tempList = cartItemListRD.result;
@@ -213,7 +213,7 @@ namespace XMart.ViewModels
                     //Frame frame = sender as Frame;
                     //int index = ItemStack.Children.IndexOf(frame);
 
-                    StupidRD stupidRD = await _restSharpService.DeleteItemInCart(temp);
+                    StupidRD stupidRD = await RestSharpService.DeleteItemInCart(temp);
 
                     if (stupidRD.success)
                     {

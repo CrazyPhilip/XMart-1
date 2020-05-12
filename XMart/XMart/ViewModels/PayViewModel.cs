@@ -14,7 +14,7 @@ namespace XMart.ViewModels
 
         public Command<string> PayCommand { get; set; }
 
-        RestSharpService _restSharpService = new RestSharpService();
+        //RestSharpService _restSharpService = new RestSharpService();
 
         public PayViewModel(OrderDetail orderDetail)
         {
@@ -62,7 +62,7 @@ namespace XMart.ViewModels
                 json.Add("subject", subject);
                 json.Add("total_amount", total_amount);
 
-                string con = _restSharpService.GetAliPaySign(json.ToString());
+                string con = RestSharpService.GetAliPaySign(json.ToString());
                 JObject result = JObject.Parse(con);
                 string sign = result["data"].ToString();
 

@@ -212,9 +212,9 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                RestSharpService _restSharpService = new RestSharpService();
-                HomeContentRD homeContentRD = await _restSharpService.GetHomeContent();
-                CategoryRD categoryRD = await _restSharpService.GetCategories();
+                //RestSharpService _restSharpService = new RestSharpService();
+                HomeContentRD homeContentRD = await RestSharpService.GetHomeContent();
+                CategoryRD categoryRD = await RestSharpService.GetCategories();
 
                 //CarouselList = homeContentRD.result[0].panelContents.ToList<HomePanelContent>();
                 HotProductList = homeContentRD.result[1].panelContents.ToList<HomePanelContent>();

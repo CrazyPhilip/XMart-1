@@ -195,8 +195,8 @@ namespace XMart.ViewModels
                     tel = Tel
                 };
 
-                RestSharpService _restSharpService = new RestSharpService();
-                LoginRD loginRD = await _restSharpService.Login(loginPara);
+                //RestSharpService _restSharpService = new RestSharpService();
+                LoginRD loginRD = await RestSharpService.Login(loginPara);
 
                 if (loginRD.result.message == null)
                 {
