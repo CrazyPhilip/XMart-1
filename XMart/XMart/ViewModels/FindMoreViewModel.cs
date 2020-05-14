@@ -40,6 +40,9 @@ namespace XMart.ViewModels
 
             SearchCommand = new Command(() =>
             {
+                SearchPage searchPage = new SearchPage();
+                Application.Current.MainPage.Navigation.PushAsync(searchPage);
+                /*
                 if (!Tools.IsNetConnective())
                 {
                     CrossToastPopUp.Current.ShowToastError("无网络连接，请检查网络。", ToastLength.Long);
@@ -56,7 +59,7 @@ namespace XMart.ViewModels
                     SearchString = "";
 
                     Application.Current.MainPage.Navigation.PushAsync(productListPage);
-                }
+                }*/
             }, () => { return true; });
 
             ItemTappedCommand = new Command<int>((id) =>

@@ -12,6 +12,21 @@
              x:Name="findMorePage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Spacing="0">
+            <Frame Style="{StaticResource BaseFrame}" HeightRequest="30" HorizontalOptions="FillAndExpand"
+                       CornerRadius="15" Padding="15,0" BorderColor="LightGray">
+                <!--<controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
+                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>-->
+                <Label Text="{Binding SearchString}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
+            </Frame>
+            <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18"/>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <ContentPage.Resources>
         <Style x:Key="SubLabel" TargetType="Label">
             <Setter Property="HeightRequest" Value="50"/>
@@ -22,66 +37,47 @@
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
         </Style>
     </ContentPage.Resources>
-    
-    <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            
-            <StackLayout Grid.Row="0" Orientation="Horizontal" VerticalOptions="EndAndExpand" Spacing="0">
-                <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                <Frame Style="{StaticResource BaseFrame}" HeightRequest="30" HorizontalOptions="FillAndExpand"
-                       CornerRadius="15" Padding="15,0" BorderColor="LightGray">
-                    <controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
-                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>
-                </Frame>
-                <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18" Command="{Binding SearchCommand}"/>
-            </StackLayout>
 
-            <tb:TabViewControl Grid.Row="1" VerticalOptions="FillAndExpand" HeaderSelectionUnderlineWidth="50" HeaderTabTextFontSize="20"
+    <ContentPage.Content>
+        <tb:TabViewControl VerticalOptions="FillAndExpand" HeaderSelectionUnderlineWidth="50" HeaderTabTextFontSize="20"
                                HeaderTabTextColor="Gray" HeaderSelectionUnderlineColor="{StaticResource SkyBlue}" HeaderBackgroundColor="Transparent">
-                <tb:TabViewControl.ItemSource>
-                    <tb:TabItem HeaderText="找单品">
-                        <!--二级分类-->
-                        <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                            <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SubCategoryList}" 
+            <tb:TabViewControl.ItemSource>
+                <tb:TabItem HeaderText="找单品">
+                    <!--二级分类-->
+                    <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                        <FlexLayout x:Name="SubStack" BindableLayout.ItemsSource="{Binding SubCategoryList}" 
                                         Wrap="Wrap" JustifyContent="SpaceAround" AlignContent="Start">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <Frame HeightRequest="100" WidthRequest="100" Margin="5" CornerRadius="5" Style="{StaticResource BaseFrame}" 
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame HeightRequest="100" WidthRequest="100" Margin="5" CornerRadius="5" Style="{StaticResource BaseFrame}" 
                                                BackgroundColor="White" HasShadow="True">
-                                            <StackLayout Orientation="Vertical" Spacing="0">
-                                                <ff:CachedImage HeightRequest="75" WidthRequest="100" Source="{Binding icon}" Aspect="AspectFill"/>
-                                                <Label Text="{Binding name}" Style="{DynamicResource SubLabel}"/>
-                                            </StackLayout>
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                        <StackLayout Orientation="Vertical" Spacing="0">
+                                            <ff:CachedImage HeightRequest="75" WidthRequest="100" Source="{Binding icon}" Aspect="AspectFill"/>
+                                            <Label Text="{Binding name}" Style="{DynamicResource SubLabel}"/>
+                                        </StackLayout>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1"
                                                                       Command="{Binding Path=BindingContext.ItemTappedCommand,Source={x:Reference findMorePage}}"
                                                                       CommandParameter="{Binding id}"/>
-                                            </Frame.GestureRecognizers>
-                                        </Frame>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </FlexLayout>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                    </ScrollView>
+                </tb:TabItem>
+
+                <tb:TabItem HeaderText="找品牌">
+                    <StackLayout Spacing="0">
+                        <ScrollView x:Name="CommentScrollView" VerticalOptions="FillAndExpand">
+                            <StackLayout VerticalOptions="FillAndExpand">
+
+                            </StackLayout>
                         </ScrollView>
-                    </tb:TabItem>
+                    </StackLayout>
+                </tb:TabItem>
 
-                    <tb:TabItem HeaderText="找品牌">
-                        <StackLayout Spacing="0">
-                            <ScrollView x:Name="CommentScrollView" VerticalOptions="FillAndExpand">
-                                <StackLayout VerticalOptions="FillAndExpand">
-                                    
-                                </StackLayout>
-                            </ScrollView>
-                        </StackLayout>
-                    </tb:TabItem>
-
-                </tb:TabViewControl.ItemSource>
-            </tb:TabViewControl>
-        </Grid>
-
-        
+            </tb:TabViewControl.ItemSource>
+        </tb:TabViewControl>
     </ContentPage.Content>
 </ContentPage>
