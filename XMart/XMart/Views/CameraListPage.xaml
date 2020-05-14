@@ -6,7 +6,8 @@
              xmlns:behaviors="clr-namespace:XMart.Behaviors"
              mc:Ignorable="d"
              x:Class="XMart.Views.CameraListPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="瑞耀家具生产厂">
     
     <ContentPage.Resources>
         <Style x:Key="UserNameStyle" TargetType="Label">
@@ -28,45 +29,35 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
- 
-            <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
-            <Label Grid.Row="0" Text="瑞耀家具生产厂" Style="{StaticResource TitleLabel}"/>
-
-            <StackLayout Grid.Row="1" VerticalOptions="Fill">
-                <Label Text="无摄像头" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
-                <ListView x:Name="list" ItemsSource="{Binding CameraList}"
+        <StackLayout VerticalOptions="Fill">
+            <Label Text="无摄像头" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
+            <ListView x:Name="list" ItemsSource="{Binding CameraList}"
                           VerticalOptions="Center" HasUnevenRows="True"
                           IsPullToRefreshEnabled="True"
                           IsRefreshing="{Binding IsRefreshing}"
                           RefreshControlColor="{StaticResource MainColor}" 
                           RefreshCommand="{Binding RefreshCommand}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid Margin="0,5" Padding="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="0,5" Padding="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding id}" Style="{DynamicResource UserNameStyle}"/>
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding direction}" Style="{DynamicResource PhoneStyle}"/>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Behaviors>
-                        <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding id}" Style="{DynamicResource UserNameStyle}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding direction}" Style="{DynamicResource PhoneStyle}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemSelected" 
                                                           Command="{Binding SelectCommand}" 
                                                           CommandParameter="{Binding Source={x:Reference list},Path=SelectedItem}"/>
-                    </ListView.Behaviors>
-                </ListView>
-            </StackLayout>
-        </Grid>
+                </ListView.Behaviors>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

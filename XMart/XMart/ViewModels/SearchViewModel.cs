@@ -65,7 +65,7 @@ namespace XMart.ViewModels
 
                     ProductListPage productListPage = new ProductListPage(str);
                     SearchString = "";
-                    await Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(productListPage);
                 }
             }, (str) => { return true; });
 

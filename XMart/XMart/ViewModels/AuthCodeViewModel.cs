@@ -14,6 +14,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
+using System.Linq;
 
 namespace XMart.ViewModels
 {
@@ -160,7 +161,7 @@ namespace XMart.ViewModels
                     CrossToastPopUp.Current.ShowToastSuccess(loginRD.message, ToastLength.Long);
 
                     MainPage mainPage = new MainPage();
-                    await Navigation.PushModalAsync(mainPage);
+                    await Navigation.PushAsync(mainPage);
                 }
                 else
                 {
@@ -180,8 +181,10 @@ namespace XMart.ViewModels
                     //string text = "State:Checked\n" + "Account:" + Tel + "\nPassword:" + loginRD.result + "\nLoginTime:" + DateTime.UtcNow;
                     File.WriteAllText(fileName, log.ToString());
 
+                    //List<Page> pageList = Application.Current.MainPage.Navigation.NavigationStack.ToList<Page>();
+                    Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[0]);
                     MainPage mainPage = new MainPage();
-                    await Application.Current.MainPage.Navigation.PushModalAsync(mainPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(mainPage);
                 }
                 else
                 {

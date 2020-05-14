@@ -10,8 +10,8 @@
     
     <ContentPage.Content>
         <StackLayout VerticalOptions="StartAndExpand" Margin="30,35">
-            <ImageButton x:Name="BackButton" Source="back_gray.png" Style="{StaticResource BackButton}" Command="{Binding BackCommand}" 
-                         HorizontalOptions="Start" Margin="0,0,0,50"/>
+            <!--<ImageButton x:Name="BackButton" Source="back_gray.png" Style="{StaticResource BackButton}" Command="{Binding BackCommand}" 
+                         HorizontalOptions="Start" Margin="0,0,0,50"/>-->
             <Label Text="输入验证码" FontSize="22" TextColor="Black" FontAttributes="Bold"/>
             <Label FontSize="16" TextColor="Gray">
                 <Label.FormattedText>

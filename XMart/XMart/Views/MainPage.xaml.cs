@@ -11,6 +11,9 @@ using Plugin.Toast;
 using Plugin.Toast.Abstractions;
 using Xamarin.Forms.Xaml;
 using System.Security.Authentication.ExtendedProtection;
+using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace XMart.Views
 {
@@ -123,5 +126,20 @@ namespace XMart.Views
             InitAsync();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            List<Page> pageList = Navigation.NavigationStack.ToList<Page>();
+
+            foreach (var page in pageList)
+            {
+                if (page.GetType() != typeof(MainPage))
+                {
+                    Navigation.RemovePage(page);
+                }
+            }
+            pageList.Clear();
+        }
     }
 }

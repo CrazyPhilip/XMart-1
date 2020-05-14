@@ -55,7 +55,7 @@ namespace XMart.ViewModels
             SearchCommand = new Command(() =>
             {
                 SearchPage searchPage = new SearchPage();
-                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
+                Application.Current.MainPage.Navigation.PushAsync(searchPage);
 
             }, () => { return true; });
 
@@ -76,7 +76,7 @@ namespace XMart.ViewModels
                     if (item.id == id)
                     {
                         ProductListPage productListPage = new ProductListPage(item);
-                        Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
+                        Application.Current.MainPage.Navigation.PushAsync(productListPage);
                         break;
                     }
                 }

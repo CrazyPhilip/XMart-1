@@ -115,13 +115,13 @@ namespace XMart.ViewModels
             AddressManageCommand = new Command(() =>
             {
                 AddressManagePage addressManagePage = new AddressManagePage();
-                Application.Current.MainPage.Navigation.PushModalAsync(addressManagePage);
+                Application.Current.MainPage.Navigation.PushAsync(addressManagePage);
             }, () => { return true; });
 
             OneTappedCommand = new Command<long>((id) =>
             {
                 ProductDetailPage productDetailPage = new ProductDetailPage(id.ToString());
-                Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+                Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             }, (id) => { return true; });
 
             BackCommand = new Command(() =>
@@ -170,9 +170,9 @@ namespace XMart.ViewModels
                     //var stack1 = Application.Current.MainPage.Navigation.NavigationStack;
                     //var stack2 = Application.Current.MainPage.Navigation.ModalStack;
                     //Application.Current.MainPage.Navigation.RemovePage(stack2[stack2.Count - 1]);
-                    await Application.Current.MainPage.Navigation.PopModalAsync();
+                    await Application.Current.MainPage.Navigation.PopAsync();
                     OrderDetailPage orderDetailPage = new OrderDetailPage(stupidRD.result);
-                    await Application.Current.MainPage.Navigation.PushModalAsync(orderDetailPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(orderDetailPage);
                 }
                 else
                 {

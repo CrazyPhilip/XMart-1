@@ -113,5 +113,17 @@ namespace XMart.Models
         [JsonProperty("wormHoles", NullValueHandling = NullValueHandling.Ignore)]
         public string wormHoles { get; set; }   //comment
 
+        [JsonProperty("factoryId", NullValueHandling = NullValueHandling.Ignore)]
+        public long factoryId { get; set; }   //Comment
+
+        [JsonProperty("factoryName", NullValueHandling = NullValueHandling.Ignore)]
+        public string factoryName { get; set; }   //Comment
+
+        [JsonProperty("factoryUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string factoryUrl { get; set; }   //Comment
+
+        [JsonProperty("brand", NullValueHandling = NullValueHandling.Ignore)]
+        public string brand { get; set; }   //Comment
+
     }
 }

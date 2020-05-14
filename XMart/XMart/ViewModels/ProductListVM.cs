@@ -138,7 +138,7 @@ namespace XMart.ViewModels
             SearchCommand = new Command(() =>
             {
                 SearchPage searchPage = new SearchPage();
-                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
+                Application.Current.MainPage.Navigation.PushAsync(searchPage);
 
                 /*
                 if (string.IsNullOrEmpty(SearchString))
@@ -157,7 +157,7 @@ namespace XMart.ViewModels
             //{
             //    //ProductListItem productListItem = ProductList[id];
             //    ProductDetailPage productDetailPage = new ProductDetailPage(productListItem.productId.ToString());
-            //    Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+            //    Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             //}, (productListItem) => { return true; });
 
             LoadMoreCommand = new Command(() =>
@@ -262,7 +262,7 @@ namespace XMart.ViewModels
             SearchCommand = new Command(() =>
             {
                 SearchPage searchPage = new SearchPage();
-                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
+                Application.Current.MainPage.Navigation.PushAsync(searchPage);
                 /*
                 if (string.IsNullOrEmpty(SearchString))
                 {
@@ -280,7 +280,7 @@ namespace XMart.ViewModels
             //{
             //    //ProductListItem productListItem = ProductList[id];
             //    ProductDetailPage productDetailPage = new ProductDetailPage(productListItem.productId.ToString());
-            //    Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+            //    Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             //}, (productListItem) => { return true; });
 
             LoadMoreCommand = new Command(() =>

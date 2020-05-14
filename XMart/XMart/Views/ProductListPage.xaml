@@ -10,6 +10,21 @@
              x:Class="XMart.Views.ProductListPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Spacing="0">
+            <Frame Style="{StaticResource BaseFrame}" HeightRequest="30" HorizontalOptions="FillAndExpand"
+                       CornerRadius="15" Padding="15,0" BorderColor="LightGray">
+                <!--<controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
+                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>-->
+                <Label Text="{Binding SearchString}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
+            </Frame>
+            <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18"/>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
     <ContentPage.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
@@ -35,26 +50,11 @@
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackLayout Grid.Row="0" Orientation="Horizontal" VerticalOptions="EndAndExpand" Spacing="0">
-                <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                <Frame Style="{StaticResource BaseFrame}" HeightRequest="30" HorizontalOptions="FillAndExpand"
-                       CornerRadius="15" Padding="15,0" BorderColor="LightGray">
-                    <!--<controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
-                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>-->
-                    <Label Text="{Binding SearchString}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
-                </Frame>
-                <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18"/>
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-
-            <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <ScrollView Grid.Row="0" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                 <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="0">
                     <Label Text="综合排序" Style="{DynamicResource LabelStyle}">
                         <Label.Behaviors>
@@ -184,7 +184,7 @@
                 </ListView.Behaviors>
             </ListView>
 -->
-            <ScrollView x:Name="ProductListScrollView" Grid.Row="2" Orientation="Vertical">
+            <ScrollView x:Name="ProductListScrollView" Grid.Row="1" Orientation="Vertical">
                 <StackLayout Orientation="Vertical">
                     <StackLayout x:Name="ItemStack" BindableLayout.ItemsSource="{Binding ProductList}" Orientation="Vertical">
                         <BindableLayout.ItemTemplate>
@@ -250,7 +250,7 @@
                 </ScrollView.Behaviors>-->
             </ScrollView>
 
-            <ActivityIndicator Grid.Row="2" IsRunning="{Binding IndicatorIsRunning}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ActivityIndicator Grid.Row="1" IsRunning="{Binding IndicatorIsRunning}" HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

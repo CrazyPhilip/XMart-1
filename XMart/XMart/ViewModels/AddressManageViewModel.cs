@@ -63,7 +63,7 @@ namespace XMart.ViewModels
                 //}
 
                 EditAddressPage editAddressPage = new EditAddressPage(address);
-                Application.Current.MainPage.Navigation.PushModalAsync(editAddressPage);
+                Application.Current.MainPage.Navigation.PushAsync(editAddressPage);
             }, (id) => { return true; });
 
             DeleteCommand = new Command<AddressInfo>(async (address) =>
@@ -122,7 +122,7 @@ namespace XMart.ViewModels
             {
                 EditAddressPage editAddressPage = new EditAddressPage();
 
-                Application.Current.MainPage.Navigation.PushModalAsync(editAddressPage);
+                Application.Current.MainPage.Navigation.PushAsync(editAddressPage);
             }, () => { return true; });
 
             BackCommand = new Command(() =>

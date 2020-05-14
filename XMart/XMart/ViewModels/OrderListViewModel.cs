@@ -1,8 +1,10 @@
 ﻿using Plugin.Toast;
 using Plugin.Toast.Abstractions;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 using XMart.Models;
@@ -81,7 +83,7 @@ namespace XMart.ViewModels
 			OneTappedCommand = new Command<long>((id) =>
 			{
 				OrderDetailPage orderDetailPage = new OrderDetailPage(id);
-				Application.Current.MainPage.Navigation.PushModalAsync(orderDetailPage);
+				Application.Current.MainPage.Navigation.PushAsync(orderDetailPage);
 			}, (id) => { return true; });
 
 			RefreshCommand = new Command(() =>
@@ -102,6 +104,7 @@ namespace XMart.ViewModels
 			BackCommand = new Command(() =>
 			{
 				Application.Current.MainPage.Navigation.PopModalAsync();
+				//Application.Current.MainPage.Navigation.RemovePage();
 			}, () => { return true; });
 
 			/*

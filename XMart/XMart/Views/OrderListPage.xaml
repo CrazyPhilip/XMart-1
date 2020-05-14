@@ -8,24 +8,30 @@
              mc:Ignorable="d"
              x:Class="XMart.Views.OrderListPage"
              x:Name="orderListPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
-
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="订单列表">
+    
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="订单管理" Style="{StaticResource TitleLabel}"/>
+            <ImageButton Source="refresh.png" BackgroundColor="Transparent" 
+                     HeightRequest="20" WidthRequest="20" Padding="0" Margin="10,0"
+                     HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
     <ContentPage.Content>
         <Grid RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
+            <!--
             <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
             <Label Grid.Row="0" Text="订单管理" Style="{StaticResource TitleLabel}"/>
             <ImageButton Grid.Row="0" Source="refresh.png" BackgroundColor="Transparent" 
                          HeightRequest="20" WidthRequest="20" Padding="0" Margin="10,0"
                          HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
+-->
+            <Label Text="没有订单，快去逛一逛吧" FontSize="18" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
 
-            <Label Grid.Row="1" Text="没有订单，快去逛一逛吧" FontSize="18" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
-
-            <ScrollView Grid.Row="1" Orientation="Vertical">
+            <ScrollView Orientation="Vertical">
                 <StackLayout Orientation="Vertical">
                     <StackLayout x:Name="CollectionItemStack" BindableLayout.ItemsSource="{Binding OrderList}" Orientation="Vertical">
                         <BindableLayout.ItemTemplate>
@@ -115,7 +121,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <ActivityIndicator Grid.Row="1" IsRunning="{Binding IndicatorIsRunning}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ActivityIndicator IsRunning="{Binding IndicatorIsRunning}" HorizontalOptions="Center" VerticalOptions="Center"/>
 
             <!--
             <StackLayout Grid.Row="1" VerticalOptions="Fill">

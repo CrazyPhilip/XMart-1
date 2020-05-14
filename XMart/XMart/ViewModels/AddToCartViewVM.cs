@@ -105,13 +105,13 @@ namespace XMart.ViewModels
 
                     OrderingPage orderingPage = new OrderingPage(productList);
                     await PopupNavigation.Instance.PopAsync();
-                    await Application.Current.MainPage.Navigation.PushModalAsync(orderingPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(orderingPage);
                 }
                 else
                 {
                     LoginPage loginPage = new LoginPage();
                     await PopupNavigation.Instance.PopAsync();
-                    await Application.Current.MainPage.Navigation.PushModalAsync(loginPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(loginPage);
                 }
 
             }, () => { return true; });

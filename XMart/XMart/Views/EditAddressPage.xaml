@@ -9,6 +9,13 @@
              x:Class="XMart.Views.EditAddressPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="编辑收货地址" Style="{StaticResource TitleLabel}"/>
+            <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
     <ContentPage.Resources>
         <Style x:Key="TitleLabelStyle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
@@ -26,20 +33,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="0">
-                    <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                    <Label Text="编辑收货地址" Style="{StaticResource TitleLabel}"/>
-                    <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
-                </StackLayout>
-
-                <StackLayout Grid.Row="1" Margin="20,0" Spacing="0">
+        <StackLayout Margin="20,0" Spacing="0">
                     <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
                         <TableRoot>
                             <TableSection>
@@ -74,7 +68,7 @@
                                 <Span Text="{Binding Text,Source={x:Reference streetEntry}}"/>
                             </FormattedString>
                         </Label.FormattedText>
-                        
+
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SelectRegionCommand}"/>
                         </Label.GestureRecognizers>
@@ -129,12 +123,12 @@
                     <!--<controls:MyEntry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Margin="0,10" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>-->
                     <Label Text="详细地址" Style="{DynamicResource TitleLabelStyle}"/>
                     <Entry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Style="{DynamicResource EntryStyle}"/>
-                    
+
                     <StackLayout Orientation="Horizontal" Margin="0">
                         <Label Text="是否设为默认地址" HorizontalOptions="Start" FontSize="18" TextColor="{StaticResource SkyBlue}" VerticalOptions="Center"/>
                         <Switch IsToggled="{Binding IsDefault}" OnColor="{StaticResource SkyBlue}"/>
                     </StackLayout>
-                    
+
                     <!--
                     <Grid HeightRequest="300">
                         <Grid.RowDefinitions>
@@ -159,9 +153,7 @@
                         <Button Text="取消" Command="{Binding DeleteCommand}" IsVisible="{Binding Visible}" WidthRequest="100" HeightRequest="30" BorderWidth="0" Padding="0"
                             VerticalOptions="Start" HorizontalOptions="Start"/>
                     </StackLayout>
-                    
+
                 </StackLayout>
-            </Grid>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -18,9 +18,6 @@
             <ActivityIndicator x:Name="defaultActivityIndicator" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Label x:Name="labelLoading" Text="Loading..." IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center"/>
 
-            <ImageButton x:Name="BackButton" Source="back_gray.png" BackgroundColor="Transparent"
-                     HeightRequest="30" WidthRequest="30" CornerRadius="15" VerticalOptions="StartAndExpand"
-                     HorizontalOptions="StartAndExpand" Margin="10" Clicked="BackButton_Clicked"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

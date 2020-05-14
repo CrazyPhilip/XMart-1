@@ -7,11 +7,13 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:tb="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView"
-             xmlns:controls="clr-namespace:XMart.Controls"
+             xmlns:controls="clr-namespace:XMart.Controls" xmlns:hl="clr-namespace:XamForms.HtmlLabel;assembly=XamForms.HtmlLabel"
              mc:Ignorable="d"
              x:Class="XMart.Views.ProductDetailPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-             x:Name="productDetailPage">
+             NavigationPage.HasNavigationBar="False"
+             x:Name="productDetailPage"
+             Title="商品详情">
     
     <ContentPage.Content>
         <Grid RowSpacing="0">
@@ -73,15 +75,17 @@
                         <ScrollView>
                             <StackLayout Spacing="10">
 
-                                <Grid>
+                                <ff:CachedImage Source="{Binding Product.productImageBig}" HeightRequest="200"/>
+                                <!--<Grid>
                                     <ff:CachedImage Source="{Binding Product.productImageBig}" HeightRequest="200"/>
+                                    
 
                                     <ImageButton Source="_3d.png" BackgroundColor="Transparent"
                                                  HeightRequest="30" WidthRequest="30" CornerRadius="15" VerticalOptions="Start"
                                                  HorizontalOptions="EndAndExpand" Margin="10" 
                                                  Command="{Binding OpenWebCommand}" CommandParameter="https://editor.zgyvrqj.com/rotateview.aspx?rotate_id=115711"/>
                                 </Grid>
-
+-->
 
                                 <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Orientation="Vertical" Padding="10">
                                     <Grid HeightRequest="50" RowSpacing="0">
@@ -254,16 +258,16 @@
 
                     <tb:TabItem HeaderText="详情">
 
-                        <controls:XamWebView x:Name="webView" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="400" WidthRequest="400"
+                        <!--<controls:XamWebView x:Name="webView" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="400" WidthRequest="400"
                                  android:WebView.MixedContentMode="AlwaysAllow" 
                                  android:WebView.DisplayZoomControls="True" 
                                  android:WebView.EnableZoomControls="True">
                             <controls:XamWebView.Source>
                                 <HtmlWebViewSource Html="{Binding Product.detail}"/>
                             </controls:XamWebView.Source>
-                        </controls:XamWebView>
-                        <!--<hl:HtmlLabel TextType="Html" Text="{Binding Product.detail}"/>
-                        <xp:FormsWebView Source="https://www.baidu.com/" ContentType="Internet" HeightRequest="200" />
+                        </controls:XamWebView>-->
+                        <hl:HtmlLabel TextType="Html" Text="{Binding Product.detail}"/>
+                        <!--<xp:FormsWebView Source="https://www.baidu.com/" ContentType="Internet" HeightRequest="200" />
                         <controls:HybridWebView Uri="{Binding Product.detail}" HeightRequest="200"/>-->
                     </tb:TabItem>
                 </tb:TabViewControl.ItemSource>

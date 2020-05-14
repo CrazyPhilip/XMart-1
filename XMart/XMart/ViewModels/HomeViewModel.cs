@@ -137,7 +137,7 @@ namespace XMart.ViewModels
             {
                 string url = CarouselList[position].fullUrl;
                 WebPage webPage = new WebPage(url);
-                Application.Current.MainPage.Navigation.PushModalAsync(webPage);
+                Application.Current.MainPage.Navigation.PushAsync(webPage);
             }, (position) => { return true; });
 
             FindMoreCommand = new Command<int>((id) =>
@@ -147,7 +147,7 @@ namespace XMart.ViewModels
                     if (item.id == id)
                     {
                         ProductListPage productListPage = new ProductListPage(item);
-                        Application.Current.MainPage.Navigation.PushModalAsync(productListPage);
+                        Application.Current.MainPage.Navigation.PushAsync(productListPage);
                     }
                 }
             }, (id) => { return true; });
@@ -155,7 +155,7 @@ namespace XMart.ViewModels
             SearchCommand = new Command(() =>
             {
                 SearchPage searchPage = new SearchPage();
-                Application.Current.MainPage.Navigation.PushModalAsync(searchPage);
+                Application.Current.MainPage.Navigation.PushAsync(searchPage);
 
             }, () => { return true; });
 
@@ -163,19 +163,20 @@ namespace XMart.ViewModels
             {
                 Type type = Type.GetType(pageName);
                 Page page = (Page)Activator.CreateInstance(type);
-                Application.Current.MainPage.Navigation.PushModalAsync(page);
+                Application.Current.MainPage.Navigation.PushAsync(page);
             }, (pageName) => { return true; });
 
             ItemTapCommand = new Command<long>((id) =>
             {
                 ProductDetailPage productDetailPage = new ProductDetailPage(id.ToString());
-                Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+                //NavigationPage navigationPage = new NavigationPage(productDetailPage);
+                Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             }, (id) => { return true; });
 
             MoreCatCommand = new Command(() =>
             {
                 FindMorePage findMorePage = new FindMorePage();
-                Application.Current.MainPage.Navigation.PushModalAsync(findMorePage);
+                Application.Current.MainPage.Navigation.PushAsync(findMorePage);
             }, () => { return true; });
 
             GetRebateCommand = new Command(() =>
@@ -190,7 +191,7 @@ namespace XMart.ViewModels
 
                         JObject json = JObject.Parse(decodedString);
                         ProductDetailPage productDetailPage = new ProductDetailPage(json["p"].ToString());
-                        Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+                        Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
                     }
                 }
                 catch (Exception)

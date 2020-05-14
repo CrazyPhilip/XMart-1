@@ -8,23 +8,16 @@
              mc:Ignorable="d"
              x:Class="XMart.Views.CustomerListPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-             x:Name="customerListPage">
+             x:Name="customerListPage"
+             Title="我的客户">
 
     <ContentPage.Content>
-        <Grid RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
-            <Label Grid.Row="0" Text="我的客户" Style="{StaticResource TitleLabel}"/>
-
-            <cv:CarouselViewControl Grid.Row="1" x:Name="carouselView" ItemsSource="{Binding CustomerList}" ShowIndicators="True">
+        <!--<Grid RowSpacing="0">
+            <cv:CarouselViewControl x:Name="carouselView" ItemsSource="{Binding CustomerList}" ShowIndicators="True">
                 <cv:CarouselViewControl.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
-                            <!--
+                            
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="CurrentItem">
@@ -48,7 +41,7 @@
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>-->
+                            </VisualStateManager.VisualStateGroups>
 
                             <Frame HasShadow="True" BorderColor="DarkGray" CornerRadius="5" HeightRequest="400" WidthRequest="200" 
                                    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
@@ -75,6 +68,66 @@
                 </cv:CarouselViewControl.ItemTemplate>
             </cv:CarouselViewControl>
         
-        </Grid>
+        </Grid>-->
+
+        <CollectionView x:Name="list" ItemsSource="{Binding CustomerList}" EmptyView="无客户" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItemView Command="{Binding Path=BindingContext.CallCommand,Source={x:Reference customerListPage}}" 
+                                           CommandParameter="{Binding username}">
+                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="White" VerticalOptions="Center">
+                                    <ff:CachedImage Source="call.png" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Text="电话" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </SwipeItemView>
+                            <SwipeItemView Command="{Binding Path=BindingContext.SendMessageCommand,Source={x:Reference customerListPage}}" 
+                                           CommandParameter="{Binding username}">
+                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="White">
+                                    <ff:CachedImage Source="msg.png" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Text="短信" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </SwipeItemView>
+                            <SwipeItemView Command="{Binding Path=BindingContext.EmailCommand,Source={x:Reference customerListPage}}" 
+                                           CommandParameter="{Binding email}">
+                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="White">
+                                    <ff:CachedImage Source="email.png" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Text="邮件" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </SwipeItemView>
+                        </SwipeView.RightItems>
+
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Grid.Column="0" HeightRequest="40" WidthRequest="40" Padding="0" CornerRadius="20"
+                                   HorizontalOptions="Center" VerticalOptions="Start"
+                                   BorderColor="White" IsClippedToBounds="True">
+                                <ff:CachedImage Source="{Binding pricture}" Aspect="AspectFill"/>
+                            </Frame>
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding username}" FontAttributes="Bold" FontSize="22" TextColor="Black"/>
+                                <Label Text="{Binding description,StringFormat='简介：{0}'}"/>
+                                <Label Text="{Binding phone,StringFormat='电话：{0}'}"/>
+                                <Label Text="{Binding buyCompanyName,StringFormat='公司：{0}'}"/>
+                                <Label Text="{Binding address,StringFormat='地址：{0}'}"/>
+                                <Label Text="{Binding email,StringFormat='邮箱：{0}'}"/>
+                            </StackLayout>
+                        </Grid>
+
+                        <!--
+                        <SwipeView.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                      Command="{Binding BindingContext.EditCommand, Source={x:Reference customerListPage}}"
+                                                      CommandParameter="{Binding .}"/>
+                        </SwipeView.GestureRecognizers>-->
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ContentPage.Content>
 </ContentPage>

@@ -10,6 +10,13 @@
              x:Class="XMart.Views.EditUserInfoPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="修改个人信息" Style="{StaticResource TitleLabel}"/>
+            <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding SaveCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <ContentPage.Resources>
         <Style x:Key="TitleLabelStyle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
@@ -27,19 +34,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="0">
-                <ImageButton x:Name="BackButton" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}"/>
-                <Label Text="修改个人信息" Style="{StaticResource TitleLabel}"/>
-                <Button WidthRequest="60" Text="保存" TextColor="{DynamicResource PrimaryTextColor}" FontSize="18" BackgroundColor="Transparent" Command="{Binding SaveCommand}"/>
-            </StackLayout>
-
-            <ScrollView Grid.Row="1">
+        <ScrollView>
                 <StackLayout Margin="20,0" Spacing="0">
                     <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
                     <TableRoot>
@@ -92,6 +87,5 @@
                 </StackLayout>
             </ScrollView>
             
-        </Grid>
     </ContentPage.Content>
 </ContentPage>

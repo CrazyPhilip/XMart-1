@@ -13,6 +13,7 @@ using XMart.Views;
 using Xamarin.Essentials;
 using Newtonsoft.Json.Linq;
 using CarouselView.FormsPlugin.Abstractions;
+using System.Linq;
 
 namespace XMart.ViewModels
 {
@@ -86,7 +87,9 @@ namespace XMart.ViewModels
 
             BackCommand = new Command(() =>
             {
-                Application.Current.MainPage.Navigation.PopModalAsync();
+                //List<Page> pageList = Application.Current.MainPage.Navigation.NavigationStack.ToList<Page>();
+                //Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[0]);
+                Application.Current.MainPage.Navigation.PopAsync();
             }, () => { return true; });
 
             AddToCartCommand = new Command(() =>
@@ -99,7 +102,7 @@ namespace XMart.ViewModels
                 else
                 {
                     LoginPage loginPage = new LoginPage();
-                    Application.Current.MainPage.Navigation.PushModalAsync(loginPage);
+                    Application.Current.MainPage.Navigation.PushAsync(loginPage);
                 }
             }, () => { return true; });
 
@@ -117,12 +120,12 @@ namespace XMart.ViewModels
                     productList.Add(cartItemInfo);
 
                     OrderingPage orderingPage = new OrderingPage(productList);
-                    Application.Current.MainPage.Navigation.PushModalAsync(orderingPage);
+                    Application.Current.MainPage.Navigation.PushAsync(orderingPage);
                 }
                 else
                 {
                     LoginPage loginPage = new LoginPage();
-                    Application.Current.MainPage.Navigation.PushModalAsync(loginPage);
+                    Application.Current.MainPage.Navigation.PushAsync(loginPage);
                 }
 
             }, () => { return true; });
@@ -137,7 +140,7 @@ namespace XMart.ViewModels
                 else
                 {
                     LoginPage loginPage = new LoginPage();
-                    Application.Current.MainPage.Navigation.PushModalAsync(loginPage);
+                    Application.Current.MainPage.Navigation.PushAsync(loginPage);
                 }
             }, () => { return true; });
 
@@ -184,13 +187,13 @@ namespace XMart.ViewModels
             CameraCommand = new Command(() =>
             {
                 CameraListPage cameraListPage = new CameraListPage();
-                Application.Current.MainPage.Navigation.PushModalAsync(cameraListPage);
+                Application.Current.MainPage.Navigation.PushAsync(cameraListPage);
             }, () => { return true; });
 
             OpenWebCommand = new Command<string>((url) =>
             {
                 WebPage webPage = new WebPage(url);
-                Application.Current.MainPage.Navigation.PushModalAsync(webPage);
+                Application.Current.MainPage.Navigation.PushAsync(webPage);
             }, (url) => { return true; });
 
             DetailCommand = new Command(() =>
@@ -200,7 +203,7 @@ namespace XMart.ViewModels
                     Html = Product.detail
                 };
                 WebPage webPage = new WebPage(htmlWebViewSource);
-                Application.Current.MainPage.Navigation.PushModalAsync(webPage);
+                Application.Current.MainPage.Navigation.PushAsync(webPage);
             }, () => { return true; });
 
             InitProductDetailPageAsync(productId);
@@ -259,10 +262,12 @@ namespace XMart.ViewModels
                     return;
                 }
 
+                //List<Page> pageList = Application.Current.MainPage.Navigation.NavigationStack.ToList<Page>();
+
                 if (!GlobalVariables.IsLogged)
                 {
                     LoginPage loginPage = new LoginPage();
-                    await Application.Current.MainPage.Navigation.PushModalAsync(loginPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(loginPage);
                     return;
                 }
 

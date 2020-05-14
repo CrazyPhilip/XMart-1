@@ -41,7 +41,7 @@ namespace XMart.Views
             
             ProductListItem productListItem = productListVM.ProductList[index];
             ProductDetailPage productDetailPage = new ProductDetailPage(productListItem.productId.ToString());
-            Navigation.PushModalAsync(productDetailPage);
+            Navigation.PushAsync(productDetailPage);
         }
     }
 }

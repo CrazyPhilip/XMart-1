@@ -49,7 +49,7 @@ namespace XMart.Views
             string url = homeViewModel.CarouselList[index].fullUrl;
             //string url = "http://www.baidu.com/";
             WebPage webPage = new WebPage(url);
-            Navigation.PushModalAsync(webPage);
+            Navigation.PushAsync(webPage);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace XMart.Views
 
             long id = homeViewModel.HotProductList[index].productId;
             ProductDetailPage productDetailPage = new ProductDetailPage(id.ToString());
-            Navigation.PushModalAsync(productDetailPage);
+            Navigation.PushAsync(productDetailPage);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace XMart.Views
 
             Category category = homeViewModel.CatList[index];
             ProductListPage productListPage = new ProductListPage(category);
-            Navigation.PushModalAsync(productListPage);
+            Navigation.PushAsync(productListPage);
         }
 
         protected override void OnDisappearing()

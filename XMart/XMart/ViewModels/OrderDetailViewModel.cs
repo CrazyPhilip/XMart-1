@@ -132,7 +132,7 @@ namespace XMart.ViewModels
             OneTappedCommand = new Command<long>((id) =>
             {
                 ProductDetailPage productDetailPage = new ProductDetailPage(id.ToString());
-                Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+                Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             }, (id) => { return true; });
 
             MessagingCenter.Subscribe<object, string>(this, "PaySuccess", (sender, resultStatus) =>

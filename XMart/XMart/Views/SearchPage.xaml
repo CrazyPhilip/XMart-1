@@ -8,8 +8,9 @@
              mc:Ignorable="d"
              x:Class="XMart.Views.SearchPage"
              x:Name="searchPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
-    
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="搜索">
+
     <ContentPage.Resources>
         <Style x:Key="SubLabel" TargetType="Label">
             <Setter Property="HeightRequest" Value="30"/>

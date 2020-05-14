@@ -387,7 +387,11 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<ProductDetailRD> GetProductDetail(string productId)
         {
-            string url = "/goods/productDet?productId=" + productId + "&userId=" + GlobalVariables.LoggedUser.id;
+            string url = "/goods/productDet?productId=" + productId;
+            if (GlobalVariables.IsLogged)
+            {
+                url += "&userId=" + GlobalVariables.LoggedUser.id;
+            }
             ProductDetailRD productDetailRD = await RestSharpHelper<ProductDetailRD>.GetAsync(url);
             return productDetailRD;
         }

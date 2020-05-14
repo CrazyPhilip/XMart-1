@@ -20,15 +20,8 @@
             </Grid.RowDefinitions>
 
             <!--头部-->
-            <Label Grid.Row="0" Style="{StaticResource TitleLabel}">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="购物车"/>
-                        <Span Text="（"/>
-                        <Span Text="{Binding ItemNumber}"/>
-                        <Span Text="）"/>
-                    </FormattedString>
-                </Label.FormattedText>
+            <Label Grid.Row="0" Text="{Binding ItemNumber,StringFormat='购物车（{0}）'}" Style="{StaticResource TitleLabel}" HorizontalOptions="Center">
+
             </Label>
 
             <!--

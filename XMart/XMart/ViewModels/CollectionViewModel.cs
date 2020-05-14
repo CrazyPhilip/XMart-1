@@ -61,7 +61,7 @@ namespace XMart.ViewModels
             TappedCommand = new Command<long>((productId) =>
             {
                 ProductDetailPage productDetailPage = new ProductDetailPage(productId.ToString());
-                Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+                Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             }, (productId) => { return true; });
 
             RefreshCommand = new Command(() =>

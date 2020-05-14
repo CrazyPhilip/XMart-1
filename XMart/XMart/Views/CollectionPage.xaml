@@ -10,7 +10,24 @@
              x:Class="XMart.Views.CollectionPage"
              x:Name="collectionPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
-    
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Style="{StaticResource TitleLabel}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="我的收藏（"/>
+                        <Span Text="{Binding ProductNum}"/>
+                        <Span Text="）"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <ImageButton Source="refresh.png" BackgroundColor="Transparent" 
+                         HeightRequest="20" WidthRequest="20" Padding="0" Margin="10,0"
+                         HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <ContentPage.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="WidthRequest" Value="100"/>
@@ -25,28 +42,9 @@
 
     <ContentPage.Content>
         <Grid RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <Label Text="没有收藏商品，快去逛一逛吧" FontSize="18" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
 
-            <ImageButton Grid.Row="0" Source="back_gray.png" Command="{Binding BackCommand}" Style="{StaticResource BackButton}" HorizontalOptions="Start"/>
-            <Label Grid.Row="0" Style="{StaticResource TitleLabel}">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="我的收藏（"/>
-                        <Span Text="{Binding ProductNum}"/>
-                        <Span Text="）"/>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-            <ImageButton Grid.Row="0" Source="refresh.png" BackgroundColor="Transparent" 
-                         HeightRequest="20" WidthRequest="20" Padding="0" Margin="10,0"
-                         HorizontalOptions="End" VerticalOptions="CenterAndExpand" Command="{Binding RefreshCommand}"/>
-
-            <Label Grid.Row="1" Text="没有收藏商品，快去逛一逛吧" FontSize="18" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding Visible}" />
-
-            <ScrollView Grid.Row="1" Orientation="Vertical">
+            <ScrollView Orientation="Vertical">
                 <StackLayout x:Name="CollectionItemStack" BindableLayout.ItemsSource="{Binding ProductList}" Orientation="Vertical">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -110,7 +108,7 @@
                 </ScrollView.Behaviors>-->
             </ScrollView>
 
-            <ActivityIndicator Grid.Row="1" IsRunning="{Binding IndicatorIsRunning}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ActivityIndicator IsRunning="{Binding IndicatorIsRunning}" HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

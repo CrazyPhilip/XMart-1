@@ -92,7 +92,7 @@ namespace XMart.ViewModels
 
             ToRegisterPageCommand = new Command(() =>
             {
-                Application.Current.MainPage.Navigation.PushModalAsync(new RegisterPage());
+                Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
             }, () => { return true; });
 
             LoginCommand = new Command(() =>
@@ -105,7 +105,7 @@ namespace XMart.ViewModels
 
             FindPwdCommand = new Command(() =>
             {
-                Application.Current.MainPage.Navigation.PushModalAsync(new ResetPwdPage());
+                Application.Current.MainPage.Navigation.PushAsync(new ResetPwdPage());
             }, () => { return true; });
 
             OpenEyeCommand = new Command(() =>
@@ -127,7 +127,7 @@ namespace XMart.ViewModels
                 if (Tools.IsPhoneNumber(Tel))
                 {
                     AuthCodePage authCodePage = new AuthCodePage(Tel);
-                    Application.Current.MainPage.Navigation.PushModalAsync(authCodePage);
+                    Application.Current.MainPage.Navigation.PushAsync(authCodePage);
                 }
                 else
                 {
@@ -212,7 +212,7 @@ namespace XMart.ViewModels
                     File.WriteAllText(fileName, log.ToString());
 
                     MainPage mainPage = new MainPage();
-                    await Application.Current.MainPage.Navigation.PushModalAsync(mainPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(mainPage);
                 }
                 else
                 {

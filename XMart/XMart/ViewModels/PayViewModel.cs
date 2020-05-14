@@ -70,7 +70,7 @@ namespace XMart.ViewModels
 
                 //CrossToastPopUp.Current.ShowToastMessage("支付成功", ToastLength.Long);
                 //PayWebPage payWebPage = new PayWebPage();
-                //Application.Current.MainPage.Navigation.PushModalAsync(payWebPage);
+                //Application.Current.MainPage.Navigation.PushAsync(payWebPage);
             }
         }
 

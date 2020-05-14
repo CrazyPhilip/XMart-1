@@ -80,7 +80,7 @@ namespace XMart.ViewModels
                 else
                 {
                     OrderingPage orderingPage = new OrderingPage(productList);
-                    Application.Current.MainPage.Navigation.PushModalAsync(orderingPage);
+                    Application.Current.MainPage.Navigation.PushAsync(orderingPage);
                 }
             }, () => { return true; });
 
@@ -92,7 +92,7 @@ namespace XMart.ViewModels
             OneTappedCommand = new Command<long>((id) =>
             {
                 ProductDetailPage productDetailPage = new ProductDetailPage(id.ToString());
-                Application.Current.MainPage.Navigation.PushModalAsync(productDetailPage);
+                Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             }, (id) => { return true; });
 
             CheckedChangedCommand = new Command<long>((id) =>

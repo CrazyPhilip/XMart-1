@@ -31,7 +31,14 @@ namespace XMart
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage mainPage = new MainPage();
+            NavigationPage navigationPage = new NavigationPage(mainPage)
+            {
+                BarBackgroundColor = Color.FromHex("fafafa"),
+                BarTextColor = Color.Black
+            };
+
+            MainPage = navigationPage;
         }
 
         protected override void OnStart()

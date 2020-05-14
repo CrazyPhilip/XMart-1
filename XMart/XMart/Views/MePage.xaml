@@ -6,7 +6,8 @@
              x:Class="XMart.Views.MePage"
              Icon="Resource/drawable/me.png"
              Title="个人中心"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="mePage">
 
     <ContentPage.Resources>
         <Style x:Key="CommonLabel" TargetType="Label">
@@ -41,9 +42,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <ff:CachedImage Grid.Row="0" Grid.RowSpan="3" Source="backgroud.jpg" Aspect="Fill"/>
+            <ff:CachedImage Grid.Row="0" Grid.RowSpan="3" Source="backgroud.jpg" Aspect="AspectFill"/>
 
-            <Label Grid.Row="0" Text="个人中心" Style="{StaticResource TitleLabel}"/>
+            <Label Grid.Row="0" Text="个人中心" Style="{StaticResource TitleLabel}" HorizontalOptions="CenterAndExpand"/>
             <Button Grid.Row="0" Text="退出" TextColor="Crimson" BackgroundColor="Transparent" FontSize="18"
                    HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Command="{Binding LoginOutCommand}"/>
 
@@ -63,7 +64,7 @@
                        TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
                     <Label Text="{Binding UserType}" FontSize="16"
                        TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Label FontSize="16" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center">
+                    <Label FontSize="16" TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <FormattedString.Spans>
@@ -81,6 +82,23 @@
                 </StackLayout>
             </StackLayout>
 
+            <CollectionView Grid.Row="2" x:Name="list" ItemsSource="{Binding OptionList}" EmptyView="无选项" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" HeightRequest="40" BackgroundColor="White" Padding="20,0">
+                            <ff:CachedImage Source="{Binding icon}" HeightRequest="30" WidthRequest="30"/>
+                            <Label Text="{Binding option}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                      Command="{Binding BindingContext.NavigateCommand, Source={x:Reference mePage}}"
+                                                      CommandParameter="{Binding page}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!--
             <Grid Grid.Row="2" Padding="20,10" IsVisible="{Binding DesignerVisible}">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -284,95 +302,8 @@
                     </Frame.GestureRecognizers>
                 </Frame>
             </Grid>
-
-            <!--
-            <Grid Grid.Row="2" HeightRequest="60" RowSpacing="0" Margin="5" IsVisible="{Binding Visible}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <StackLayout Grid.Column="0" Orientation="Vertical" Spacing="0" VerticalOptions="Center">
-                    <Label Text="100" Style="{DynamicResource CommonLabel}" FontSize="20" FontAttributes="Bold"/>
-                    <Label Text="今日收益" Style="{DynamicResource CommonLabel}"/>
-                </StackLayout>
-                <StackLayout Grid.Column="1" Orientation="Vertical" Spacing="0" VerticalOptions="Center">
-                    <Label Text="100" Style="{DynamicResource CommonLabel}" FontSize="20" FontAttributes="Bold"/>
-                    <Label Text="总收益" Style="{DynamicResource CommonLabel}"/>
-                </StackLayout>
-                <StackLayout Grid.Column="2" Orientation="Vertical" Spacing="0" VerticalOptions="Center">
-                    <Label Text="100" Style="{DynamicResource CommonLabel}" FontSize="20" FontAttributes="Bold"/>
-                    <Label Text="可提现" Style="{DynamicResource CommonLabel}"/>
-                </StackLayout>
-                <StackLayout Grid.Column="3" Orientation="Vertical" Spacing="0" VerticalOptions="Center">
-                    <Label Text="100" Style="{DynamicResource CommonLabel}" FontSize="20" FontAttributes="Bold"/>
-                    <Label Text="我的客户" Style="{DynamicResource CommonLabel}"/>
-                </StackLayout>
-            </Grid>
-
-            <Grid Grid.Row="3" HeightRequest="60" RowSpacing="0" Margin="5" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <StackLayout Grid.Column="0" Orientation="Vertical" Spacing="0" VerticalOptions="Center">
-                    <Label Text="{Binding OrderNumber}" Style="{DynamicResource CommonLabel}" FontSize="20" FontAttributes="Bold"/>
-                    <Label Text="我的订单" Style="{DynamicResource CommonLabel}"/>
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NavigateCommand}" 
-                                         CommandParameter="XMart.Views.OrderListPage"/>
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
-                <StackLayout Grid.Column="1" Orientation="Vertical" Spacing="0" VerticalOptions="Center">
-                    <Label Text="{Binding CollectionNumber}" Style="{DynamicResource CommonLabel}" FontSize="20" FontAttributes="Bold"/>
-                    <Label Text="我的收藏" Style="{DynamicResource CommonLabel}"/>
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NavigateCommand}" 
-                                         CommandParameter="XMart.Views.CollectionPage"/>
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
-                <StackLayout Grid.Column="2" Orientation="Vertical" Spacing="0" VerticalOptions="Center">
-                    <Label Text="《···》" Style="{DynamicResource CommonLabel}" FontSize="20" FontAttributes="Bold"/>
-                    <Label Text="修改个人资料" Style="{DynamicResource CommonLabel}"/>
-                </StackLayout>
-            </Grid>
-
-            <Frame Grid.Row="4" Grid.RowSpan="2" Padding="5" CornerRadius="20" Margin="5" BorderColor="LightGray" HasShadow="False">
-                <StackLayout HeightRequest="300">
-                    <TableView Intent="Menu" RowHeight="50">
-                        <TableRoot>
-                            <TableSection>
-                                <ImageCell Text="地址管理" Detail="管理用户的所有地址" ImageSource="location.png" 
-                                           TextColor="Black" DetailColor="LightGray"
-                                           Command="{Binding NavigateCommand}"
-                                           CommandParameter="XMart.Views.AddressManagePage" />
-
-                                <ImageCell Text="赚钱教程" Detail="在美而好家具App赚钱" ImageSource="money.png"
-                                           TextColor="Black" DetailColor="LightGray"
-                                           Command="{Binding NavigateCommand}"
-                                           CommandParameter="XMart.Views.AddressManagePage" />
-
-                                <ImageCell Text="联系客服" Detail="遇到问题？极速解决！" ImageSource="message2.png"
-                                           TextColor="Black" DetailColor="LightGray"
-                                           Command="{Binding NavigateCommand}"
-                                           CommandParameter="XMart.Views.AddressManagePage" />
-
-                                <ImageCell Text="系统设置" Detail="按照个人喜好定制App设置" ImageSource="setting.png"
-                                           TextColor="Black" DetailColor="LightGray"
-                                           Command="{Binding NavigateCommand}"
-                                           CommandParameter="XMart.Views.AddressManagePage" />
-
-                            </TableSection>
-                        </TableRoot>
-                    </TableView>
-                </StackLayout>
-            </Frame>
-            -->
-            
+-->
+           
         </Grid>
 
     </ContentPage.Content>

@@ -5,6 +5,7 @@
              xmlns:controls="clr-namespace:XMart.Controls"
              xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              xmlns:views="clr-namespace:XMart.Views"
+             NavigationPage.HasNavigationBar="False"
              x:Class="XMart.Views.HomePage"
              Icon="Resource/drawable/home.png"
              x:Name="homePage"
