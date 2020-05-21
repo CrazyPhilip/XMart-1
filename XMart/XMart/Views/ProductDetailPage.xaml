@@ -233,6 +233,7 @@
                                     </StackLayout.GestureRecognizers>
                                 </StackLayout>
 
+                                <!--
                                 <StackLayout BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10">
                                     <Label Text="透明工厂" TextColor="{DynamicResource PrimaryTextColor}" FontSize="16" FontAttributes="Bold"/>
                                     <Label Text="工厂编号：605"/>
@@ -242,7 +243,7 @@
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding CameraCommand}"/>
                                     </StackLayout.GestureRecognizers>
-                                </StackLayout>
+                                </StackLayout>-->
 
                                 <StackLayout Orientation="Vertical" BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="Fill"
                                  BindableLayout.ItemsSource="{Binding Product.productImageSmall}">

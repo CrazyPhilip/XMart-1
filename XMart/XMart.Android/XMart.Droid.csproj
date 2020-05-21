@@ -37,6 +37,11 @@
     <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <AndroidSupportedAbis />
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\Philip\AppData\Local\Xamarin\Mono for Android\Keystore\myXMart\myXMart.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>shiyanshi</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>myxmart</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>shiyanshi</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -52,7 +57,12 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidUseAapt2>false</AndroidUseAapt2>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidSigningKeyStore>
+    </AndroidSigningKeyStore>
+    <AndroidSigningStorePass>
+    </AndroidSigningStorePass>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AliPayClassLibrary">
@@ -81,7 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="TextToSpeech_Android.cs" />
-    <Compile Include="WXEntryActivity.cs">
+    <Compile Include="wxapi\WXEntryActivity.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="XamWebViewRenderer.cs" />

@@ -151,6 +151,48 @@ namespace XMart.ViewModels
             {
                 MessagingCenter.Send(new object(), "Register");//首先进行注册，然后订阅注册的结果。
                 MessagingCenter.Send(new object(), "Login");
+
+                MessagingCenter.Subscribe<object, string>(this, "LoginSuccess", async (sender, result) =>
+                {
+                    try
+                    {
+                        JObject jObject = JObject.Parse(result);
+
+                        LoginRD loginRD = await RestSharpService.LoginByOpenId(jObject["openid"].ToString());
+                        if (loginRD.result.message == "未被注册")
+                        {
+                            RegisterByOpenIdPara registerByOpenIdPara = new RegisterByOpenIdPara
+                            {
+                                openId = jObject["openid"].ToString(),
+                                nikename = jObject["nickname"].ToString(),
+                                headimgurl = jObject["headimgurl"].ToString(),
+
+                            };
+                            RegisterPage registerPage = new RegisterPage(registerByOpenIdPara);
+                            await Application.Current.MainPage.Navigation.PushAsync(registerPage);
+                        }
+                        else
+                        {
+                            CrossToastPopUp.Current.ShowToastSuccess("欢迎您登录美而好家具！", ToastLength.Long);
+
+                            GlobalVariables.LoggedUser = loginRD.result;   //将登录用户的信息保存成全局静态变量
+                            GlobalVariables.IsLogged = true;
+
+                            JObject log = new JObject();
+                            log.Add("LoginTime", DateTime.UtcNow);
+                            log.Add("UserInfo", JsonConvert.SerializeObject(loginRD.result));
+                            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+                            File.WriteAllText(fileName, log.ToString());
+
+                            MainPage mainPage = new MainPage();
+                            await Application.Current.MainPage.Navigation.PushAsync(mainPage);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("错误：" + ex);
+                    }
+                });
             }, () => { return true; });
         }
 
@@ -211,6 +253,7 @@ namespace XMart.ViewModels
                     string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
                     File.WriteAllText(fileName, log.ToString());
 
+                    Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[0]);
                     MainPage mainPage = new MainPage();
                     await Application.Current.MainPage.Navigation.PushAsync(mainPage);
                 }

@@ -1,7 +1,10 @@
-﻿using Plugin.Toast;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Plugin.Toast;
 using Plugin.Toast.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -9,6 +12,7 @@ using XMart.Models;
 using XMart.ResponseData;
 using XMart.Services;
 using XMart.Util;
+using XMart.Views;
 
 namespace XMart.ViewModels
 {
@@ -92,17 +96,15 @@ namespace XMart.ViewModels
         public List<string> IdentityList { get; set; }
         //RestSharpService _restSharpService = new RestSharpService();
 
-
         public Command SendAuthCodeCommand { get; private set; }   //发送验证码
         public Command RegisterCommand { get; private set; }   //注册
         public Command<bool> SelectedIdentityCommand { get; private set; }   //选择注册身份
-        public Command BackCommand { get; private set; }   //返回上一页
 
         public RegisterViewModel()
         {
             AuthCodeButtonText = "发送验证码";
             IsEnable = true;
-            ButtonColor = Color.FromHex("FFCC00");
+            ButtonColor = Color.FromHex("01ACF2");
 
             IdentityList = new List<string> { "客户", "设计师" };
             SelectedIdentityIndex = 0;
@@ -136,10 +138,45 @@ namespace XMart.ViewModels
                 }
             }, (bool fuck) => { return true; });
 
-            BackCommand = new Command(() =>
+        }
+
+        public RegisterViewModel(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            AuthCodeButtonText = "发送验证码";
+            IsEnable = true;
+            ButtonColor = Color.FromHex("01ACF2");
+
+            IdentityList = new List<string> { "客户", "设计师" };
+            SelectedIdentityIndex = 0;
+
+            SendAuthCodeCommand = new Command(() =>
             {
-                Application.Current.MainPage.Navigation.PopModalAsync();
+                OnACButtonClicked();
+
+                myTimer = new MyTimer { EndDate = DateTime.Now.Add(new TimeSpan(900000000)) };
+                LoadAsync();
             }, () => { return true; });
+
+            RegisterCommand = new Command(() =>
+            {
+                if (CheckInput())
+                {
+                    OnRegister(registerByOpenIdPara);
+                }
+            }, () => { return true; });
+
+            SelectedIdentityCommand = new Command<bool>((bool isChecked) =>
+            {
+                IsDesignerChecked = isChecked;
+                if (IsDesignerChecked)
+                {
+                    CrossToastPopUp.Current.ShowToastWarning("您将要注册成为设计师！", ToastLength.Long);
+                }
+                else
+                {
+                    CrossToastPopUp.Current.ShowToastWarning("您将要注册成为客户！", ToastLength.Long);
+                }
+            }, (bool fuck) => { return true; });
         }
 
         public void LoadAsync()
@@ -290,6 +327,65 @@ namespace XMart.ViewModels
                 {
                     CrossToastPopUp.Current.ShowToastSuccess("注册成功！请返回登录页面！", ToastLength.Long);
                     //Application.Current.MainPage.Navigation.PopModalAsync();
+                }
+                else
+                {
+                    CrossToastPopUp.Current.ShowToastError("注册失败！请联系管理员！", ToastLength.Long);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        /// <summary>
+        /// openid注册
+        /// </summary>
+        private async void OnRegister(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            try
+            {
+                if (!Tools.IsNetConnective())
+                {
+                    CrossToastPopUp.Current.ShowToastError("无网络连接，请检查网络。", ToastLength.Long);
+                    return;
+                }
+
+                registerByOpenIdPara.authCode = AuthCode;
+                registerByOpenIdPara.tel = Tel;
+                registerByOpenIdPara.userPwd = Pwd;
+                registerByOpenIdPara.invitePhone = InvitePhone;
+                registerByOpenIdPara.userType = SelectedIdentityIndex.ToString();
+
+                SimpleRD simpleRD = await RestSharpService.RegisterByOpenId(registerByOpenIdPara);
+
+                if (simpleRD.code == 200)
+                {
+                    LoginRD loginRD = await RestSharpService.LoginByOpenId(registerByOpenIdPara.openId);
+                    if (loginRD.result.message == null)
+                    {
+                        CrossToastPopUp.Current.ShowToastSuccess("欢迎您登录美而好家具！", ToastLength.Long);
+
+                        GlobalVariables.LoggedUser = loginRD.result;   //将登录用户的信息保存成全局静态变量
+                        GlobalVariables.IsLogged = true;
+
+                        JObject log = new JObject();
+                        log.Add("LoginTime", DateTime.UtcNow);
+                        log.Add("UserInfo", JsonConvert.SerializeObject(loginRD.result));
+                        string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+                        File.WriteAllText(fileName, log.ToString());
+
+                        Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[0]);
+                        MainPage mainPage = new MainPage();
+                        await Application.Current.MainPage.Navigation.PushAsync(mainPage);
+                    }
+                    else
+                    {
+                        CrossToastPopUp.Current.ShowToastError(loginRD.result.message, ToastLength.Long);
+                    }
                 }
                 else
                 {

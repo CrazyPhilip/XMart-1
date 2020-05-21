@@ -12,23 +12,27 @@ using Org.Json;
 using Plugin.Toast;
 using System;
 using Exception = Java.Lang.Exception;
+using XMart.Services;
+using Xamarin.Forms;
 
-namespace XMart.Droid
+namespace XMart.Droid.wxapi
 {
-
-    [Activity(Name = "XMart.Droid.WXEntryActivity", Label = "@string/app_name", Exported = true, LaunchMode = Android.Content.PM.LaunchMode.SingleTask)]
+    [Activity(Name = "com.wyhl.XMart.wxapi.WXEntryActivity", Label = "@string/app_name", Exported = true, 
+        LaunchMode = Android.Content.PM.LaunchMode.SingleTop, TaskAffinity = "XMart")]
     public class WXEntryActivity : Activity, IWXAPIEventHandler
     {
         private readonly string appID = "wxfad74b8fe74b6c22";//申请的appid
-
+        private readonly string appSecret = "bd6a3cf325e5ac237bc8f788b61a7706";//申请的appid
+        private MyHandler handler;
         private string TAG = "MyHandler";
         private IWXAPI api;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            api = WXAPIFactory.CreateWXAPI(this, appID, false);
-            MyHandler handler = new MyHandler(this);
+            api = WXAPIFactory.CreateWXAPI(this, appID, true);
+            handler = new MyHandler(this);
+
             try
             {
                 Intent intent = this.Intent;
@@ -59,7 +63,6 @@ namespace XMart.Droid
             switch (req.Type)
             {
                 case ConstantsAPI.CommandSendauth:
-                    Console.WriteLine("在这里：发起登录请求");
                     break;
                 case ConstantsAPI.CommandGetmessageFromWx:
                     break;
@@ -81,12 +84,18 @@ namespace XMart.Droid
             switch (resp.MyErrCode)
             {
                 case BaseResp.ErrCode.ErrAuthDenied:
+                    CrossToastPopUp.Current.ShowToastError("用户拒绝授权", Plugin.Toast.Abstractions.ToastLength.Short);
+                    Finish();
+                    break;
+
                 case BaseResp.ErrCode.ErrUserCancel:
                     if (RETURN_MSG_TYPE_SHARE == resp.Type)
                         CrossToastPopUp.Current.ShowToastError("分享失败", Plugin.Toast.Abstractions.ToastLength.Short);
                     else
-                        CrossToastPopUp.Current.ShowToastError("登录失败", Plugin.Toast.Abstractions.ToastLength.Short);
+                        CrossToastPopUp.Current.ShowToastError("用户取消", Plugin.Toast.Abstractions.ToastLength.Short);
+                    Finish();
                     break;
+
                 case BaseResp.ErrCode.ErrOk:
                     switch (resp.Type)
                     {
@@ -95,7 +104,8 @@ namespace XMart.Droid
                             string code = ((SendAuth.Resp)resp).Code;
 
                             //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
-                            Console.WriteLine("在这里" + code);
+                            string result = RestSharpService.GetWechatUserInfo(appID, appSecret, code);
+                            RunOnUiThread(() => { MessagingCenter.Send(new object(), "LoginSuccess", result); });
 
                             break;
 
@@ -104,6 +114,11 @@ namespace XMart.Droid
                             Finish();
                             break;
                     }
+                    Finish();
+                    break;
+
+                default:
+                    Finish();
                     break;
             }
         }
@@ -118,20 +133,19 @@ namespace XMart.Droid
                 wxEntryActivityWeakReference = new WeakReference<WXEntryActivity>(wxEntryActivity);
             }
 
-
             public void handleMessage(Message msg)
             {
-                int tag = msg.What;
+                //int tag = msg.What;
                 Bundle data = msg.Data;
-                JSONObject json = null;
                 try
                 {
-                    json = new JSONObject(data.GetString("result"));
+                    JSONObject json = new JSONObject(data.GetString("result"));
                     string openId, accessToken, refreshToken, scope;
                     openId = json.GetString("openid");
                     accessToken = json.GetString("access_token");
                     refreshToken = json.GetString("refresh_token");
                     scope = json.GetString("scope");
+
                     WXEntryActivity wxentry;
                     wxEntryActivityWeakReference.TryGetTarget(out wxentry);
                     Intent intent = new Intent(wxentry, typeof(WXEntryActivity));

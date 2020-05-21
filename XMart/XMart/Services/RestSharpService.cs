@@ -65,6 +65,33 @@ namespace XMart.Services
         }
 
         /// <summary>
+        /// openid注册
+        /// </summary>
+        /// <param name="registerPara"></param>
+        /// <returns></returns>
+        public static async Task<SimpleRD> RegisterByOpenId(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            string url = "/member/registerByOpenId";
+            var json = JsonConvert.SerializeObject(registerByOpenIdPara);
+
+            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+            return simpleRD;
+        }
+
+        /// <summary>
+        /// openid登录
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<LoginRD> LoginByOpenId(string openId)
+        {
+            string url = "/member/loginByOpenId";
+            string json = "{\"openId\":\"" + openId + "\"}";
+
+            LoginRD loginRD = await RestSharpHelper<LoginRD>.PostAsync(url, json);
+            return loginRD;
+        }
+
+        /// <summary>
         /// 忘记密码、重置密码
         /// </summary>
         /// <param name="resetPwdPara"></param>
@@ -484,12 +511,23 @@ namespace XMart.Services
         #endregion
 
         #region 微信
-        public static string GetWechatAccessToken()
+        public static string GetWechatAccessToken(string appId, string secret, string code)
         {
-            string url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+            string url = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", appId, secret, code);
 
             string result = RestSharpHelper<string>.GetWithoutDeserialization(url);
             return result;
+        }
+
+        public static string GetWechatUserInfo(string appId, string secret, string code)
+        {
+            string url1 = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", appId, secret, code);
+            string result1 = RestSharpHelper<string>.GetWithoutDeserialization(url1);
+            JObject jObject = JObject.Parse(result1);
+
+            string url2 = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}", jObject["access_token"], jObject["openid"]);
+            string result2 = RestSharpHelper<string>.GetWithoutDeserialization(url2);
+            return result2;
         }
         #endregion
     }

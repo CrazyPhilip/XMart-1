@@ -19,14 +19,24 @@ namespace XMart.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterPage : ContentPage
     {
-        RegisterViewModel registerViewModel = new RegisterViewModel();
+        RegisterViewModel registerViewModel;
 
         public RegisterPage()
         {
             InitializeComponent();
 
+            registerViewModel = new RegisterViewModel();
+
             BindingContext = registerViewModel;
         }
 
+        public RegisterPage(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            InitializeComponent();
+
+            registerViewModel = new RegisterViewModel(registerByOpenIdPara);
+
+            BindingContext = registerViewModel;
+        }
     }
 }

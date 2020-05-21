@@ -29,15 +29,14 @@ using Newtonsoft.Json.Linq;
 
 namespace XMart.Droid
 {
-    [Activity(Name = "com.wyhl.XMart.MainActivity", MainLauncher = false, Label = "美而好", Icon = "@mipmap/xmart", Theme = "@style/MainTheme",
+    [Activity(MainLauncher = false, Label = "美而好", Icon = "@mipmap/xmart", Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IWXAPIEventHandler
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
 
         //微信相关
         private readonly string appID = "wxfad74b8fe74b6c22";//申请的appid
-        private readonly string appSecret = "bd6a3cf325e5ac237bc8f788b61a7706";//申请的appid
         private IWXAPI wxApi;
 
         //private MyHandler handler;
@@ -112,11 +111,14 @@ namespace XMart.Droid
             MessagingCenter.Subscribe<object>(this, "Login", d =>
             {
                 // send oauth request
-                SendAuth.Req req = new SendAuth.Req();
-                req.Scope = "snsapi_userinfo";
-                req.State = "xmart_wechat_login";
+                SendAuth.Req req = new SendAuth.Req()
+                {
+                    Scope = "snsapi_userinfo",
+                    State = "xmart_wechat_login"
+                };
                 bool result = wxApi.SendReq(req);
 
+                //CrossToastPopUp.Current.ShowToastSuccess(result.ToString(), Plugin.Toast.Abstractions.ToastLength.Long);
             });
             
             //分享小程序给朋友
@@ -293,13 +295,14 @@ namespace XMart.Droid
         #endregion
 
         #region 微信
+        
         private bool RegToWx()
         {
             wxApi = WXAPIFactory.CreateWXAPI(this, appID, true);
-            wxApi.HandleIntent(Intent, this);
+            //wxApi.HandleIntent(Intent, new WXEntryActivity());
             return wxApi.RegisterApp(appID);
         }
-
+/*
         //微信直接发送给app的消息处理回调
         void IWXAPIEventHandler.OnReq(BaseReq p0)
         {
@@ -344,7 +347,7 @@ namespace XMart.Droid
             }
         }
 
-        /*
+        
         class MyHandler : Handler
         {
             private string TAG = "MyHandler";

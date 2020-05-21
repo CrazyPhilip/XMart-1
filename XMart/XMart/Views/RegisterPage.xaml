@@ -5,147 +5,49 @@
              xmlns:behaviors="clr-namespace:XMart.Behaviors"
              xmlns:controls="clr-namespace:XMart.Controls"
              x:Class="XMart.Views.RegisterPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="欢迎注册美而好！">
 
     <ContentPage.Resources>
-        <Style TargetType="Frame">
-            <Setter Property="WidthRequest" Value="250"/>
-            <Setter Property="HeightRequest" Value="40"/>
-            <Setter Property="BorderColor" Value="{StaticResource MainColor}"/>
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-            <Setter Property="CornerRadius" Value="20"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="IsClippedToBounds" Value="True"/>
-        </Style>
-        <Style x:Key="EntryStyle" TargetType="controls:MyEntry">
-            <Setter Property="WidthRequest" Value="250"/>
-            <Setter Property="PlaceholderColor" Value="LightGray"/>
-            <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
-            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="MaxLength" Value="16"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="WidthRequest" Value="250"/>
-            <Setter Property="HeightRequest" Value="40"/>
-            <Setter Property="CornerRadius" Value="20"/>
-            <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="BackgroundColor" Value="{StaticResource MainColor}"/>
-        </Style>
-        <Style x:Name="LabelStyle" TargetType="Label">
-            <Setter Property="HeightRequest" Value="50"/>
-            <Setter Property="FontSize" Value="22"/>
+        <Style x:Key="TitleLabelStyle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
-            <Setter Property="VerticalOptions" Value="Start"/>
-            <Setter Property="VerticalTextAlignment" Value="Center"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{DynamicResource SkyBlue}"/>
+        </Style>
+        <Style x:Key="EntryStyle" TargetType="Entry">
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
         </Style>
     </ContentPage.Resources>
-    
-    <ContentPage.Content>
-        <Grid x:Name="MainGrid">
 
-            <StackLayout VerticalOptions="FillAndExpand">
-                <!--<ff:CachedImage Source="login_bg.png" VerticalOptions="Start" Aspect="AspectFill"/>-->
-                <ff:CachedImage Source="xmart_logo2.png" VerticalOptions="EndAndExpand"/>
-                <Label Text="注册" FontSize="32" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-                <Label Text="欢迎注册万联家具批发平台！" FontSize="22" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-                
-                <Grid VerticalOptions="CenterAndExpand">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!--
-                    <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="10" HorizontalOptions="CenterAndExpand">
-                        <Label Text="客户" Style="{DynamicResource LabelStyle}" WidthRequest="150">
-                            <Label.Behaviors>
-                                <behaviors:RadioBehavior x:Name="CustomerRadio" GroupName="IdentityRadio"/>
-                            </Label.Behaviors>
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference CustomerRadio}, Path=IsChecked}" Value="True">
-                                    <Setter Property="TextColor" Value="Green" />
-                                    <Setter Property="FontSize" Value="{Binding Source={StaticResource Size},Path=px[28]}" />
-                                    <Setter Property="FontAttributes" Value="Bold" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-
-                        <Label Text="设计师" Style="{DynamicResource LabelStyle}" WidthRequest="150">
-                            <Label.Behaviors>
-                                <behaviors:RadioBehavior x:Name="DesignerRadio" GroupName="IdentityRadio"/>
-                                <behaviors:EventToCommandBehavior EventName="PropertyChanged" Command="{Binding SelectedIdentityCommand}" CommandParameter="{Binding Source={x:Reference DesignerRadio}, Path=IsChecked}"/>
-                            </Label.Behaviors>
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference DesignerRadio}, Path=IsChecked}" Value="True">
-                                    <Setter Property="TextColor" Value="Green" />
-                                    <Setter Property="FontSize" Value="{Binding Source={StaticResource Size},Path=px[28]}" />
-                                    <Setter Property="FontAttributes" Value="Bold"/>
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                    </StackLayout>-->
-
-                    <Picker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="50" WidthRequest="200" HorizontalOptions="CenterAndExpand" 
+    <StackLayout Margin="20,0">
+        <Label Text="身份类型" Style="{DynamicResource TitleLabelStyle}"/>
+        <Picker HeightRequest="50" Title="身份类型" HorizontalOptions="FillAndExpand" 
                             ItemsSource="{Binding IdentityList}" SelectedIndex="{Binding SelectedIdentityIndex}"
                             FontSize="22"/>
 
-                    <Frame Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-                        <controls:MyEntry Placeholder="手机号" Text="{Binding Tel}" Keyboard="Telephone" Style="{DynamicResource EntryStyle}"/>
-                    </Frame>
+        <Label Text="手机号" Style="{DynamicResource TitleLabelStyle}"/>
+        <Entry Placeholder="手机号" Text="{Binding Tel}" Keyboard="Telephone" Style="{DynamicResource EntryStyle}"/>
 
-                    <!--
-                    <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
-                        <controls:MyEntry Placeholder="用户名"  Text="{Binding UserName}" Style="{DynamicResource EntryStyle}"/>
-                    </Frame>-->
+        <Label Text="密码" Style="{DynamicResource TitleLabelStyle}"/>
+        <Entry Placeholder="6-12位" Text="{Binding Pwd}" IsPassword="True" MaxLength="12" Style="{DynamicResource EntryStyle}"/>
 
-                    <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
-                        <controls:MyEntry Placeholder="密码(6-12位)" Text="{Binding Pwd}" IsPassword="True" MaxLength="12" Style="{DynamicResource EntryStyle}"/>
-                    </Frame>
+        <Label Text="邀请人手机号" Style="{DynamicResource TitleLabelStyle}"/>
+        <Entry Placeholder="邀请人手机号" Text="{Binding InvitePhone}" Keyboard="Telephone" Style="{DynamicResource EntryStyle}"/>
 
-                    <!--
-                    <Frame Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
-                        <controls:MyEntry Placeholder="确认密码" Text="{Binding SecondPwd}" IsPassword="True" MaxLength="16" Style="{DynamicResource EntryStyle}"/>
-                    </Frame>-->
+        <Label Text="验证码" Style="{DynamicResource TitleLabelStyle}"/>
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Entry Placeholder="验证码"  Text="{Binding AuthCode}" Keyboard="Numeric" MaxLength="6" Style="{DynamicResource EntryStyle}" HorizontalOptions="FillAndExpand"/>
+            <Button x:Name="ACButton" Text="{Binding AuthCodeButtonText}" IsEnabled="{Binding IsEnable}" 
+                    BackgroundColor="{Binding ButtonColor}" Command="{Binding SendAuthCodeCommand}"/>
+        </StackLayout>
 
-                    <Frame  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
-                        <controls:MyEntry Placeholder="邀请码" Text="{Binding InvitePhone}" Keyboard="Telephone" Style="{DynamicResource EntryStyle}"/>
-                    </Frame>
+        <Button x:Name="RegisterButton" Text="确定注册" VerticalOptions="StartAndExpand" TextColor="White" 
+                BackgroundColor="{DynamicResource SkyBlue}" Command="{Binding RegisterCommand}"/>
+    </StackLayout>
 
-                    <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="10" HorizontalOptions="CenterAndExpand">
-                        <Frame WidthRequest="140">
-                            <controls:MyEntry Placeholder="验证码"  Text="{Binding AuthCode}" Keyboard="Numeric" MaxLength="6" Style="{DynamicResource EntryStyle}"/>
-                        </Frame>
-                        <Button x:Name="ACButton" Text="{Binding AuthCodeButtonText}" IsEnabled="{Binding IsEnable}" 
-                                BackgroundColor="{Binding ButtonColor}" WidthRequest="100" FontSize="18" Command="{Binding SendAuthCodeCommand}"/>
-                    </StackLayout>
-                    
-                </Grid>
-
-                <Button x:Name="RegisterButton" Text="确定注册" VerticalOptions="StartAndExpand" TextColor="White" Padding="0" Command="{Binding RegisterCommand}"/>
-            </StackLayout>
-
-            <ImageButton x:Name="BackButton" Source="back.png" BackgroundColor="White"
-                     HeightRequest="30" WidthRequest="30" CornerRadius="15" VerticalOptions="StartAndExpand"
-                     HorizontalOptions="StartAndExpand" Margin="20,40" Command="{Binding BackCommand}"/>
-
-        </Grid>
-    </ContentPage.Content>
 </ContentPage>

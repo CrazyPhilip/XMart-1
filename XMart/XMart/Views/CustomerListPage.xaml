@@ -98,7 +98,7 @@
                             </SwipeItemView>
                         </SwipeView.RightItems>
 
-                        <Grid Margin="0,5">
+                        <Grid BackgroundColor="White">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition/>
