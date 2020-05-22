@@ -61,7 +61,6 @@ namespace XMart.ViewModels
 
         public Command LoginCommand { get; set; }
         public Command CheckInputCommand { get; set; }
-        public Command BackCommand { get; set; }
 
         public AuthCodeViewModel(string tel)
         {
@@ -88,10 +87,75 @@ namespace XMart.ViewModels
                 }
             }, () => { return true; });
 
-            BackCommand = new Command(() =>
+        }
+
+        public AuthCodeViewModel(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            Tel = registerByOpenIdPara.tel;
+            AuthCode = string.Empty;
+            SecretTel = Tel.Substring(0, 3) + "****" + Tel.Substring(7, 4);
+            AuthCodeButtonEnable = false;
+            AuthLoginButtonColor = "#83d7f9";
+
+            SendAuthCode();
+
+            LoginCommand = new Command(() =>
             {
-                Application.Current.MainPage.Navigation.PopModalAsync();
+                RebindingWechat(registerByOpenIdPara);
             }, () => { return true; });
+
+            CheckInputCommand = new Command(() =>
+            {
+                if (AuthCode.Length == 6)
+                {
+                    AuthCodeButtonEnable = true;
+                    AuthLoginButtonColor = "#01acf2";
+                }
+            }, () => { return true; });
+
+        }
+
+        /// <summary>
+        /// 绑定微信
+        /// </summary>
+        /// <param name="registerByOpenIdPara"></param>
+        private async void RebindingWechat(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            try
+            {
+                registerByOpenIdPara.authCode = AuthCode;
+                SimpleRD simpleRD = await RestSharpService.UpdateWechat(registerByOpenIdPara);
+
+                if (simpleRD.success)
+                {
+                    CrossToastPopUp.Current.ShowToastSuccess("绑定成功！", ToastLength.Long);
+
+                    LoginRD loginRD = await RestSharpService.LoginByOpenId(registerByOpenIdPara.openId);
+                    CrossToastPopUp.Current.ShowToastSuccess("欢迎您登录美而好家具！", ToastLength.Long);
+
+                    GlobalVariables.LoggedUser = loginRD.result;   //将登录用户的信息保存成全局静态变量
+                    GlobalVariables.IsLogged = true;
+
+                    JObject log = new JObject();
+                    log.Add("LoginTime", DateTime.UtcNow);
+                    log.Add("UserInfo", JsonConvert.SerializeObject(loginRD.result));
+                    string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+                    File.WriteAllText(fileName, log.ToString());
+
+                    MainPage mainPage = new MainPage();
+                    await Application.Current.MainPage.Navigation.PushAsync(mainPage);
+                    Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[0]);
+                }
+                else
+                {
+                    CrossToastPopUp.Current.ShowToastError("绑定失败，请稍后再试！", ToastLength.Long);
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -198,6 +262,8 @@ namespace XMart.ViewModels
             }
         }
 
+        #region 计时器
+
         public void LoadAsync()
         {
             //IsEnable = false;
@@ -227,5 +293,6 @@ namespace XMart.ViewModels
             UnloadAsync();
         }
 
+        #endregion
     }
 }

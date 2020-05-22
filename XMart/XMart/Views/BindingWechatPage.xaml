@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             x:Class="XMart.Views.BindingWechatPage"
+             Title="微信绑定">
+    <ContentPage.Content>
+        <StackLayout>
+            <ff:CachedImage Source="binding.png" Aspect="AspectFit" HeightRequest="100"/>
+            <ff:CachedImage Source="{Binding Avatar}" HeightRequest="60" WidthRequest="60"/>
+            <Label Text="{Binding NickName}" FontSize="18" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Button Text="登录" Command="{Binding LoginCommand}" HeightRequest="50" CornerRadius="25"
+                    BackgroundColor="{DynamicResource SkyBlue}" TextColor="White" Margin="10,0" VerticalOptions="StartAndExpand"/>
+
+            <Label Text="绑定微信后，美而好将获得您的公开信息，为您提供更好的服务！" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Button Text="手机号已注册，绑定微信" Command="{Binding BindingWechatCommand}" HeightRequest="50" CornerRadius="25"
+                    BackgroundColor="{DynamicResource LightBlue}" TextColor="White" Margin="10,0"/>
+            <Button Text="手机号未注册，新注册" Command="{Binding ToRegisterCommand}" HeightRequest="50" CornerRadius="25"
+                    BackgroundColor="{DynamicResource LightBlue}" TextColor="White" Margin="10,0,10,10"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

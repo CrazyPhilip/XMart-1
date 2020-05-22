@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XMart.Models;
 using XMart.ViewModels;
 
 namespace XMart.Views
@@ -18,6 +19,13 @@ namespace XMart.Views
             InitializeComponent();
 
             BindingContext = new AuthCodeViewModel(tel);
+        }
+
+        public AuthCodePage(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            InitializeComponent();
+
+            BindingContext = new AuthCodeViewModel(registerByOpenIdPara);
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Plugin.Media;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using XMart.Views;
 
 namespace XMart.ViewModels
 {
@@ -82,6 +83,20 @@ namespace XMart.ViewModels
             set { SetProperty(ref remainingTime, value); }
         }
 
+        private string weChatText;   //Comment
+        public string WeChatText
+        {
+            get { return weChatText; }
+            set { SetProperty(ref weChatText, value); }
+        }
+
+        private string bindingText;   //Comment
+        public string BindingText
+        {
+            get { return bindingText; }
+            set { SetProperty(ref bindingText, value); }
+        }
+
         private Stream imageStream { get; set; }
         private MyTimer myTimer { get; set; }
         private string base64 { get; set; }
@@ -90,15 +105,13 @@ namespace XMart.ViewModels
         public Command PickPhotoCommand { get; set; }
         public Command SaveCommand { get; set; }
 
-        //RestSharpService _restSharpService = new RestSharpService();
-
         public EditUserInfoViewModel()
         {
             //User = GlobalVariables.LoggedUser;
             //Avatar = GlobalVariables.LoggedUser.pricture;
             GenderList = new List<string> { "男", "女", "保密" };
             base64 = "data:image/jpeg;base64,";
-
+            
             InitUserInfo();
 
             BackCommand = new Command(() =>
@@ -290,6 +303,8 @@ namespace XMart.ViewModels
                         break;
                 }
 
+                WeChatText = string.IsNullOrWhiteSpace(User.openId) ? "未绑定" : "已绑定";
+                
             }
             catch (Exception)
             {

@@ -84,10 +84,9 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<LoginRD> LoginByOpenId(string openId)
         {
-            string url = "/member/loginByOpenId";
-            string json = "{\"openId\":\"" + openId + "\"}";
+            string url = "/member/loginByOpenId?openId=" + openId;
 
-            LoginRD loginRD = await RestSharpHelper<LoginRD>.PostAsync(url, json);
+            LoginRD loginRD = await RestSharpHelper<LoginRD>.GetAsync(url);
             return loginRD;
         }
 
@@ -160,6 +159,21 @@ namespace XMart.Services
             SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
             return simpleRD;
         }
+
+        /// <summary>
+        /// 修改用户绑定微信号
+        /// </summary>
+        /// <param name="updateUserPara"></param>
+        /// <returns></returns>
+        public static async Task<SimpleRD> UpdateWechat(RegisterByOpenIdPara registerByOpenIdPara)
+        {
+            string url = "/member/updateOpenId";
+            var json = JsonConvert.SerializeObject(registerByOpenIdPara);
+
+            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+            return simpleRD;
+        }
+
 
         /// <summary>
         /// 获取用户信息

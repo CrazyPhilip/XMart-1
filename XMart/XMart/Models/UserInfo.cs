@@ -92,6 +92,8 @@ namespace XMart.Models
         [JsonProperty("withDraw", NullValueHandling = NullValueHandling.Ignore)]
         public long withDraw { get; set; }   //Comment
 
+        [JsonProperty("openId", NullValueHandling = NullValueHandling.Ignore)]
+        public string openId { get; set; }   //Comment
 
     }
 }

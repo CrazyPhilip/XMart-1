@@ -72,5 +72,10 @@ namespace XMart.Models
 
         [JsonProperty("password", NullValueHandling = NullValueHandling.Ignore)]
         public string password { get; set; }   //Comment
+
+        [JsonProperty("openId", NullValueHandling = NullValueHandling.Ignore)]
+        public string openId { get; set; }   //Comment
+
+
     }
 }

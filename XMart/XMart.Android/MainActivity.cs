@@ -104,8 +104,7 @@ namespace XMart.Droid
             //注册
             MessagingCenter.Subscribe<object>(this, "Register", d =>
             {
-                var result = RegToWx();
-                // MessagingCenter.Send(new object(), "Registered", result);//广播注册的结果  
+                var result = RegToWx(); 
             });
 
             MessagingCenter.Subscribe<object>(this, "Login", d =>
@@ -117,8 +116,6 @@ namespace XMart.Droid
                     State = "xmart_wechat_login"
                 };
                 bool result = wxApi.SendReq(req);
-
-                //CrossToastPopUp.Current.ShowToastSuccess(result.ToString(), Plugin.Toast.Abstractions.ToastLength.Long);
             });
             
             //分享小程序给朋友
@@ -222,31 +219,7 @@ namespace XMart.Droid
                 var result = payTask.PayV2(sign.ToString(), true);
                 string Status = result["resultStatus"];
 
-                //Looper.Prepare();
-                //switch (status)
-                //{
-                //    case "9000": Android.Widget.Toast.MakeText(this, "订单支付成功！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "8000": Android.Widget.Toast.MakeText(this, "正在处理中！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "4000": Android.Widget.Toast.MakeText(this, "订单支付失败！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "6001": Android.Widget.Toast.MakeText(this, "用户中途取消！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "6002": Android.Widget.Toast.MakeText(this, "网络连接出错！", Android.Widget.ToastLength.Long).Show(); break;
-                //    default: break;
-                //}
-                //switch (result["resultStatus"])
-                //{
-                //    case "9000": CrossToastPopUp.Current.ShowToastSuccess("订单支付成功！", ToastLength.Long); break;
-                //    case "8000": CrossToastPopUp.Current.ShowToastWarning("正在处理中！", ToastLength.Long); break;
-                //    case "4000": CrossToastPopUp.Current.ShowToastError("订单支付失败！", ToastLength.Long); break;
-                //    case "6001": CrossToastPopUp.Current.ShowToastWarning("用户中途取消！", ToastLength.Long); break;
-                //    case "6002": CrossToastPopUp.Current.ShowToastError("网络连接出错！", ToastLength.Long); break;
-                //    default: break;
-                //}
-                //Looper.Loop();
-
                 RunOnUiThread(() => { MessagingCenter.Send(new object(), "PaySuccess", Status); });
-
-                //return result["resultStatus"];
-                //Thread.CurrentThread.Abort();
             }
             catch (Exception ex)
             {
@@ -254,44 +227,6 @@ namespace XMart.Droid
             }
         }
 
-        private string Pay(string sign)
-        {
-            try
-            {
-                PayTask payTask = new PayTask(this);
-                var result = payTask.PayV2(sign, true);
-                //Status = result["resultStatus"];
-
-
-                //Looper.Prepare();
-                //switch (status)
-                //{
-                //    case "9000": Android.Widget.Toast.MakeText(this, "订单支付成功！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "8000": Android.Widget.Toast.MakeText(this, "正在处理中！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "4000": Android.Widget.Toast.MakeText(this, "订单支付失败！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "6001": Android.Widget.Toast.MakeText(this, "用户中途取消！", Android.Widget.ToastLength.Long).Show(); break;
-                //    case "6002": Android.Widget.Toast.MakeText(this, "网络连接出错！", Android.Widget.ToastLength.Long).Show(); break;
-                //    default: break;
-                //}
-                //switch (result["resultStatus"])
-                //{
-                //    case "9000": CrossToastPopUp.Current.ShowToastSuccess("订单支付成功！", ToastLength.Long); break;
-                //    case "8000": CrossToastPopUp.Current.ShowToastWarning("正在处理中！", ToastLength.Long); break;
-                //    case "4000": CrossToastPopUp.Current.ShowToastError("订单支付失败！", ToastLength.Long); break;
-                //    case "6001": CrossToastPopUp.Current.ShowToastWarning("用户中途取消！", ToastLength.Long); break;
-                //    case "6002": CrossToastPopUp.Current.ShowToastError("网络连接出错！", ToastLength.Long); break;
-                //    default: break;
-                //}
-                //Looper.Loop();
-
-                return result["resultStatus"];
-                //Thread.CurrentThread.Abort();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
         #endregion
 
         #region 微信
@@ -299,97 +234,9 @@ namespace XMart.Droid
         private bool RegToWx()
         {
             wxApi = WXAPIFactory.CreateWXAPI(this, appID, true);
-            //wxApi.HandleIntent(Intent, new WXEntryActivity());
             return wxApi.RegisterApp(appID);
         }
-/*
-        //微信直接发送给app的消息处理回调
-        void IWXAPIEventHandler.OnReq(BaseReq p0)
-        {
-            throw new NotImplementedException();
-        }
 
-        //app发送消息给微信，处理返回消息的回调
-        void IWXAPIEventHandler.OnResp(BaseResp resp)
-        {
-            const int RETURN_MSG_TYPE_LOGIN = 1;
-            const int RETURN_MSG_TYPE_SHARE = 2;
-
-            CrossToastPopUp.Current.ShowToastSuccess("微信回调成功1", Plugin.Toast.Abstractions.ToastLength.Short);
-
-            switch (resp.MyErrCode)
-            {
-                case BaseResp.ErrCode.ErrAuthDenied:
-                case BaseResp.ErrCode.ErrUserCancel:
-                    if (RETURN_MSG_TYPE_SHARE == resp.Type)
-                        CrossToastPopUp.Current.ShowToastError("分享失败", Plugin.Toast.Abstractions.ToastLength.Short);
-                    else
-                        CrossToastPopUp.Current.ShowToastError("登录失败", Plugin.Toast.Abstractions.ToastLength.Short);
-                    break;
-                case BaseResp.ErrCode.ErrOk:
-                    switch (resp.Type)
-                    {
-                        case RETURN_MSG_TYPE_LOGIN:
-                            //拿到了微信返回的code,立马再去请求access_token
-                            string code = ((SendAuth.Resp)resp).Code;
-
-                            //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
-                            Console.WriteLine("在这里" + code);
-
-                            break;
-
-                        case RETURN_MSG_TYPE_SHARE:
-                            CrossToastPopUp.Current.ShowToastSuccess("登录成功", Plugin.Toast.Abstractions.ToastLength.Short);
-                            Finish();
-                            break;
-                    }
-                    break;
-            }
-        }
-
-        
-        class MyHandler : Handler
-        {
-            private string TAG = "MyHandler";
-            private WeakReference<MainActivity> wxEntryActivityWeakReference;
-
-            public MyHandler(MainActivity wxEntryActivity)
-            {
-                wxEntryActivityWeakReference = new WeakReference<MainActivity>(wxEntryActivity);
-            }
-
-
-            public void handleMessage(Message msg)
-            {
-                int tag = msg.What;
-                switch (tag)
-                {
-                    case NetworkUtil.GET_TOKEN:
-                        Bundle data = msg.Data;
-                        JObject json = null;
-                        try
-                        {
-                            json = new JObject(data.GetString("result"));
-                            string openId, accessToken, refreshToken, scope;
-                            openId = json["openid"].ToString();
-                            accessToken = json["access_token"].ToString();
-                            refreshToken = json["refresh_token"].ToString();
-                            scope = json["scope"].ToString();
-                            WXEntryActivity wxentry;
-                            wxEntryActivityWeakReference.TryGetTarget(out wxentry);
-                            Intent intent = new Intent(wxentry, typeof(LoginActivity));
-                            intent.PutExtra("openId", openId);
-                            intent.PutExtra("accessToken", accessToken);
-                            intent.PutExtra("refreshToken", refreshToken);
-                            intent.PutExtra("scope", scope);
-                            wxentry.StartActivity(intent);
-                        }
-                        catch (JSONException ex)
-                        {
-                            Log.Error(TAG, ex.Message);
-                        }
-                        break;
-                }*/
         #endregion
     }
 }

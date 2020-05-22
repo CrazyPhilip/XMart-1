@@ -35,8 +35,8 @@
 
     <ContentPage.Content>
         <ScrollView>
-                <StackLayout Margin="20,0" Spacing="0">
-                    <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
+            <StackLayout Margin="20,0" Spacing="0">
+                <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
                     <TableRoot>
                         <TableSection>
                             <EntryCell Placeholder="用户名" Label="用户名" Text="{Binding User.username}"/>
@@ -60,32 +60,37 @@
                         </Frame.GestureRecognizers>
                     </Frame>-->
 
-                    <Label Text="用户名" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="用户名" Text="{Binding User.username}" Style="{DynamicResource EntryStyle}"/>
+                <Label Text="微信号" Style="{DynamicResource TitleLabelStyle}"/>
+                <Label Text="{Binding WeChatText}"/>
+                <Label Text="若要重新绑定微信号，请退出登录后，通过微信登录时绑定！"/>
+                <!--<Button Text="{Binding BindingText}" Command="{Binding BindingCommand}"/>-->
 
-                    <Label Text="真实姓名" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="真实姓名" Text="{Binding User.personName}" Style="{DynamicResource EntryStyle}"/>
+                <Label Text="用户名" Style="{DynamicResource TitleLabelStyle}"/>
+                <Entry Placeholder="用户名" Text="{Binding User.username}" Style="{DynamicResource EntryStyle}"/>
 
-                    <Label Text="密码" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="密码（必填，不可修改）" Text="{Binding Password}" Style="{DynamicResource EntryStyle}"/>
+                <Label Text="真实姓名" Style="{DynamicResource TitleLabelStyle}"/>
+                <Entry Placeholder="真实姓名" Text="{Binding User.personName}" Style="{DynamicResource EntryStyle}"/>
 
-                    <Label Text="性别" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender,Mode=TwoWay}" FontSize="20"/>
+                <Label Text="密码" Style="{DynamicResource TitleLabelStyle}"/>
+                <Entry Placeholder="密码（必填，不可修改）" Text="{Binding Password}" Style="{DynamicResource EntryStyle}"/>
 
-                    <Label Text="公司" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="公司" Text="{Binding User.buyCompanyName}" Style="{DynamicResource EntryStyle}"/>
+                <Label Text="性别" Style="{DynamicResource TitleLabelStyle}"/>
+                <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender,Mode=TwoWay}" FontSize="20"/>
 
-                    <Label Text="住址" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="住址" Text="{Binding User.address}" Style="{DynamicResource EntryStyle}"/>
+                <Label Text="公司" Style="{DynamicResource TitleLabelStyle}"/>
+                <Entry Placeholder="公司" Text="{Binding User.buyCompanyName}" Style="{DynamicResource EntryStyle}"/>
 
-                    <Label Text="电子邮件" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="电子邮件" Text="{Binding User.email}" Style="{DynamicResource EntryStyle}"/>
+                <Label Text="住址" Style="{DynamicResource TitleLabelStyle}"/>
+                <Entry Placeholder="住址" Text="{Binding User.address}" Style="{DynamicResource EntryStyle}"/>
 
-                    <Label Text="个人简介" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="个人简介" HeightRequest="200" VerticalTextAlignment="Start" Text="{Binding User.description}" Style="{DynamicResource EntryStyle}"/>
+                <Label Text="电子邮件" Style="{DynamicResource TitleLabelStyle}"/>
+                <Entry Placeholder="电子邮件" Text="{Binding User.email}" Style="{DynamicResource EntryStyle}"/>
 
-                </StackLayout>
-            </ScrollView>
-            
+                <Label Text="个人简介" Style="{DynamicResource TitleLabelStyle}"/>
+                <Entry Placeholder="个人简介" HeightRequest="200" VerticalTextAlignment="Start" Text="{Binding User.description}" Style="{DynamicResource EntryStyle}"/>
+
+            </StackLayout>
+        </ScrollView>
+
     </ContentPage.Content>
 </ContentPage>
