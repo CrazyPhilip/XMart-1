@@ -26,7 +26,7 @@
             </Grid.ColumnDefinitions>
 
             <ff:CachedImage Grid.Row="0" Grid.Column="0" Source="wxpay.png" HeightRequest="40" WidthRequest="40"/>
-            <Label Grid.Row="0" Grid.Column="1" Text="微信支付" VerticalOptions="Center" HorizontalOptions="Start" FontSize="18">
+            <Label Grid.Row="0" Grid.Column="1" Text="微信支付（暂时不可使用）" VerticalOptions="Center" HorizontalOptions="Start" FontSize="18">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding PayCommand}" CommandParameter="0"/>
                 </Label.GestureRecognizers>

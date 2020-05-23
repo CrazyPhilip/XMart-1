@@ -9,6 +9,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XMart.ViewModels;
 using XMart.Models;
+using Rg.Plugins.Popup.Services;
+using Rg.Plugins.Popup.Extensions;
 
 namespace XMart.Views
 {
@@ -21,5 +23,6 @@ namespace XMart.Views
 
             BindingContext = new ShareViewModel(product);
         }
+
     }
 }

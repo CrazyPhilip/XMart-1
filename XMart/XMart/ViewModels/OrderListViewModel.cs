@@ -70,7 +70,6 @@ namespace XMart.ViewModels
 
 		public Command<long> OneTappedCommand { get; set; }
 		public Command RefreshCommand { get; set; }
-		public Command BackCommand { get; set; }
 		public Command LoadMoreCommand { get; set; }
 
 		public OrderListViewModel()
@@ -101,17 +100,6 @@ namespace XMart.ViewModels
 				InitOrderList();
 			}, () => { return true; });
 
-			BackCommand = new Command(() =>
-			{
-				Application.Current.MainPage.Navigation.PopModalAsync();
-				//Application.Current.MainPage.Navigation.RemovePage();
-			}, () => { return true; });
-
-			/*
-			if (GlobalVariables.IsLogged)
-			{
-				InitOrderList();
-			}*/
 		}
 
 		public async void InitOrderList()

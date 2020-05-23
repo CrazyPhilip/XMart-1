@@ -33,7 +33,6 @@ namespace XMart.ViewModels
 
         private string base64 { get; set; }
 
-        public Command BackCommand { get; set; }
         public Command PickPhotoCommand { get; set; }
         public Command SaveCommand { get; set; }
 
@@ -43,11 +42,6 @@ namespace XMart.ViewModels
             NewAvatar = "Resource/drawable/plus.png";
 
             base64 = "data:image/jpeg;base64,";
-
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
-            }, () => { return true; });
 
             PickPhotoCommand = new Command(async () =>
             {
@@ -123,7 +117,7 @@ namespace XMart.ViewModels
                     }
 
                     CrossToastPopUp.Current.ShowToastSuccess("修改成功！", ToastLength.Short);
-                    await Application.Current.MainPage.Navigation.PopModalAsync();
+                    await Application.Current.MainPage.Navigation.PopAsync();
                 }
                 else
                 {

@@ -26,6 +26,7 @@ using Android.Graphics.Drawables;
 using Com.Tencent.MM.Opensdk.Modelbase;
 using Xam.Plugin.WebView.Droid;
 using Newtonsoft.Json.Linq;
+using Rg.Plugins.Popup.Services;
 
 namespace XMart.Droid
 {
@@ -226,18 +227,28 @@ namespace XMart.Droid
                 throw ex;
             }
         }
-
         #endregion
 
         #region 微信
-        
         private bool RegToWx()
         {
             wxApi = WXAPIFactory.CreateWXAPI(this, appID, true);
             return wxApi.RegisterApp(appID);
         }
-
         #endregion
+
+        public override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                // Do something if there are some pages in the `PopupStack`
+                PopupNavigation.Instance.PopAllAsync();
+            }
+            else
+            {
+                // Do something if there are not any pages in the `PopupStack`
+            }
+        }
     }
 }
 

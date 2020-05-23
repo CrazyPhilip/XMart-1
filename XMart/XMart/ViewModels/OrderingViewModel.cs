@@ -80,7 +80,6 @@ namespace XMart.ViewModels
         private long AddressId { get; set; }
         public Command OrderCommand { get; set; }
         public Command AddressManageCommand { get; set; }
-        public Command BackCommand { get; set; }
         public Command<long> OneTappedCommand { get; set; }
 
         public OrderingViewModel(List<CartItemInfo> _productList)
@@ -123,11 +122,6 @@ namespace XMart.ViewModels
                 ProductDetailPage productDetailPage = new ProductDetailPage(id.ToString());
                 Application.Current.MainPage.Navigation.PushAsync(productDetailPage);
             }, (id) => { return true; });
-
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
-            }, () => { return true; });
 
         }
 

@@ -77,7 +77,6 @@ namespace XMart.ViewModels
 
         public Command CancelCommand { get; set; }
         public Command HomeCommand { get; set; }
-        public Command BackCommand { get; set; }
         public Command PayCommand { get; set; }
         public Command DeleteOrderCommand { get; set; }
         public Command DeleteCommand { get; set; }
@@ -103,11 +102,6 @@ namespace XMart.ViewModels
             HomeCommand = new Command(() =>
             {
                 //Application.Current.MainPage.Navigation.PopToRootAsync();
-            }, () => { return true; });
-
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
             }, () => { return true; });
 
             PayCommand = new Command(() =>
@@ -147,6 +141,8 @@ namespace XMart.ViewModels
                     default: break;
                 }
 
+                PopupNavigation.Instance.PopAllAsync();
+
                 InitOrderDetailPage(orderId);
             });
         }
@@ -160,7 +156,7 @@ namespace XMart.ViewModels
                 if (stupidRD.success)
                 {
                     CrossToastPopUp.Current.ShowToastSuccess("删除成功！", ToastLength.Long);
-                    await Application.Current.MainPage.Navigation.PopModalAsync();
+                    await Application.Current.MainPage.Navigation.PopAsync();
                 }
                 else
                 {

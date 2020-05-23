@@ -39,7 +39,6 @@ namespace XMart.ViewModels
         public Command<AddressInfo> EditCommand { get; set; }
         public Command<AddressInfo> DeleteCommand { get; set; }
         public Command<AddressInfo> SetDefaultCommand { get; set; }
-        public Command BackCommand { get; set; }
         public Command AddAddressCommand { get; set; }
         public Command RefreshCommand { get; set; }
 
@@ -123,11 +122,6 @@ namespace XMart.ViewModels
                 EditAddressPage editAddressPage = new EditAddressPage();
 
                 Application.Current.MainPage.Navigation.PushAsync(editAddressPage);
-            }, () => { return true; });
-
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
             }, () => { return true; });
 
             RefreshCommand = new Command(() =>

@@ -116,13 +116,10 @@ namespace XMart.ViewModels
 		public Command AddOrUpdateAddressCommand { get; set; }
 		public Command DeleteAddressCommand { get; set; }
 		public Command DeleteCommand { get; set; }
-		public Command BackCommand { get; set; }
 		public Command SelectProvinceCommand { get; set; }
 		public Command SelectCityCommand { get; set; }
 		public Command SelectCountyCommand { get; set; }
 		public Command SelectTownCommand { get; set; }
-
-		//RestSharpService _restSharpService = new RestSharpService();
 
 		public EditAddressViewModel()
 		{
@@ -163,11 +160,6 @@ namespace XMart.ViewModels
 			DeleteCommand = new Command(() =>
 			{
 				Visible = !Visible;
-			}, () => { return true; });
-
-			BackCommand = new Command(() =>
-			{
-				Application.Current.MainPage.Navigation.PopModalAsync();
 			}, () => { return true; });
 
 			SelectProvinceCommand = new Command(() =>
@@ -257,11 +249,6 @@ namespace XMart.ViewModels
 				Visible = !Visible;
 			}, () => { return true; });
 
-			BackCommand = new Command(() =>
-			{
-				Application.Current.MainPage.Navigation.PopModalAsync();
-			}, () => { return true; });
-
 			SelectProvinceCommand = new Command(() =>
 			{
 				CityList.Clear();
@@ -316,7 +303,7 @@ namespace XMart.ViewModels
 				if (simpleRD.success)
 				{
 					CrossToastPopUp.Current.ShowToastSuccess("删除成功！", ToastLength.Long);
-					await Application.Current.MainPage.Navigation.PopModalAsync();
+					await Application.Current.MainPage.Navigation.PopAsync();
 				}
 				else
 				{
@@ -363,7 +350,7 @@ namespace XMart.ViewModels
 				if (simpleRD.success)
 				{
 					CrossToastPopUp.Current.ShowToastSuccess("更新成功！", ToastLength.Long);
-					await Application.Current.MainPage.Navigation.PopModalAsync();
+					await Application.Current.MainPage.Navigation.PopAsync();
 				}
 				else
 				{
@@ -410,7 +397,7 @@ namespace XMart.ViewModels
 				if (simpleRD.success)
 				{
 					CrossToastPopUp.Current.ShowToastSuccess("添加成功！", ToastLength.Long);
-					await Application.Current.MainPage.Navigation.PopModalAsync();
+					await Application.Current.MainPage.Navigation.PopAsync();
 				}
 				else
 				{

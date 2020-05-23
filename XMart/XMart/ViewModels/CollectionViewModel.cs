@@ -43,7 +43,6 @@ namespace XMart.ViewModels
             set { SetProperty(ref indicatorIsRunning, value); }
         }
 
-        public Command BackCommand { get; set; }
         public Command<long> TappedCommand { get; set; }
         public Command RefreshCommand { get; set; }
 
@@ -52,11 +51,6 @@ namespace XMart.ViewModels
             ProductList = new ObservableCollection<ProductListItem>();
 
             Init();
-
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
-            }, () => { return true; });
 
             TappedCommand = new Command<long>((productId) =>
             {

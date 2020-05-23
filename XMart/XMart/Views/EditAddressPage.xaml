@@ -15,7 +15,7 @@
             <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
         </StackLayout>
     </NavigationPage.TitleView>
-    
+
     <ContentPage.Resources>
         <Style x:Key="TitleLabelStyle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
@@ -34,7 +34,7 @@
 
     <ContentPage.Content>
         <StackLayout Margin="20,0" Spacing="0">
-                    <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
+            <!--<TableView Intent="Settings" HeightRequest="300" VerticalOptions="Start">
                         <TableRoot>
                             <TableSection>
                                 <EntryCell Placeholder="收货人姓名" Text="{Binding UserName}"/>
@@ -49,87 +49,87 @@
                         </TableRoot>
                     </TableView>-->
 
-                    <!--<controls:MyEntry Placeholder="收货人姓名" Text="{Binding UserName}" Margin="0,10" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>-->
-                    <Label Text="收货人姓名" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="收货人姓名" Text="{Binding UserName}" Style="{DynamicResource EntryStyle}"/>
+            <!--<controls:MyEntry Placeholder="收货人姓名" Text="{Binding UserName}" Margin="0,10" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>-->
+            <Label Text="收货人姓名" Style="{DynamicResource TitleLabelStyle}"/>
+            <Entry Placeholder="收货人姓名" Text="{Binding UserName}" Style="{DynamicResource EntryStyle}"/>
 
-                    <!--<controls:MyEntry Placeholder="电话号码" Text="{Binding Tel}" Margin="0,10" Keyboard="Numeric" MaxLength="11" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>-->
-                    <Label Text="电话号码" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry Placeholder="电话号码" Text="{Binding Tel}" Style="{DynamicResource EntryStyle}"/>
+            <!--<controls:MyEntry Placeholder="电话号码" Text="{Binding Tel}" Margin="0,10" Keyboard="Numeric" MaxLength="11" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>-->
+            <Label Text="电话号码" Style="{DynamicResource TitleLabelStyle}"/>
+            <Entry Placeholder="电话号码" Text="{Binding Tel}" Style="{DynamicResource EntryStyle}"/>
 
-                    <Label Text="完整地址" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Label FontSize="20" TextColor="{DynamicResource PrimaryTextColor}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding SelectedItem,Source={x:Reference provinceList}}"/>
-                                <Span Text="{Binding SelectedItem,Source={x:Reference cityList}}"/>
-                                <Span Text="{Binding SelectedItem,Source={x:Reference countyList}}"/>
-                                <Span Text="{Binding SelectedItem,Source={x:Reference townList}}"/>
-                                <Span Text="{Binding Text,Source={x:Reference streetEntry}}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
+            <Label Text="完整地址" Style="{DynamicResource TitleLabelStyle}"/>
+            <Label FontSize="20" TextColor="{DynamicResource PrimaryTextColor}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding SelectedItem,Source={x:Reference provinceList}}"/>
+                        <Span Text="{Binding SelectedItem,Source={x:Reference cityList}}"/>
+                        <Span Text="{Binding SelectedItem,Source={x:Reference countyList}}"/>
+                        <Span Text="{Binding SelectedItem,Source={x:Reference townList}}"/>
+                        <Span Text="{Binding Text,Source={x:Reference streetEntry}}"/>
+                    </FormattedString>
+                </Label.FormattedText>
 
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SelectRegionCommand}"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SelectRegionCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
 
-                    <Label Text="省区市" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Grid BackgroundColor="{DynamicResource ControlBackgroundColor}" HeightRequest="150">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+            <Label Text="省区市" Style="{DynamicResource TitleLabelStyle}"/>
+            <Grid BackgroundColor="{DynamicResource ControlBackgroundColor}" HeightRequest="150">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-                        <ListView x:Name="provinceList" Grid.Column="0"
+                <ListView x:Name="provinceList" Grid.Column="0"
                                   ItemsSource="{Binding ProvinceList}" SelectedItem="{Binding Province}"
                                   IsPullToRefreshEnabled="False">
-                            <ListView.Behaviors>
-                                <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemSelected" 
                                                                   Command="{Binding SelectProvinceCommand}"/>
-                            </ListView.Behaviors>
-                        </ListView>
+                    </ListView.Behaviors>
+                </ListView>
 
-                        <ListView x:Name="cityList" Grid.Column="1"
+                <ListView x:Name="cityList" Grid.Column="1"
                                   ItemsSource="{Binding CityList}" SelectedItem="{Binding City}"
                                   IsPullToRefreshEnabled="False">
-                            <ListView.Behaviors>
-                                <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemSelected" 
                                                                   Command="{Binding SelectCityCommand}"/>
-                            </ListView.Behaviors>
-                        </ListView>
+                    </ListView.Behaviors>
+                </ListView>
 
-                        <ListView x:Name="countyList" Grid.Column="2"
+                <ListView x:Name="countyList" Grid.Column="2"
                                   ItemsSource="{Binding CountyList}" SelectedItem="{Binding County}"
                                   IsPullToRefreshEnabled="False">
-                            <ListView.Behaviors>
-                                <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemSelected" 
                                                                   Command="{Binding SelectCountyCommand}" />
-                            </ListView.Behaviors>
-                        </ListView>
+                    </ListView.Behaviors>
+                </ListView>
 
-                        <ListView x:Name="townList" Grid.Column="3"
+                <ListView x:Name="townList" Grid.Column="3"
                                   ItemsSource="{Binding TownList}" SelectedItem="{Binding Town}"
                                   IsPullToRefreshEnabled="False" >
-                            <ListView.Behaviors>
-                                <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemSelected" 
                                                                   Command="{Binding SelectTownCommand}"/>
-                            </ListView.Behaviors>
-                        </ListView>
-                    </Grid>
+                    </ListView.Behaviors>
+                </ListView>
+            </Grid>
 
-                    <!--<controls:MyEntry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Margin="0,10" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>-->
-                    <Label Text="详细地址" Style="{DynamicResource TitleLabelStyle}"/>
-                    <Entry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Style="{DynamicResource EntryStyle}"/>
+            <!--<controls:MyEntry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Margin="0,10" HeightRequest="40" FontSize="20" TextColor="{DynamicResource PrimaryTextColor}"/>-->
+            <Label Text="详细地址" Style="{DynamicResource TitleLabelStyle}"/>
+            <Entry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Style="{DynamicResource EntryStyle}"/>
 
-                    <StackLayout Orientation="Horizontal" Margin="0">
-                        <Label Text="是否设为默认地址" HorizontalOptions="Start" FontSize="18" TextColor="{StaticResource SkyBlue}" VerticalOptions="Center"/>
-                        <Switch IsToggled="{Binding IsDefault}" OnColor="{StaticResource SkyBlue}"/>
-                    </StackLayout>
+            <StackLayout Orientation="Horizontal" Margin="0">
+                <Label Text="是否设为默认地址" HorizontalOptions="Start" FontSize="18" TextColor="{StaticResource SkyBlue}" VerticalOptions="Center"/>
+                <Switch IsToggled="{Binding IsDefault}" OnColor="{StaticResource SkyBlue}"/>
+            </StackLayout>
 
-                    <!--
+            <!--
                     <Grid HeightRequest="300">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -146,14 +146,14 @@
                         
                     </Grid>-->
 
-                    <StackLayout Orientation="Horizontal" Margin="0,10">
-                        <Button Text="删除该地址" Command="{Binding DeleteCommand}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="100" HeightRequest="30" BorderWidth="0" Padding="0"/>
-                        <Button Text="确认删除" Command="{Binding DeleteAddressCommand}" IsVisible="{Binding Visible}" WidthRequest="100" HeightRequest="30" BorderWidth="0" Padding="0"
+            <StackLayout Orientation="Horizontal" Margin="0,10">
+                <Button Text="删除该地址" Command="{Binding DeleteCommand}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="100" HeightRequest="30" BorderWidth="0" Padding="0"/>
+                <Button Text="确认删除" Command="{Binding DeleteAddressCommand}" IsVisible="{Binding Visible}" WidthRequest="100" HeightRequest="30" BorderWidth="0" Padding="0"
                             TextColor="White" BackgroundColor="Crimson" VerticalOptions="Start" HorizontalOptions="Start" />
-                        <Button Text="取消" Command="{Binding DeleteCommand}" IsVisible="{Binding Visible}" WidthRequest="100" HeightRequest="30" BorderWidth="0" Padding="0"
+                <Button Text="取消" Command="{Binding DeleteCommand}" IsVisible="{Binding Visible}" WidthRequest="100" HeightRequest="30" BorderWidth="0" Padding="0"
                             VerticalOptions="Start" HorizontalOptions="Start"/>
-                    </StackLayout>
+            </StackLayout>
 
-                </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

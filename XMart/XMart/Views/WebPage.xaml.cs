@@ -34,7 +34,7 @@ namespace XMart.Views
 
         private void BackButton_Clicked(object sender, System.EventArgs e)
         {
-            Navigation.PopModalAsync();
+            Navigation.PopAsync();
         }
     }
 }

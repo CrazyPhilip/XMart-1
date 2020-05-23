@@ -38,30 +38,31 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <CollectionView x:Name="list" ItemsSource="{Binding AddressList}" EmptyView="无收货地址" SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <SwipeView>
-                        <SwipeView.LeftItems>
-                            <SwipeItemView Command="{Binding BindingContext.DeleteCommand, Source={x:Reference addressManagePage}}"
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView x:Name="list" ItemsSource="{Binding AddressList}" EmptyView="无收货地址" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItemView Command="{Binding BindingContext.DeleteCommand, Source={x:Reference addressManagePage}}"
                                                CommandParameter="{Binding .}">
-                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="LightPink">
-                                    <ff:CachedImage Source="delete.png" VerticalOptions="EndAndExpand"/>
-                                    <Label Text="删除" HorizontalOptions="Center" VerticalOptions="StartAndExpand"/>
-                                </StackLayout>
-                            </SwipeItemView>
-                        </SwipeView.LeftItems>
+                                    <StackLayout Margin="10" WidthRequest="40" BackgroundColor="LightPink">
+                                        <ff:CachedImage Source="delete.png" VerticalOptions="EndAndExpand"/>
+                                        <Label Text="删除" HorizontalOptions="Center" VerticalOptions="StartAndExpand"/>
+                                    </StackLayout>
+                                </SwipeItemView>
+                            </SwipeView.LeftItems>
 
-                        <SwipeView.RightItems>
-                            <SwipeItemView Command="{Binding BindingContext.SetDefaultCommand, Source={x:Reference addressManagePage}}"
+                            <SwipeView.RightItems>
+                                <SwipeItemView Command="{Binding BindingContext.SetDefaultCommand, Source={x:Reference addressManagePage}}"
                                                CommandParameter="{Binding .}">
-                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="LightGray">
-                                    <ff:CachedImage Source="set_default.png" VerticalOptions="EndAndExpand"/>
-                                    <Label Text="默认" HorizontalOptions="Center" VerticalOptions="StartAndExpand"/>
-                                </StackLayout>
-                            </SwipeItemView>
-                        </SwipeView.RightItems>
-                        <!--
+                                    <StackLayout Margin="10" WidthRequest="40" BackgroundColor="LightGray">
+                                        <ff:CachedImage Source="set_default.png" VerticalOptions="EndAndExpand"/>
+                                        <Label Text="默认" HorizontalOptions="Center" VerticalOptions="StartAndExpand"/>
+                                    </StackLayout>
+                                </SwipeItemView>
+                            </SwipeView.RightItems>
+                            <!--
                                 <SwipeItems>
                                     <SwipeItem Text="删除" IconImageSource="delete.png" BackgroundColor="LightPink"
                                                Command="{Binding BindingContext.DeleteCommand, Source={x:Reference addressManagePage}}"
@@ -74,31 +75,33 @@
                                                CommandParameter="{Binding .}"/>
                                 </SwipeItems>-->
 
-                        <Grid Margin="0,5" Padding="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="50"/>
-                            </Grid.ColumnDefinitions>
+                            <Grid Margin="0,5" Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding userName}" Style="{DynamicResource UserNameStyle}"/>
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding tel}" Style="{DynamicResource PhoneStyle}"/>
-                            <Label Grid.Row="0" Grid.Column="2" Text="默认" TextColor="Crimson" IsVisible="{Binding isDefault}"/>
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding streetName}" Style="{DynamicResource AddressStyle}"/>
-                        </Grid>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding userName}" Style="{DynamicResource UserNameStyle}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding tel}" Style="{DynamicResource PhoneStyle}"/>
+                                <Label Grid.Row="0" Grid.Column="2" Text="默认" TextColor="Crimson" IsVisible="{Binding isDefault}"/>
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding streetName}" Style="{DynamicResource AddressStyle}"/>
+                            </Grid>
 
-                        <SwipeView.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                            <SwipeView.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" 
                                                       Command="{Binding BindingContext.EditCommand, Source={x:Reference addressManagePage}}"
                                                       CommandParameter="{Binding .}"/>
-                        </SwipeView.GestureRecognizers>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                            </SwipeView.GestureRecognizers>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        
     </ContentPage.Content>
 </ContentPage>

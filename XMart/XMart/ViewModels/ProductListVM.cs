@@ -108,7 +108,6 @@ namespace XMart.ViewModels
         }
 
         public Command SearchCommand { get; set; }
-        public Command BackCommand { get; set; }
         //public Command<ProductListItem> TappedCommand { get; set; }
         public Command LoadMoreCommand { get; set; }
         public Command<string> SortCommand { get; set; }
@@ -233,11 +232,6 @@ namespace XMart.ViewModels
 
             }, (str) => { return true; });
 
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
-            }, () => { return true; });
-
         }
 
         /// <summary>
@@ -355,10 +349,6 @@ namespace XMart.ViewModels
 
             }, (str) => { return true; });
 
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
-            }, () => { return true; });
         }
 
         private async void Search(string searchString)

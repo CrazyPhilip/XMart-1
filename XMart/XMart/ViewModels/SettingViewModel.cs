@@ -19,7 +19,6 @@ namespace XMart.ViewModels
             set { SetProperty(ref darkModeIsToggled, value); }
         }
 
-        public Command BackCommand { get; set; }
         public Command ThemeCommand { get; set; }
         public Command ClearCacheCommand { get; set; }
 
@@ -61,10 +60,6 @@ namespace XMart.ViewModels
                 }
             }, () => { return true; });
 
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
-            }, () => { return true; });
         }
     }
 }

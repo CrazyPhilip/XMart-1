@@ -29,7 +29,6 @@ namespace XMart.ViewModels
             set { SetProperty(ref visible, value); }
         }
 
-        public Command BackCommand { get; set; }
         public Command<string> CallCommand { get; set; }
         public Command<string> EmailCommand { get; set; }
         public Command<string> SendMessageCommand { get; set; }
@@ -39,11 +38,6 @@ namespace XMart.ViewModels
             CustomerList = new List<UserInfo>();
 
             InitCustomerListAsync();
-
-            BackCommand = new Command(() =>
-            {
-                Application.Current.MainPage.Navigation.PopModalAsync();
-            }, () => { return true; });
 
             CallCommand = new Command<string>((tel) =>
             {
