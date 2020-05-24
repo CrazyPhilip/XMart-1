@@ -22,7 +22,7 @@ namespace XMart.Droid.wxapi
     public class WXEntryActivity : Activity, IWXAPIEventHandler
     {
         private readonly string appID = "wxfad74b8fe74b6c22";//申请的appid
-        private readonly string appSecret = "bd6a3cf325e5ac237bc8f788b61a7706";//申请的appid
+        private readonly string appSecret = "bd6a3cf325e5ac237bc8f788b61a7706";//appSecret
         private MyHandler handler;
         private string TAG = "MyHandler";
         private IWXAPI api;

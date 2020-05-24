@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             x:Class="XMart.Views.ContactPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="联系人"
+             x:Name="contactPage">
+    <ContentPage.Content>
+        <CollectionView x:Name="list" ItemsSource="{Binding ContactList}" EmptyView="无联系人" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItemView Command="{Binding Path=BindingContext.CallCommand,Source={x:Reference contactPage}}" 
+                                           CommandParameter="{Binding Number}">
+                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="White" VerticalOptions="Center">
+                                    <ff:CachedImage Source="call.png" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Text="电话" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </SwipeItemView>
+                            <SwipeItemView Command="{Binding Path=BindingContext.SendMessageCommand,Source={x:Reference contactPage}}" 
+                                           CommandParameter="{Binding Number}">
+                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="White">
+                                    <ff:CachedImage Source="msg.png" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Text="短信" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </SwipeItemView>
+                            <SwipeItemView Command="{Binding Path=BindingContext.EmailCommand,Source={x:Reference contactPage}}" 
+                                           CommandParameter="{Binding Email}">
+                                <StackLayout Margin="10" WidthRequest="40" BackgroundColor="White">
+                                    <ff:CachedImage Source="email.png" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Text="邮件" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </SwipeItemView>
+                        </SwipeView.RightItems>
+
+                        <Grid BackgroundColor="White" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Grid.Column="0" HeightRequest="40" WidthRequest="40" Padding="0" CornerRadius="20"
+                                   HorizontalOptions="Center" VerticalOptions="Start"
+                                   BorderColor="White" IsClippedToBounds="True">
+                                <ff:CachedImage Source="{Binding PhotoUri}" Aspect="AspectFill"/>
+                            </Frame>
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="22" TextColor="Black"/>
+                                <Label Text="{Binding Number,StringFormat='电话：{0}'}"/>
+                                <Label Text="{Binding Email,StringFormat='邮箱：{0}'}"/>
+                            </StackLayout>
+                        </Grid>
+
+                        <!--
+                        <SwipeView.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                      Command="{Binding BindingContext.EditCommand, Source={x:Reference customerListPage}}"
+                                                      CommandParameter="{Binding .}"/>
+                        </SwipeView.GestureRecognizers>-->
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
+</ContentPage>
