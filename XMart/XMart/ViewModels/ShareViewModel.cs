@@ -36,8 +36,9 @@ namespace XMart.ViewModels
                     case "1":
                         {
                             //string para = "?productId=" + product.productId + "&userId=" + GlobalVariables.LoggedUser.id;
-                            //MessagingCenter.Send(new object(), "Register");//首先进行注册，然后订阅注册的结果。
-                            //MessagingCenter.Send(new object(), "ShareMiniProgramToFriend", para);
+                            string para = product.productId + "," + GlobalVariables.LoggedUser.id + "," + product.productName;
+                            MessagingCenter.Send(new object(), "Register");//首先进行注册，然后订阅注册的结果。
+                            MessagingCenter.Send(new object(), "ShareMiniProgramToFriend", para);
                         }
                         break;
 

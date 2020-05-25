@@ -1,32 +1,24 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Views;
+using Android.Content.Res;
+using Android.Graphics;
 using Android.OS;
+using Android.Views;
 using CarouselView.FormsPlugin.Android;
-using FFImageLoading.Forms.Platform;
-using Com.Tencent.MM.Opensdk.Openapi;
-using Com.Tencent.MM.Opensdk.Modelmsg;
 using Com.Alipay.Sdk.App;
-using System;
-using Xamarin.Forms;
-using System.Threading;
-using Plugin.Toast;
-using Plugin.Toast.Abstractions;
-using Xamarin.Essentials;
-using System.Threading.Tasks;
-using System.IO;
-using Android.Content;
-using XMart.Models;
-using Android.Provider;
+using Com.Tencent.MM.Opensdk.Modelmsg;
+using Com.Tencent.MM.Opensdk.Openapi;
+using FFImageLoading.Forms.Platform;
+using Java.IO;
 using Plugin.CurrentActivity;
-using Android.Database;
-using System.Drawing;
-using Android.Widget;
-using Android.Graphics.Drawables;
-using Com.Tencent.MM.Opensdk.Modelbase;
-using Xam.Plugin.WebView.Droid;
-using Newtonsoft.Json.Linq;
 using Rg.Plugins.Popup.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using Xam.Plugin.WebView.Droid;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace XMart.Droid
 {
@@ -105,7 +97,7 @@ namespace XMart.Droid
             //注册
             MessagingCenter.Subscribe<object>(this, "Register", d =>
             {
-                var result = RegToWx(); 
+                var result = RegToWx();
             });
 
             MessagingCenter.Subscribe<object>(this, "Login", d =>
@@ -118,29 +110,40 @@ namespace XMart.Droid
                 };
                 bool result = wxApi.SendReq(req);
             });
-            
+
             //分享小程序给朋友
             MessagingCenter.Subscribe<object, string>(this, "ShareMiniProgramToFriend", (sender, arg) =>
             {
-                WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
-                miniProgramObj.WebpageUrl = "http://www.qq.com"; // 兼容低版本的网页链接
-                miniProgramObj.MiniprogramType = WXMiniProgramObject.MiniptogramTypeRelease;// 正式版:0，测试版:1，体验版:2
-                miniProgramObj.UserName = "gh_d43f693ca31f";     // 小程序原始id
-                miniProgramObj.Path = "/pages/media";            //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
+                string[] args = arg.Split(',');
+                WXMiniProgramObject miniProgramObj = new WXMiniProgramObject
+                {
+                    WebpageUrl = "https://www.qq.com", // 兼容低版本的网页链接
+                    MiniprogramType = WXMiniProgramObject.MiniprogramTypePreview,// 正式版:0，测试版:1，体验版:2
+                    UserName = "gh_8de3642430df",     // 小程序原始id
+                    Path = "/pages/detail/detail?productId=" + args[0] + "&shareId=" + args[1]            //小程序页面路径；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"
+                };
 
-                WXMediaMessage msg = new WXMediaMessage(miniProgramObj);
-                msg.Title = "小程序消息Title";                    // 小程序消息title
-                msg.Description = "小程序消息Desc";               // 小程序消息desc
-                //msg.ThumbData = getThumb();                      // 小程序消息封面图片，小于128k
+                WXMediaMessage msg = new WXMediaMessage(miniProgramObj)
+                {
+                    Title = args[2] + "-美而好，让生活更美好。",                    // 小程序消息title
+                    Description = "这是美而好的简介"               // 小程序消息desc
+                };
+
+                Stream s = Resources.OpenRawResource(Resource.Drawable.logo);
+                Bitmap mBitmap = BitmapFactory.DecodeStream(s);
+                msg.SetThumbImage(mBitmap);
 
                 SendMessageToWX.Req req = new SendMessageToWX.Req
                 {
-                    //Transaction = DateTime.Now.ToFileTimeUtc().ToString(),
+                    Transaction = DateTime.Now.ToFileTimeUtc().ToString(),
                     Message = msg,
                     Scene = SendMessageToWX.Req.WXSceneSession  // 目前只支持会话
                 };
 
                 wxApi.SendReq(req);
+
+                //br.Dispose();
+                //s.Dispose();
             });
 
             //分享文字给朋友
@@ -202,6 +205,17 @@ namespace XMart.Droid
 
             LoadApplication(new App());
         }
+
+        private IList<byte> GetThumb()
+        {
+            using (FileStream fs = new FileStream("Resources/drawable/logo.png", FileMode.Open, FileAccess.Read))
+            {
+                BinaryReader br = new BinaryReader(fs);
+                byte[] imgBytesIn = br.ReadBytes((int)fs.Length); //将流读入到字节数组中
+                return imgBytesIn;
+            }
+        }
+
 
         /*
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)

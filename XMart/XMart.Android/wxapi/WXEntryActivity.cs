@@ -110,9 +110,10 @@ namespace XMart.Droid.wxapi
                             break;
 
                         case RETURN_MSG_TYPE_SHARE:
-                            CrossToastPopUp.Current.ShowToastSuccess("登录成功", Plugin.Toast.Abstractions.ToastLength.Short);
+                            CrossToastPopUp.Current.ShowToastSuccess("分享", Plugin.Toast.Abstractions.ToastLength.Short);
                             Finish();
                             break;
+
                     }
                     Finish();
                     break;
