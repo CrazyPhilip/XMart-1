@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Xamarin.Essentials;
 
 namespace XMart.Services
 {
@@ -21,7 +22,7 @@ namespace XMart.Services
         {
             get
             {
-                var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var basePath = FileSystem.CacheDirectory;
                 return Path.Combine(basePath, DatabaseFilename);
             }
         }

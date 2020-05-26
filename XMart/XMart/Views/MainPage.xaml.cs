@@ -56,7 +56,7 @@ namespace XMart.Views
                 GlobalVariables.IsLogged = false;
             }*/
 
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+            string fileName = Path.Combine(FileSystem.CacheDirectory, "log.dat");
             if (File.Exists(fileName))
             {
                 string text = File.ReadAllText(fileName);

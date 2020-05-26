@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Newtonsoft.Json;
+using Xamarin.Essentials;
 
 namespace XMart.ViewModels
 {
@@ -111,7 +112,7 @@ namespace XMart.ViewModels
                     JObject log = new JObject();
                     log.Add("LoginTime", DateTime.UtcNow);
                     log.Add("UserInfo", JsonConvert.SerializeObject(loginRD.result));
-                    string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+                    string fileName = Path.Combine(FileSystem.CacheDirectory, "log.dat");
                     File.WriteAllText(fileName, log.ToString());
 
                     MainPage mainPage = new MainPage();

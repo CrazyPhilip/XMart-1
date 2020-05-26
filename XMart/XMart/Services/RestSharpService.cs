@@ -544,5 +544,8 @@ namespace XMart.Services
             return result2;
         }
         #endregion
+
+        #region 检查更新
+        #endregion
     }
 }

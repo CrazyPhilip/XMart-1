@@ -206,17 +206,6 @@ namespace XMart.Droid
             LoadApplication(new App());
         }
 
-        private IList<byte> GetThumb()
-        {
-            using (FileStream fs = new FileStream("Resources/drawable/logo.png", FileMode.Open, FileAccess.Read))
-            {
-                BinaryReader br = new BinaryReader(fs);
-                byte[] imgBytesIn = br.ReadBytes((int)fs.Length); //将流读入到字节数组中
-                return imgBytesIn;
-            }
-        }
-
-
         /*
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {

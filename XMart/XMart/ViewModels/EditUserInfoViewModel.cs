@@ -15,6 +15,7 @@ using Plugin.Media;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using XMart.Views;
+using Xamarin.Essentials;
 
 namespace XMart.ViewModels
 {
@@ -244,7 +245,7 @@ namespace XMart.ViewModels
                         GlobalVariables.LoggedUser = loginRD.result;   //将登录用户的信息保存成全局静态变量
                         GlobalVariables.IsLogged = true;
 
-                        string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+                        string fileName = Path.Combine(FileSystem.CacheDirectory, "log.dat");
                         JObject log = new JObject();
                         log.Add("LoginTime", DateTime.UtcNow);
                         log.Add("UserInfo", JsonConvert.SerializeObject(loginRD.result));

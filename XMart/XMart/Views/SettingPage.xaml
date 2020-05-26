@@ -45,6 +45,7 @@
 
                 <Label Text="关于美而好" Style="{DynamicResource SectionTiltleLabel}"/>
                 <Label Text="版本号：1.7.1"/>
+                <Label Text="{Binding Rate}"/>
                 <Button Text="检查更新" Command="{Binding UpdateCommand}"/>
                 <Label Text="开发者：西南交大人工智能研究院、成都万云互联科技有限公司"/>
                 <Label Text="Copyright©2019"/>

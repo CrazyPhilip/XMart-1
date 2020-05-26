@@ -10,6 +10,7 @@ using Plugin.Toast.Abstractions;
 using XMart.Services;
 using XMart.ResponseData;
 using System.Collections.ObjectModel;
+using Xamarin.Essentials;
 
 namespace XMart.ViewModels
 {
@@ -177,7 +178,7 @@ namespace XMart.ViewModels
 		{
 			GlobalVariables.IsLogged = false;
 
-			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+			string fileName = Path.Combine(FileSystem.CacheDirectory, "log.dat");
 			File.Delete(fileName);
 
 			MainPage mainPage = new MainPage();

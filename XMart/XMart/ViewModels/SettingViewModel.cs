@@ -8,6 +8,10 @@ using XMart.Services;
 using Plugin.Toast;
 using Plugin.Toast.Abstractions;
 using System.IO;
+using RestSharp;
+using RestSharp.Extensions;
+using Xamarin.Essentials;
+using System.Threading;
 
 namespace XMart.ViewModels
 {
@@ -18,6 +22,13 @@ namespace XMart.ViewModels
         {
             get { return darkModeIsToggled; }
             set { SetProperty(ref darkModeIsToggled, value); }
+        }
+
+        private string rate;   //Comment
+        public string Rate
+        {
+            get { return rate; }
+            set { SetProperty(ref rate, value); }
         }
 
         public Command ThemeCommand { get; set; }
@@ -63,10 +74,56 @@ namespace XMart.ViewModels
 
             UpdateCommand = new Command(() =>
             {
+                try
+                {
+                    string[] args = { "baseUrl", "request", "fileName" };
+                    Thread the = new Thread(new ParameterizedThreadStart(DownloadApk));
+                    the.Start(args);
+                }
+                catch (ThreadAbortException)
+                {
+                }
 
             }, () => { return true; });
 
 
+        }
+
+        private void DownloadApk(object obj)
+        {
+            string[] args = obj as string[];
+            string tempFile = Path.Combine("/storage/emulated/0/Android/data/com.wyhl.XMart/files/", args[2].ToString());
+            //Console.WriteLine(FileSystem.AppDataDirectory);
+            using (var writer = new HikFileStream(tempFile))
+            {
+                RestClient client = new RestClient(args[0])
+                {
+                    Timeout = 10 * 1000 //10 sec timeout time.
+                };
+
+                RestRequest request = new RestRequest(args[1]);
+                //request.AddParameter("FileName", "testFile.abc", ParameterType.UrlSegment);
+
+                writer.Progress += (w, e) => {
+#if DEBUG
+                    //Console.Write(string.Format("\rProgress: {0} / {1:P2}", writer.CurrentSize, ((double)writer.CurrentSize) / finalFileSize));
+#endif
+
+                    Rate = string.Format("{0:F2} MB", ((double)writer.CurrentSize / 1048576));
+                };
+
+                request.ResponseWriter = (responseStream) => responseStream.CopyTo(writer);
+                var response = client.DownloadData(request);
+            }
+
+            if (File.Exists(tempFile))
+            {
+                CrossToastPopUp.Current.ShowToastSuccess("下载成功！", ToastLength.Long);
+            }
+            else
+            {
+                CrossToastPopUp.Current.ShowToastError("下载失败！", ToastLength.Long);
+            }
         }
 
         /*
@@ -133,5 +190,24 @@ namespace XMart.ViewModels
             intent.SetFlags(ActivityFlags.NewTask);
             context.StartActivity(intent);
         }*/
+
+        class HikFileStream : FileStream
+        {
+            public HikFileStream(string path) : base(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None)
+            {
+            }
+
+            public long CurrentSize { get; private set; }
+
+            public event EventHandler Progress;
+
+            public override void Write(byte[] array, int offset, int count)
+            {
+                base.Write(array, offset, count);
+                CurrentSize += count;
+                Progress?.Invoke(this, EventArgs.Empty);//WARN: THIS SHOULD RETURNS ASAP!
+            }
+
+        }
     }
 }

@@ -233,7 +233,7 @@ namespace XMart.ViewModels
                     JObject log = new JObject();
                     log.Add("LoginTime", DateTime.UtcNow);
                     log.Add("UserInfo", JsonConvert.SerializeObject(loginRD.result));
-                    string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "log.dat");
+                    string fileName = Path.Combine(FileSystem.CacheDirectory, "log.dat");
                     File.WriteAllText(fileName, log.ToString());
 
                     Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[0]);

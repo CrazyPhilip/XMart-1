@@ -78,7 +78,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="WeChatClassLibrary">
-      <HintPath>..\..\..\WeChatClassLibrary\WeChatClassLibrary\bin\Release\WeChatClassLibrary.dll</HintPath>
+      <HintPath>..\..\..\WeChatClassLibrary\WeChatClassLibrary\WeChatClassLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

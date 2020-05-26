@@ -21,7 +21,7 @@ namespace XMart
         //    {
         //        if (database == null)
         //        {
-        //            database = new LocalDatabaseHelper(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "XMartSQLite.db3"));
+        //            database = new LocalDatabaseHelper(Path.Combine(FileSystem.CacheDirectory, "XMartSQLite.db3"));
         //        }
         //        return database;
         //    }
