@@ -12,6 +12,8 @@ using RestSharp;
 using RestSharp.Extensions;
 using Xamarin.Essentials;
 using System.Threading;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace XMart.ViewModels
 {
@@ -31,6 +33,20 @@ namespace XMart.ViewModels
             set { SetProperty(ref rate, value); }
         }
 
+        private string currentVersion;   //Comment
+        public string CurrentVersion
+        {
+            get { return currentVersion; }
+            set { SetProperty(ref currentVersion, value); }
+        }
+
+        private string newestVersion;   //Comment
+        public string NewestVersion
+        {
+            get { return newestVersion; }
+            set { SetProperty(ref newestVersion, value); }
+        }
+
         public Command ThemeCommand { get; set; }
         public Command ClearCacheCommand { get; set; }
         public Command UpdateCommand { get; set; }
@@ -38,6 +54,7 @@ namespace XMart.ViewModels
         public SettingViewModel()
         {
             DarkModeIsToggled = GlobalVariables.DarkMode;
+            CurrentVersion = AppInfo.VersionString;
             
             ThemeCommand = new Command(() =>
             {
@@ -72,57 +89,98 @@ namespace XMart.ViewModels
                 }
             }, () => { return true; });
 
-            UpdateCommand = new Command(() =>
+            UpdateCommand = new Command(async () =>
             {
-                try
-                {
-                    string[] args = { "baseUrl", "request", "fileName" };
-                    Thread the = new Thread(new ParameterizedThreadStart(DownloadApk));
-                    the.Start(args);
-                }
-                catch (ThreadAbortException)
-                {
-                }
+                await CheckAppVersionAsync();
 
             }, () => { return true; });
 
-
         }
 
+        private async Task CheckAppVersionAsync()
+        {
+            try
+            {
+                if (!Tools.IsNetConnective())
+                {
+                    CrossToastPopUp.Current.ShowToastError("无网络连接，请检查网络。", ToastLength.Long);
+                    return;
+                }
+
+                string result = await RestSharpService.GetNewestVersion();
+
+                JObject jObject = JObject.Parse(result);
+
+                if (CurrentVersion == jObject["result"]["appVersion"].ToString())
+                {
+                    CrossToastPopUp.Current.ShowToastSuccess("已是最新版本", ToastLength.Short);
+                }
+                else
+                {
+                    bool action = await Application.Current.MainPage.DisplayAlert("更新", "最新版：" + jObject["result"]["appVersion"].ToString() + "，请问要下载安装吗？", "确定", "取消");
+                    if (action)
+                    {
+                        Thread the = new Thread(new ParameterizedThreadStart(DownloadApk));
+                        the.IsBackground = true;
+                        the.Start(jObject);
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 下载安装包
+        /// </summary>
+        /// <param name="obj"></param>
         private void DownloadApk(object obj)
         {
-            string[] args = obj as string[];
-            string tempFile = Path.Combine("/storage/emulated/0/Android/data/com.wyhl.XMart/files/", args[2].ToString());
-            //Console.WriteLine(FileSystem.AppDataDirectory);
-            using (var writer = new HikFileStream(tempFile))
+            try
             {
-                RestClient client = new RestClient(args[0])
+                JObject jObject = obj as JObject;
+
+                string appFile = Path.Combine( FileSystem.AppDataDirectory, jObject["result"]["packageName"].ToString());
+                //Console.WriteLine(FileSystem.AppDataDirectory);
+                using (var writer = new HikFileStream(appFile))
                 {
-                    Timeout = 10 * 1000 //10 sec timeout time.
-                };
+                    RestClient client = new RestClient(jObject["result"]["appUrl"].ToString())
+                    {
+                        Timeout = 10 * 1000 //10 sec timeout time.
+                    };
 
-                RestRequest request = new RestRequest(args[1]);
-                //request.AddParameter("FileName", "testFile.abc", ParameterType.UrlSegment);
+                    RestRequest request = new RestRequest(jObject["result"]["request"].ToString());
+                    //request.AddParameter("FileName", "testFile.abc", ParameterType.UrlSegment);
 
-                writer.Progress += (w, e) => {
-#if DEBUG
-                    //Console.Write(string.Format("\rProgress: {0} / {1:P2}", writer.CurrentSize, ((double)writer.CurrentSize) / finalFileSize));
-#endif
+                    writer.Progress += (w, e) => {
+                        Rate = string.Format("{0:F2} MB", ((double)writer.CurrentSize / 1048576));
+                    };
 
-                    Rate = string.Format("{0:F2} MB", ((double)writer.CurrentSize / 1048576));
-                };
+                    request.ResponseWriter = (responseStream) => responseStream.CopyTo(writer);
+                    var response = client.DownloadData(request);
+                }
 
-                request.ResponseWriter = (responseStream) => responseStream.CopyTo(writer);
-                var response = client.DownloadData(request);
+                Device.BeginInvokeOnMainThread(async () => 
+                {
+                    if (File.Exists(appFile))
+                    {
+                        CrossToastPopUp.Current.ShowToastSuccess("下载成功！", ToastLength.Long);
+
+                        //string apkPath = System.IO.Path.Combine(Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.GetPublicDownloadPath(), "APK.APK");
+                        await Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.InstallApp(appFile, Plugin.XF.AppInstallHelper.Abstractions.InstallMode.OutOfAppStore);
+                    }
+                    else
+                    {
+                        CrossToastPopUp.Current.ShowToastError("下载失败！", ToastLength.Long);
+                    }
+                });
             }
-
-            if (File.Exists(tempFile))
+            catch (Exception)
             {
-                CrossToastPopUp.Current.ShowToastSuccess("下载成功！", ToastLength.Long);
-            }
-            else
-            {
-                CrossToastPopUp.Current.ShowToastError("下载失败！", ToastLength.Long);
+                throw;
             }
         }
 

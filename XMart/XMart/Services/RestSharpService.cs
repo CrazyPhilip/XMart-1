@@ -546,6 +546,13 @@ namespace XMart.Services
         #endregion
 
         #region 检查更新
+        public static async Task<string> GetNewestVersion()
+        {
+            string url = "/App/getNowApp";
+
+            string str = await RestSharpHelper<string>.GetAsyncWithoutDeserialization(url);
+            return str;
+        }
         #endregion
     }
 }

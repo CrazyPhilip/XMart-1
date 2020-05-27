@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using CarouselView.FormsPlugin.Android;
 using Com.Alipay.Sdk.App;
@@ -11,6 +12,7 @@ using Com.Tencent.MM.Opensdk.Openapi;
 using FFImageLoading.Forms.Platform;
 using Java.IO;
 using Plugin.CurrentActivity;
+using Plugin.Permissions;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -79,6 +81,7 @@ namespace XMart.Droid
             //Forms.SetFlags("CarouselView_Experimental");
             FormsWebViewRenderer.Initialize();
             Forms.SetFlags("SwipeView_Experimental");
+            Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.Init("com.wyhl.XMart.fileprovider");
 
             //支付宝
             MessagingCenter.Subscribe<object, string>(this, "Pay", (sender, sign) =>
@@ -206,13 +209,12 @@ namespace XMart.Droid
             LoadApplication(new App());
         }
 
-        /*
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }*/
+        }
 
         #region 支付宝
         private void Pay(object sign)
