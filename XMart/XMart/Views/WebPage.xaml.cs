@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace XMart.Views
@@ -6,13 +8,17 @@ namespace XMart.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WebPage : ContentPage
     {
+        private string Url;
+
         public WebPage(string url)
         {
             InitializeComponent();
 
-            Web.Source = url;
+            Url = url;
+            Web.Url = url;
         }
 
+        /*
         public WebPage(HtmlWebViewSource htmlWebViewSource)
         {
             InitializeComponent();
@@ -30,11 +36,16 @@ namespace XMart.Views
         {
             defaultActivityIndicator.IsRunning = true;    //指示器开启
             labelLoading.IsVisible = true;
-        }
+        }*/
 
-        private void BackButton_Clicked(object sender, System.EventArgs e)
+        private void BackButton_Clicked(object sender, EventArgs e)
         {
             Navigation.PopAsync();
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            Launcher.TryOpenAsync(new Uri(Url));
         }
     }
 }

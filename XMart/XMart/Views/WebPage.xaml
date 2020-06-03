@@ -5,19 +5,24 @@
              xmlns:controls="clr-namespace:XMart.Controls"
              x:Class="XMart.Views.WebPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
-    <ContentPage.Content>
-        <Grid>
 
-            <!--
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="web" Style="{StaticResource TitleLabel}"/>
+            <ImageButton WidthRequest="20" HeightRequest="20" Source="browser.png" Padding="0" Margin="10,0" 
+                         BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <!--<Grid>
             <WebView x:Name="Web" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="400" WidthRequest="400" BackgroundColor="Red"
                      Navigated="WebView_Navigated" Navigating="WebView_Navigating" android:WebView.MixedContentMode="AlwaysAllow" android:WebView.DisplayZoomControls="True" android:WebView.EnableZoomControls="True">
-                
-            </WebView>-->
+            </WebView>
             <controls:XamWebView x:Name="Web"/>
-
             <ActivityIndicator x:Name="defaultActivityIndicator" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Label x:Name="labelLoading" Text="Loading..." IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center"/>
-
-        </Grid>
+        </Grid>-->
+        <controls:TencentWebView x:Name="Web"/>
     </ContentPage.Content>
 </ContentPage>

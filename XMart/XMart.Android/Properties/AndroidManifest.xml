@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.8.7" package="com.wyhl.XMart" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.8.9" package="com.wyhl.XMart" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="28" />
-	<application android:label="美而好" android:icon="@mipmap/xmart">
+	<application android:label="美而好" android:icon="@mipmap/xmart" android:networkSecurityConfig="@xml/network_security_config">
 		<activity android:name="com.wyhl.XMart.wxapi.WXEntryActivity" android:exported="true" android:label="@string/app_name" android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
@@ -12,5 +12,25 @@
 		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.wyhl.XMart.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
 		</provider>
+		<activity android:name="com.tencent.smtt.sdk.VideoActivity" android:configChanges="orientation|screenSize|keyboardHidden" android:exported="false" android:launchMode="singleTask" android:alwaysRetainTaskState="true">
+			<intent-filter>
+				<action android:name="com.tencent.smtt.tbs.video.PLAY" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
 	</application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.READ_SETTINGS" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_CONTACTS" />
+	<uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 </manifest>

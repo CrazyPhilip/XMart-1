@@ -53,8 +53,8 @@ namespace XMart.ViewModels
             {
                 //Launcher.TryOpenAsync(new Uri(camera.url));
 
-                //WebPage webPage = new WebPage(camera.url);
-                //Application.Current.MainPage.Navigation.PushAsync(webPage);
+                WebPage webPage = new WebPage(camera.url);
+                Application.Current.MainPage.Navigation.PushAsync(webPage);
             }, (camera) => { return true; });
 
         }

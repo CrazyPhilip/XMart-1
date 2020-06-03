@@ -56,7 +56,7 @@
                                 Wrap="Wrap" JustifyContent="Start" AlignContent="Start" HeightRequest="200">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="White" HeightRequest="30" Margin="5,0" Padding="5,0">
+                        <Frame BackgroundColor="White" HeightRequest="30" Margin="5" Padding="5,0">
                             <Label Text="{Binding .}" Style="{DynamicResource SubLabel}" TextColor="Black"/>
 
                             <Frame.GestureRecognizers>

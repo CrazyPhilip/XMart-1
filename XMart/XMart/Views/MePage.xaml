@@ -7,7 +7,8 @@
              Icon="Resource/drawable/me.png"
              Title="个人中心"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-             x:Name="mePage">
+             x:Name="mePage"
+             BackgroundImageSource="backgroud.jpg">
 
     <ContentPage.Resources>
         <Style x:Key="CommonLabel" TargetType="Label">
@@ -41,8 +42,6 @@
                 <RowDefinition Height="100"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
-            <ff:CachedImage Grid.Row="0" Grid.RowSpan="3" Source="backgroud.jpg" Aspect="AspectFill"/>
 
             <Label Grid.Row="0" Text="个人中心" Style="{StaticResource TitleLabel}" HorizontalOptions="CenterAndExpand"/>
             <Button Grid.Row="0" Text="退出" TextColor="Crimson" BackgroundColor="Transparent" FontSize="18"
@@ -82,18 +81,23 @@
                 </StackLayout>
             </StackLayout>
 
-            <CollectionView Grid.Row="2" x:Name="list" ItemsSource="{Binding OptionList}" EmptyView="无选项" SelectionMode="None">
+            <CollectionView Grid.Row="2" x:Name="list" ItemsSource="{Binding OptionList}" EmptyView="无选项" SelectionMode="None" Margin="10">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Orientation="Horizontal" HeightRequest="40" BackgroundColor="White" Padding="20,0">
-                            <ff:CachedImage Source="{Binding icon}" HeightRequest="30" WidthRequest="30"/>
-                            <Label Text="{Binding option}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
-                            <StackLayout.GestureRecognizers>
+                        <Frame CornerRadius="5" HasShadow="False">
+                            <StackLayout Orientation="Horizontal">
+                                <ff:CachedImage Source="{Binding icon}" HeightRequest="30" WidthRequest="30"/>
+                                <Label Text="{Binding option}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
                                 <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                      Command="{Binding BindingContext.NavigateCommand, Source={x:Reference mePage}}"
-                                                      CommandParameter="{Binding page}"/>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
+                                                          Command="{Binding BindingContext.NavigateCommand, Source={x:Reference mePage}}"
+                                                          CommandParameter="{Binding page}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -303,8 +307,7 @@
                 </Frame>
             </Grid>
 -->
-           
-        </Grid>
 
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

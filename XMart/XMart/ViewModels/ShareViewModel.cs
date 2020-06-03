@@ -20,6 +20,7 @@ namespace XMart.ViewModels
             {
                 switch (p)
                 {
+                    //复制淘口令
                     case "0":
                         {
                             string para2 = "{\"p\":" + product.productId + ",\"u\":" + GlobalVariables.LoggedUser.id + "}";
@@ -33,6 +34,7 @@ namespace XMart.ViewModels
                         }
                         break;
 
+                    //分享小程序
                     case "1":
                         {
                             //string para = "?productId=" + product.productId + "&userId=" + GlobalVariables.LoggedUser.id;
@@ -42,14 +44,16 @@ namespace XMart.ViewModels
                         }
                         break;
 
+                    //分享到朋友圈
                     case "2":
                         {
-                            //string para = "?productId=" + product.productId + "&userId=" + GlobalVariables.LoggedUser.id;
+                            //string para = "http://ab3688.com/#/goodsDetails?productId=" + product.productId;
                             //MessagingCenter.Send(new object(), "Register");//首先进行注册，然后订阅注册的结果。
                             //MessagingCenter.Send(new object(), "ShareToTimeline", para);
                         }
                         break;
 
+                    //分享淘口令
                     case "3":
                         {
                             string para2 = "{\"p\":" + product.productId + ",\"u\":" + GlobalVariables.LoggedUser.id + "}";

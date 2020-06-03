@@ -82,19 +82,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HybridWebViewRenderer.cs" />
-    <Compile Include="JavascriptWebViewClient.cs" />
-    <Compile Include="JSBridge.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MyEntryRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="TencentWebViewRenderer.cs" />
     <Compile Include="TextToSpeech_Android.cs" />
     <Compile Include="wxapi\WXEntryActivity.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="XamWebViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\pcas.json" />
@@ -155,9 +152,6 @@
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
     </PackageReference>
-    <PackageReference Include="Xam.Plugin.WebView">
-      <Version>2.1.3</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Annotations">
       <Version>28.0.0.3</Version>
     </PackageReference>
@@ -186,7 +180,10 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.6.0.726</Version>
+      <Version>4.6.0.800</Version>
+    </PackageReference>
+    <PackageReference Include="XamarinLibrary.Xamarin.Android.Tencent.Tbs.Tbssdk.Sdk">
+      <Version>43903.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +344,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\WebViewLayout.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\network_security_config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\browser.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

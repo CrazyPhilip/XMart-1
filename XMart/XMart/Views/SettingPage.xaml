@@ -14,9 +14,8 @@
         <Style x:Key="SectionTiltleLabel" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="{DynamicResource TertiaryTextColor}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
         </Style>
         <Style x:Key="OptionLabel" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>

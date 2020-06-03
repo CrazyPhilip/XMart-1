@@ -61,7 +61,6 @@ namespace XMart.ViewModels
             set { SetProperty(ref cusPriceVisile, value); }
         }
 
-        public Command BackCommand { get; set; }
         public Command AddToCartCommand { get; set; }
         public Command BuyCommand { get; set; }
         public Command ShareCommand { get; set; }
@@ -69,7 +68,6 @@ namespace XMart.ViewModels
         public Command StarCommand { get; set; }
         public Command SpeakCommand { get; set; }
         public Command CameraCommand { get; set; }
-        public Command DetailCommand { get; set; }
         public Command<string> OpenWebCommand { get; set; }
 
         //RestSharpService _restSharpService = new RestSharpService();
@@ -84,13 +82,6 @@ namespace XMart.ViewModels
             StarSource = "star_gray.png";
             IsCollected = false;
             CusPriceVisible = false;
-
-            BackCommand = new Command(() =>
-            {
-                //List<Page> pageList = Application.Current.MainPage.Navigation.NavigationStack.ToList<Page>();
-                //Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[0]);
-                Application.Current.MainPage.Navigation.PopAsync();
-            }, () => { return true; });
 
             AddToCartCommand = new Command(() =>
             {
@@ -196,16 +187,6 @@ namespace XMart.ViewModels
                 Application.Current.MainPage.Navigation.PushAsync(webPage);
             }, (url) => { return true; });
 
-            DetailCommand = new Command(() =>
-            {
-                HtmlWebViewSource htmlWebViewSource = new HtmlWebViewSource
-                {
-                    Html = Product.detail
-                };
-                WebPage webPage = new WebPage(htmlWebViewSource);
-                Application.Current.MainPage.Navigation.PushAsync(webPage);
-            }, () => { return true; });
-
             InitProductDetailPageAsync(productId);
         }
 
@@ -241,6 +222,7 @@ namespace XMart.ViewModels
                 {
                     Product = productDetailRD.result;
                     StarSource = isCollected ? "star_yellow.png" : "star_gray.png";
+
                 }
             }
             catch (Exception)

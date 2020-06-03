@@ -25,6 +25,34 @@ namespace XMart.Views
 
             InitAsync();
 
+            MessagingCenter.Subscribe<object>(this, "OnViewInitFinished", (s) =>
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    CrossToastPopUp.Current.ShowToastSuccess("X5内核加载完成", ToastLength.Short);
+                });
+            });
+            //MessagingCenter.Subscribe<object, int>(this, "OnDownloadProgress", (s, args) =>
+            //{
+            //    MainThread.BeginInvokeOnMainThread(() =>
+            //    {
+            //        CoreDownloadProgressLabel.Text = $"正在下载内核{args}";
+            //    });
+            //});
+            //MessagingCenter.Subscribe<object, int>(this, "OnDownloadFinish", (s, args) =>
+            //{
+            //    MainThread.BeginInvokeOnMainThread(() =>
+            //    {
+            //        CoreDownloadFinishLabel.Text = $"内核下载完成{args}";
+            //    });
+            //});
+            MessagingCenter.Subscribe<object>(this, "OnInstallFinish", (s) =>
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    CrossToastPopUp.Current.ShowToastSuccess("X5内核加载完成", ToastLength.Short);
+                });
+            });
         }
 
         private void InitAsync()

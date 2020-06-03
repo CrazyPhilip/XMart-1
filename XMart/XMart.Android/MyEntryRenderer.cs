@@ -32,6 +32,7 @@ namespace XMart.Droid
                 Control.SetBackgroundColor(global::Android.Graphics.Color.Transparent);
                 Control.SetPadding(0, 0, 0, 0);
                 Control.SetLines(1);
+                Control.TextAlignment = Android.Views.TextAlignment.Center;
                 //Control.SetShadowLayer(10, 5, 5, global::Android.Graphics.Color.LightGray);
             }
         }

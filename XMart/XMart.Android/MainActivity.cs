@@ -9,6 +9,7 @@ using CarouselView.FormsPlugin.Android;
 using Com.Alipay.Sdk.App;
 using Com.Tencent.MM.Opensdk.Modelmsg;
 using Com.Tencent.MM.Opensdk.Openapi;
+using Com.Tencent.Smtt.Sdk;
 using FFImageLoading.Forms.Platform;
 using Java.IO;
 using Plugin.CurrentActivity;
@@ -18,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Xam.Plugin.WebView.Droid;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -35,6 +35,9 @@ namespace XMart.Droid
         private IWXAPI wxApi;
 
         //private MyHandler handler;
+
+        private PreInitCallback preInitCallback;
+        private TbsListener tbsListener;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -79,9 +82,36 @@ namespace XMart.Droid
             CarouselViewRenderer.Init();    //轮播图
             CachedImageRenderer.Init(true);
             //Forms.SetFlags("CarouselView_Experimental");
-            FormsWebViewRenderer.Initialize();
             Forms.SetFlags("SwipeView_Experimental");
             Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.Init("com.wyhl.XMart.fileprovider");
+
+            #region X5内核
+            preInitCallback = new PreInitCallback();
+            tbsListener = new TbsListener();
+            //加载X5内核
+            QbSdk.DownloadWithoutWifi = true;            
+            QbSdk.SetTbsListener(tbsListener);
+            QbSdk.InitX5Environment(this, preInitCallback);
+            MessagingCenter.Subscribe<object, string>(this, "PlayVideo", (o, url) =>
+            {
+                TbsVideo.OpenVideo(this, url);
+            });
+            MessagingCenter.Subscribe<object, string>(this, "OpenFile", async (o, file) =>
+            {
+                var backingFile = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), file);
+                if (System.IO.File.Exists(backingFile) == false)
+                {
+                    using (var stream = Assets.Open(file))
+                    {
+                        using (var newStream = System.IO.File.Create(backingFile))
+                        {
+                            await stream.CopyToAsync(newStream);
+                        }
+                    }
+                }
+                var openResult = QbSdk.OpenFileReader(this, backingFile, null, new ValueCallback());
+            });
+            #endregion
 
             //支付宝
             MessagingCenter.Subscribe<object, string>(this, "Pay", (sender, sign) =>
@@ -96,7 +126,7 @@ namespace XMart.Droid
                 }
             });
 
-            //微信相关
+            #region 微信相关
             //注册
             MessagingCenter.Subscribe<object>(this, "Register", d =>
             {
@@ -150,6 +180,7 @@ namespace XMart.Droid
             });
 
             //分享文字给朋友
+            /*
             MessagingCenter.Subscribe<object, string>(this, "ShareToFriend", (sender, arg) =>
             {
                 WXTextObject textObj = new WXTextObject { Text = arg };//定义wx文本对象
@@ -162,8 +193,9 @@ namespace XMart.Droid
                 };
                 wxApi.SendReq(req);
             });
+
             //分享文字到朋友圈
-            MessagingCenter.Subscribe<object, string>(this, "ShareToTimeline", (sender, arg) =>
+            MessagingCenter.Subscribe<object, string>(this, "ShareTextToTimeline", (sender, arg) =>
             {
                 WXTextObject textObj = new WXTextObject { Text = arg };//定义wx文本对象
                 WXMediaMessage msg = new WXMediaMessage { MyMediaObject = textObj, Description = arg };//定义wxmsg对象
@@ -175,31 +207,39 @@ namespace XMart.Droid
                 };
                 wxApi.SendReq(req);
             });
-            /*
-            //分享网页给朋友
-            MessagingCenter.Subscribe<object, string>(this, "ShareToFriend", (sender, arg) =>
+            
+            //分享网页到朋友圈
+            MessagingCenter.Subscribe<object, string>(this, "ShareWebPageToTimeline", (sender, arg) =>
             {
                 //初始化一个WXWebpageObject，填写url
-                WXWebpageObject webpage = new WXWebpageObject();
-                webpage.WebpageUrl = "网页url";
+                WXWebpageObject webpage = new WXWebpageObject
+                {
+                    WebpageUrl = arg
+                };
 
                 //用 WXWebpageObject 对象初始化一个 WXMediaMessage 对象
-                WXMediaMessage msg = new WXMediaMessage(webpage);
-                msg.Title = "网页标题 ";
-                msg.Description = "网页描述";
-                Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.drawable.send_music_thumb);
-                msg.ThumbData = Util.bmpToByteArray(thumbBmp, true);
+                WXMediaMessage msg = new WXMediaMessage(webpage)
+                {
+                    Title = "万联家具批发平台",
+                    Description = "网页描述"
+                };
+                Stream s = Resources.OpenRawResource(Resource.Drawable.logo);
+                Bitmap mBitmap = BitmapFactory.DecodeStream(s);
+                msg.SetThumbImage(mBitmap);
 
                 //构造一个Req
-                SendMessageToWX.Req req = new SendMessageToWX.Req();
-                req.Transaction = buildTransaction("webpage");
-                req.Message = msg;
-                req.Scene = mTargetScene;
-                req.UserOpenId = getOpenId();
+                SendMessageToWX.Req req = new SendMessageToWX.Req
+                {
+                    Transaction = DateTime.Now.ToFileTimeUtc().ToString(),
+                    Message = msg,
+                    Scene = SendMessageToWX.Req.WXSceneTimeline,
+                    UserOpenId = getOpenId()
+                };
 
                 //调用api接口，发送数据到微信
-                wxApi.sendReq(req);
+                wxApi.SendReq(req);
             });*/
+            #endregion
 
             base.OnCreate(savedInstanceState);
             Instance = this;
@@ -254,6 +294,47 @@ namespace XMart.Droid
                 // Do something if there are not any pages in the `PopupStack`
             }
         }
+
+        #region webview
+        public class ValueCallback : Java.Lang.Object, IValueCallback
+        {
+            public void OnReceiveValue(Java.Lang.Object p0)
+            {
+
+            }
+        }
+        public class TbsListener : Java.Lang.Object, ITbsListener
+        {
+            public void OnDownloadFinish(int p0)
+            {
+                //MessagingCenter.Send(new object(), "OnDownloadFinish", p0);
+            }
+
+            public void OnDownloadProgress(int p0)
+            {
+                //MessagingCenter.Send(new object(), "OnDownloadProgress", p0);
+            }
+
+            public void OnInstallFinish(int p0)
+            {
+                MessagingCenter.Send(new object(), "OnInstallFinish", p0);
+            }
+        }
+        public class PreInitCallback : Java.Lang.Object, QbSdk.IPreInitCallback
+        {
+            public void OnCoreInitFinished()
+            {
+            }
+
+            public void OnViewInitFinished(bool p0)
+            {
+                if (p0)
+                {
+                    MessagingCenter.Send(new object(), "OnViewInitFinished");
+                }
+            }
+        }
+        #endregion
     }
 }
 
