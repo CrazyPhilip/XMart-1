@@ -30,10 +30,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> SendAuthCode(string tel)
         {
-            string url = "/member/getAuthCode?tel=" + tel;
+            try
+            {
+                string url = "/member/getAuthCode?tel=" + tel;
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.GetAsync(url);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.GetAsync(url);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -44,10 +51,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> CheckAuthCode(string tel, string authCode)
         {
-            string url = "/member/checkAuthCode?tel=" + tel +"&authcode=" + authCode;
+            try
+            {
+                string url = "/member/checkAuthCode?tel=" + tel + "&authcode=" + authCode;
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.GetAsync(url);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.GetAsync(url);
+                return simpleRD;
+
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -57,11 +72,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> Register(RegisterPara registerPara)
         {
-            string url = "/member/registerByInvite";
-            var json = JsonConvert.SerializeObject(registerPara);
+            try
+            {
+                string url = "/member/registerByInvite";
+                var json = JsonConvert.SerializeObject(registerPara);
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -71,11 +93,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> RegisterByOpenId(RegisterByOpenIdPara registerByOpenIdPara)
         {
-            string url = "/member/registerByOpenId";
-            var json = JsonConvert.SerializeObject(registerByOpenIdPara);
+            try
+            {
+                string url = "/member/registerByOpenId";
+                var json = JsonConvert.SerializeObject(registerByOpenIdPara);
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -84,10 +113,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<LoginRD> LoginByOpenId(string openId)
         {
-            string url = "/member/loginByOpenId?openId=" + openId;
+            try
+            {
+                string url = "/member/loginByOpenId?openId=" + openId;
 
-            LoginRD loginRD = await RestSharpHelper<LoginRD>.GetAsync(url);
-            return loginRD;
+                LoginRD loginRD = await RestSharpHelper<LoginRD>.GetAsync(url);
+                return loginRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -97,11 +133,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> ResetPwd(ResetPwdPara resetPwdPara)
         {
-            string url = "/User/resetPwd";
-            var json = JsonConvert.SerializeObject(resetPwdPara);
+            try
+            {
+                string url = "/User/resetPwd";
+                var json = JsonConvert.SerializeObject(resetPwdPara);
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -112,11 +155,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<LoginRD> Login(LoginPara loginPara)
         {
-            string url = "/member/loginByTel";
-            var json = JsonConvert.SerializeObject(loginPara);
+            try
+            {
+                string url = "/member/loginByTel";
+                var json = JsonConvert.SerializeObject(loginPara);
 
-            LoginRD loginRD = await RestSharpHelper<LoginRD>.PostAsync(url, json);
-            return loginRD;
+                LoginRD loginRD = await RestSharpHelper<LoginRD>.PostAsync(url, json);
+                return loginRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -126,11 +176,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<LoginRD> LoginByAuthCode(LoginPara loginPara)
         {
-            string url = "/member/loginByAuthCode";
-            var json = JsonConvert.SerializeObject(loginPara);
+            try
+            {
+                string url = "/member/loginByAuthCode";
+                var json = JsonConvert.SerializeObject(loginPara);
 
-            LoginRD loginRD = await RestSharpHelper<LoginRD>.PostAsync(url, json);
-            return loginRD;
+                LoginRD loginRD = await RestSharpHelper<LoginRD>.PostAsync(url, json);
+                return loginRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -140,10 +197,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<CustomerListRD> GetCustomers(string tel)
         {
-            string url = "/member/getClient?phone=" + tel;
+            try
+            {
+                string url = "/member/getClient?phone=" + tel;
 
-            CustomerListRD customerListRD = await RestSharpHelper<CustomerListRD>.GetAsync(url);
-            return customerListRD;
+                CustomerListRD customerListRD = await RestSharpHelper<CustomerListRD>.GetAsync(url);
+                return customerListRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -153,11 +217,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> UpdateUserInfo(UpdateUserPara updateUserPara)
         {
-            string url = "/member/updateInfo";
-            var json = JsonConvert.SerializeObject(updateUserPara);
+            try
+            {
+                string url = "/member/updateInfo";
+                var json = JsonConvert.SerializeObject(updateUserPara);
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -167,13 +238,19 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> UpdateWechat(RegisterByOpenIdPara registerByOpenIdPara)
         {
-            string url = "/member/updateOpenId";
-            var json = JsonConvert.SerializeObject(registerByOpenIdPara);
+            try
+            {
+                string url = "/member/updateOpenId";
+                var json = JsonConvert.SerializeObject(registerByOpenIdPara);
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
-
 
         /// <summary>
         /// 获取用户信息
@@ -181,10 +258,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<LoginRD> GetUserInfo()
         {
-            string url = "/member/getMemberInfo?id=" + GlobalVariables.LoggedUser.id;
+            try
+            {
+                string url = "/member/getMemberInfo?id=" + GlobalVariables.LoggedUser.id;
 
-            LoginRD loginRD = await RestSharpHelper<LoginRD>.GetAsync(url);
-            return loginRD;
+                LoginRD loginRD = await RestSharpHelper<LoginRD>.GetAsync(url);
+                return loginRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -194,11 +278,33 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> UploadImage(string imgData)
         {
-            string url = "/member/imageUpload";
-            var json = "{\"imgData\":\"" + imgData + "\",\"userId\":\"" + GlobalVariables.LoggedUser.id + "\"}";
+            try
+            {
+                string url = "/member/imageUpload";
+                var json = "{\"imgData\":\"" + imgData + "\",\"userId\":\"" + GlobalVariables.LoggedUser.id + "\"}";
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static async Task<RebateRD> GetAllRebate(string designerId)
+        {
+            try
+            {
+                string url = "/member/getAllRebate?designerId=" + designerId;
+
+                RebateRD rebateRD = await RestSharpHelper<RebateRD>.GetAsync(url);
+                return rebateRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
@@ -210,34 +316,55 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<CartItemListRD> GetCartItemList(string memberId)
         {
-            string url = "/member/cartList";
-            string json = "{\"userId\":" + memberId + "}";
+            try
+            {
+                string url = "/member/cartList";
+                string json = "{\"userId\":" + memberId + "}";
 
-            CartItemListRD cartItemListRD = await RestSharpHelper<CartItemListRD>.PostAsync(url, json);
-            return cartItemListRD;
+                CartItemListRD cartItemListRD = await RestSharpHelper<CartItemListRD>.PostAsync(url, json);
+                return cartItemListRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         public static async Task<SimpleRD> AddToCart(string memberId, string productId, string num, string attributeValue)
         {
-            string url = "/member/addCart";
-            string json = "{\"userId\":" + memberId + ", \"productId\":" + productId + ", \"productNum\":" + num + ", \"attributesValues\":\"" + attributeValue  + "\"}";
+            try
+            {
+                string url = "/member/addCart";
+                string json = "{\"userId\":" + memberId + ", \"productId\":" + productId + ", \"productNum\":" + num + ", \"attributesValues\":\"" + attributeValue + "\"}";
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
 
-            return simpleRD;
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         public static async Task<StupidRD> DeleteItemInCart(CartItemInfo cartItemInfo)
         {
-            string url = "/member/cartDel";
-            string json = "{\"userId\":" + GlobalVariables.LoggedUser.id 
-                + ",\"checked\":\"" + cartItemInfo.Checked
-                + "\",\"productId\":" + cartItemInfo.productId
-                + ",\"attributesValues\":\"" + cartItemInfo.attributesValues
-                + "\"}";
+            try
+            {
+                string url = "/member/cartDel";
+                string json = "{\"userId\":" + GlobalVariables.LoggedUser.id
+                    + ",\"checked\":\"" + cartItemInfo.Checked
+                    + "\",\"productId\":" + cartItemInfo.productId
+                    + ",\"attributesValues\":\"" + cartItemInfo.attributesValues
+                    + "\"}";
 
-            StupidRD stupidRD = await RestSharpHelper<StupidRD>.PostAsync(url, json);
-            return stupidRD;
+                StupidRD stupidRD = await RestSharpHelper<StupidRD>.PostAsync(url, json);
+                return stupidRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
@@ -249,11 +376,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<AddressRD> GetAddressListById(string memberId)
         {
-            string url = "/member/addressList";
-            string json = "{\"userId\":" + memberId + "}";
+            try
+            {
+                string url = "/member/addressList";
+                string json = "{\"userId\":" + memberId + "}";
 
-            AddressRD addressRD = await RestSharpHelper<AddressRD>.PostAsync(url, json);
-            return addressRD;
+                AddressRD addressRD = await RestSharpHelper<AddressRD>.PostAsync(url, json);
+                return addressRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -263,11 +397,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> AddAddress(AddressInfo addressInfo)
         {
-            string url = "/member/addAddress";
-            string json = JsonConvert.SerializeObject(addressInfo);
+            try
+            {
+                string url = "/member/addAddress";
+                string json = JsonConvert.SerializeObject(addressInfo);
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -277,11 +418,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> UpdateAddress(AddressInfo addressInfo)
         {
-            string url = "/member/updateAddress";
-            string json = JsonConvert.SerializeObject(addressInfo);
+            try
+            {
+                string url = "/member/updateAddress";
+                string json = JsonConvert.SerializeObject(addressInfo);
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -291,16 +439,22 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> DeleteAddressById(long addressId)
         {
-            string url = "/member/delAddress";
-            string json = "{\"addressId\":" + addressId + "}";
+            try
+            {
+                string url = "/member/delAddress";
+                string json = "{\"addressId\":" + addressId + "}";
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
         #region 订单
-
         /// <summary>
         /// 提交订单
         /// </summary>
@@ -308,11 +462,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static StupidRD Order(OrderPara orderPara)
         {
-            string url = "/member/addOrder";
-            string json = JsonConvert.SerializeObject(orderPara);  //序列化
+            try
+            {
+                string url = "/member/addOrder";
+                string json = JsonConvert.SerializeObject(orderPara);  //序列化
 
-            StupidRD stupidRD = RestSharpHelper<StupidRD>.Post(url, json);
-            return stupidRD;
+                StupidRD stupidRD = RestSharpHelper<StupidRD>.Post(url, json);
+                return stupidRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -322,10 +483,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static OrderDetailRD GetOrderDetailByOrderId(long orderId)
         {
-            string url = "/member/orderDetail?orderId=" + orderId.ToString();
+            try
+            {
+                string url = "/member/orderDetail?orderId=" + orderId.ToString();
 
-            OrderDetailRD orderDetailRD = RestSharpHelper<OrderDetailRD>.Get(url);
-            return orderDetailRD;
+                OrderDetailRD orderDetailRD = RestSharpHelper<OrderDetailRD>.Get(url);
+                return orderDetailRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -335,12 +503,19 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<OrderListRD> GetOrderListById(int userId, int page, int size)
         {
-            string url = "/member/orderList?userId=" + userId.ToString()
-                + "&page=" + page.ToString()
-                + "&size=" + size.ToString();
+            try
+            {
+                string url = "/member/orderList?userId=" + userId.ToString()
+                    + "&page=" + page.ToString()
+                    + "&size=" + size.ToString();
 
-            OrderListRD orderListRD = await RestSharpHelper<OrderListRD>.GetAsync(url);
-            return orderListRD;
+                OrderListRD orderListRD = await RestSharpHelper<OrderListRD>.GetAsync(url);
+                return orderListRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -350,11 +525,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<SimpleRD> CancelOrder(OrderDetail orderDetail)
         {
-            string url = "/member/cancelOrder";
-            string json = JsonConvert.SerializeObject(orderDetail);  //序列化
+            try
+            {
+                string url = "/member/cancelOrder";
+                string json = JsonConvert.SerializeObject(orderDetail);  //序列化
 
-            SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
-            return simpleRD;
+                SimpleRD simpleRD = await RestSharpHelper<SimpleRD>.PostAsync(url, json);
+                return simpleRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -364,10 +546,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<StupidRD> DeleteOrder(string orderId)
         {
-            string url = "/member/delOrder?orderId=" + orderId;
+            try
+            {
+                string url = "/member/delOrder?orderId=" + orderId;
 
-            StupidRD stupidRD = await RestSharpHelper<StupidRD>.GetAsync(url);
-            return stupidRD;
+                StupidRD stupidRD = await RestSharpHelper<StupidRD>.GetAsync(url);
+                return stupidRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion
@@ -379,11 +568,18 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<HomeContentRD> GetHomeContent()
         {
-            string url = "/goods/home";
+            try
+            {
+                string url = "/goods/home";
 
-            HomeContentRD homeContentRD = await RestSharpHelper<HomeContentRD>.GetAsync(url);
-            //HomeContentRD homeContentRD = RestSharpHelper<HomeContentRD>.Get(url);
-            return homeContentRD;
+                HomeContentRD homeContentRD = await RestSharpHelper<HomeContentRD>.GetAsync(url);
+                //HomeContentRD homeContentRD = RestSharpHelper<HomeContentRD>.Get(url);
+                return homeContentRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -392,10 +588,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<CategoryRD> GetCategories()
         {
-            string url = "/goods/SearchAllItemCat";
+            try
+            {
+                string url = "/goods/SearchAllItemCat";
 
-            CategoryRD categoryRD = await RestSharpHelper<CategoryRD>.GetAsync(url);
-            return categoryRD;
+                CategoryRD categoryRD = await RestSharpHelper<CategoryRD>.GetAsync(url);
+                return categoryRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -410,15 +613,22 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<ProductListRD> GetProductList(int page, int size, string sort, long cid, int priceGt, int priceLte)
         {
-            string url = "/goods/allGoods?page=" + page.ToString()
-                + "&size=" + size.ToString()
-                + "&sort=" + sort
-                + "&cid=" + cid.ToString()
-                + "&priceGt=" + priceGt.ToString()
-                + "&priceLte=" + priceLte.ToString();
+            try
+            {
+                string url = "/goods/allGoods?page=" + page.ToString()
+                    + "&size=" + size.ToString()
+                    + "&sort=" + sort
+                    + "&cid=" + cid.ToString()
+                    + "&priceGt=" + priceGt.ToString()
+                    + "&priceLte=" + priceLte.ToString();
 
-            ProductListRD productListRD = await RestSharpHelper<ProductListRD>.GetAsync(url);
-            return productListRD;
+                ProductListRD productListRD = await RestSharpHelper<ProductListRD>.GetAsync(url);
+                return productListRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -428,13 +638,20 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<ProductDetailRD> GetProductDetail(string productId)
         {
-            string url = "/goods/productDet?productId=" + productId;
-            if (GlobalVariables.IsLogged)
+            try
             {
-                url += "&userId=" + GlobalVariables.LoggedUser.id;
+                string url = "/goods/productDet?productId=" + productId;
+                if (GlobalVariables.IsLogged)
+                {
+                    url += "&userId=" + GlobalVariables.LoggedUser.id;
+                }
+                ProductDetailRD productDetailRD = await RestSharpHelper<ProductDetailRD>.GetAsync(url);
+                return productDetailRD;
             }
-            ProductDetailRD productDetailRD = await RestSharpHelper<ProductDetailRD>.GetAsync(url);
-            return productDetailRD;
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -450,16 +667,23 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<ProductListRD> FuzzySearch(string index, int sequence, int page, int size, string sort, int priceGt, int priceLte)
         {
-            string url = "/goods/SearchLike?page=" + page.ToString()
-                + "&index=" + index
-                + "&size=" + size.ToString()
-                + "&sort=" + sort
-                + "&sequence=" + sequence.ToString()
-                + "&priceGt=" + priceGt.ToString()
-                + "&priceLte=" + priceLte.ToString();
+            try
+            {
+                string url = "/goods/SearchLike?page=" + page.ToString()
+                    + "&index=" + index
+                    + "&size=" + size.ToString()
+                    + "&sort=" + sort
+                    + "&sequence=" + sequence.ToString()
+                    + "&priceGt=" + priceGt.ToString()
+                    + "&priceLte=" + priceLte.ToString();
 
-            ProductListRD productListRD = await RestSharpHelper<ProductListRD>.GetAsync(url);
-            return productListRD;
+                ProductListRD productListRD = await RestSharpHelper<ProductListRD>.GetAsync(url);
+                return productListRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -469,10 +693,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<StupidRD> AddToCollection(string productId)
         {
-            string url = string.Format("/goods/AddCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
+            try
+            {
+                string url = string.Format("/goods/AddCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
 
-            StupidRD stupidRD = await RestSharpHelper<StupidRD>.GetAsync(url);
-            return stupidRD;
+                StupidRD stupidRD = await RestSharpHelper<StupidRD>.GetAsync(url);
+                return stupidRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -481,10 +712,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<ProductListRD> GetCollections()
         {
-            string url = "/goods/GetCollection?userId=" + GlobalVariables.LoggedUser.id;
+            try
+            {
+                string url = "/goods/GetCollection?userId=" + GlobalVariables.LoggedUser.id;
 
-            ProductListRD productListRD = await RestSharpHelper<ProductListRD>.GetAsync(url);
-            return productListRD;
+                ProductListRD productListRD = await RestSharpHelper<ProductListRD>.GetAsync(url);
+                return productListRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -493,10 +731,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<StupidRD> DeleteCollection(string productId)
         {
-            string url = string.Format("/goods/deleteCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
+            try
+            {
+                string url = string.Format("/goods/deleteCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
 
-            StupidRD stupidRD = await RestSharpHelper<StupidRD>.GetAsync(url);
-            return stupidRD;
+                StupidRD stupidRD = await RestSharpHelper<StupidRD>.GetAsync(url);
+                return stupidRD;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -506,10 +751,17 @@ namespace XMart.Services
         /// <returns></returns>
         public static async Task<string> JudgeCollection(string productId)
         {
-            string url = string.Format("/goods/judgeCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
+            try
+            {
+                string url = string.Format("/goods/judgeCollection?userId={0}&productId={1}", GlobalVariables.LoggedUser.id, productId);
 
-            string str = await RestSharpHelper<string>.GetAsyncWithoutDeserialization(url);
-            return str;
+                string str = await RestSharpHelper<string>.GetAsyncWithoutDeserialization(url);
+                return str;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion
@@ -517,41 +769,69 @@ namespace XMart.Services
         #region 支付宝
         public static string GetAliPaySign(string json)
         {
-            string url = "/AlipyController/appAliPay";
-            
-            string str = RestSharpHelper<string>.PostWithoutDeserialization(url, json);
-            return str;
+            try
+            {
+                string url = "/AlipyController/appAliPay";
+
+                string str = RestSharpHelper<string>.PostWithoutDeserialization(url, json);
+                return str;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
         #region 微信
         public static string GetWechatAccessToken(string appId, string secret, string code)
         {
-            string url = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", appId, secret, code);
+            try
+            {
+                string url = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", appId, secret, code);
 
-            string result = RestSharpHelper<string>.GetWithoutDeserialization(url);
-            return result;
+                string result = RestSharpHelper<string>.GetWithoutDeserialization(url);
+                return result;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
 
         public static string GetWechatUserInfo(string appId, string secret, string code)
         {
-            string url1 = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", appId, secret, code);
-            string result1 = RestSharpHelper<string>.GetWithoutDeserialization(url1);
-            JObject jObject = JObject.Parse(result1);
+            try
+            {
+                string url1 = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", appId, secret, code);
+                string result1 = RestSharpHelper<string>.GetWithoutDeserialization(url1);
+                JObject jObject = JObject.Parse(result1);
 
-            string url2 = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}", jObject["access_token"], jObject["openid"]);
-            string result2 = RestSharpHelper<string>.GetWithoutDeserialization(url2);
-            return result2;
+                string url2 = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}", jObject["access_token"], jObject["openid"]);
+                string result2 = RestSharpHelper<string>.GetWithoutDeserialization(url2);
+                return result2;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
         #region 检查更新
         public static async Task<string> GetNewestVersion()
         {
-            string url = "/App/getNowApp";
+            try
+            {
+                string url = "/App/getNowApp";
 
-            string str = await RestSharpHelper<string>.GetAsyncWithoutDeserialization(url);
-            return str;
+                string str = await RestSharpHelper<string>.GetAsyncWithoutDeserialization(url);
+                return str;
+            }
+            catch (ApplicationException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

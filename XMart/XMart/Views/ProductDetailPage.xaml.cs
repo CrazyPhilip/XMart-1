@@ -14,6 +14,8 @@ namespace XMart.Views
             InitializeComponent();
 
             BindingContext = new ProductDetailVM(productId);
+
         }
+
     }
 }

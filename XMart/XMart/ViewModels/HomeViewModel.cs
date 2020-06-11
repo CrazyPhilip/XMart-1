@@ -12,6 +12,7 @@ using XMart.Views;
 using XMart.Util;
 using System.Threading;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace XMart.ViewModels
 {
@@ -213,12 +214,57 @@ namespace XMart.ViewModels
                     return;
                 }
 
+                string result1 = await RestSharpHelper<string>.GetAsyncWithoutDeserialization("/goods/home");
+                if (!string.IsNullOrWhiteSpace(result1))
+                {
+                    HomeContentRD homeContentRD = JsonConvert.DeserializeObject<HomeContentRD>(result1);
+                    HotProductList = homeContentRD.result[1].panelContents.ToList();
+
+
+                    await LocalDatabaseHelper<HomePanelContent>.InsertByList(HotProductList);
+                }
+                else
+                {
+                    HotProductList = await LocalDatabaseHelper<HomePanelContent>.GetAllItems();
+                }
+
+                string result2 = await RestSharpHelper<string>.GetAsyncWithoutDeserialization("/goods/SearchAllItemCat");
+                if (!string.IsNullOrWhiteSpace(result2))
+                {
+                    CategoryRD categoryRD = JsonConvert.DeserializeObject<CategoryRD>(result2);
+
+                    List<Category> temp = new List<Category>();
+                    foreach (var item in categoryRD.result)
+                    {
+                        if (!item.isParent)
+                        {
+                            temp.Add(item);
+                        }
+                    }
+                    await LocalDatabaseHelper<Category>.InsertByList(categoryRD.result);
+                    CatList = temp.GetRange(0, 10);
+                }
+                else
+                {
+                    List<Category> temp = new List<Category>();
+                    List<Category> localCategoryList = await LocalDatabaseHelper<Category>.GetAllItems();
+                    foreach (var item in localCategoryList)
+                    {
+                        if (!item.isParent)
+                        {
+                            temp.Add(item);
+                        }
+                    }
+                    CatList = temp.GetRange(0, 10);
+                    
+                }
+
                 //RestSharpService _restSharpService = new RestSharpService();
-                HomeContentRD homeContentRD = await RestSharpService.GetHomeContent();
-                CategoryRD categoryRD = await RestSharpService.GetCategories();
+                //HomeContentRD homeContentRD = await RestSharpService.GetHomeContent();
+                //CategoryRD categoryRD = await RestSharpService.GetCategories();
 
                 //CarouselList = homeContentRD.result[0].panelContents.ToList<HomePanelContent>();
-                HotProductList = homeContentRD.result[1].panelContents.ToList<HomePanelContent>();
+                //HotProductList = homeContentRD.result[1].panelContents.ToList<HomePanelContent>();
                 //OfficialChoiceList = homeContentRD.result[2].panelContents.ToList<HomePanelContent>();
                 //GoodBrandList = homeContentRD.result[3].panelContents.ToList<HomePanelContent>();
                 //BrandChoiceList = homeContentRD.result[4].panelContents.ToList<HomePanelContent>();
@@ -242,15 +288,15 @@ namespace XMart.ViewModels
                     }
                 };
 
-                List<Category> temp = new List<Category>();
-                foreach (var item in categoryRD.result)
-                {
-                    if (!item.isParent)
-                    {
-                        temp.Add(item);
-                    }
-                }
-                CatList = temp.GetRange(0, 10);
+                //List<Category> temp = new List<Category>();
+                //foreach (var item in categoryRD.result)
+                //{
+                //    if (!item.isParent)
+                //    {
+                //        temp.Add(item);
+                //    }
+                //}
+                //CatList = temp.GetRange(0, 10);
 
             }
             catch (Exception)

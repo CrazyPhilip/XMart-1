@@ -113,6 +113,10 @@ namespace XMart.Services
 		/// <returns></returns>
 		public static async Task<int> InsertOrReplaceAsync(T t)
 		{
+			if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(T).Name))
+			{
+				await Database.CreateTablesAsync(CreateFlags.None, typeof(T)).ConfigureAwait(false);
+			}
 			return await Database.InsertOrReplaceAsync(t);
 		}
 
@@ -121,8 +125,13 @@ namespace XMart.Services
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
-		public static async Task<int> InsertAll(List<T> ts)
+		public static async Task<int> InsertByList(List<T> ts)
 		{
+			if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(T).Name))
+			{
+				await Database.CreateTablesAsync(CreateFlags.None, typeof(T)).ConfigureAwait(false);
+			}
+			await Database.DeleteAllAsync<T>();
 			return await Database.InsertAllAsync(ts);
 		}
 
@@ -147,6 +156,7 @@ namespace XMart.Services
 
 			total += await Database.DeleteAllAsync<SearchedItem>();
 			total += await Database.DeleteAllAsync<Category>();
+			total += await Database.DeleteAllAsync<HomePanelContent>();
 
 			return total;
 		}

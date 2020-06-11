@@ -35,74 +35,73 @@
         </Style>
     </ContentPage.Resources>
 
-    <ContentPage.Content>
-        <Grid RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Text="个人中心" Style="{StaticResource TitleLabel}" HorizontalOptions="CenterAndExpand"/>
-            <Button Grid.Row="0" Text="退出" TextColor="Crimson" BackgroundColor="Transparent" FontSize="18"
+        <Label Grid.Row="0" Text="个人中心" Style="{StaticResource TitleLabel}" HorizontalOptions="CenterAndExpand"/>
+        <Button Grid.Row="0" Text="退出" TextColor="Crimson" BackgroundColor="Transparent" FontSize="18"
                    HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Command="{Binding LoginOutCommand}"/>
 
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
-                <Frame HeightRequest="80" WidthRequest="80" Padding="0" CornerRadius="40"
+        <StackLayout Grid.Row="1" Orientation="Horizontal">
+            <Frame HeightRequest="80" WidthRequest="80" Padding="0" CornerRadius="40"
                        HorizontalOptions="Start" VerticalOptions="CenterAndExpand" Margin="20,0,0,0"
                    BorderColor="White" IsClippedToBounds="True">
-                    <ff:CachedImage Source="{Binding UserAvatar}" Aspect="AspectFill"/>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NavigateCommand}" 
+                <ff:CachedImage Source="{Binding UserAvatar}" Aspect="AspectFill"/>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NavigateCommand}" 
                                               CommandParameter="XMart.Views.UploadAvatarPage"/>
-                    </Frame.GestureRecognizers>
-                </Frame>
+                </Frame.GestureRecognizers>
+            </Frame>
 
-                <StackLayout HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                    <Label Text="{Binding UserName}" FontSize="24" FontAttributes="Bold"
+            <StackLayout HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding UserName}" FontSize="24" FontAttributes="Bold"
                        TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Label Text="{Binding UserType}" FontSize="16"
+                <Label Text="{Binding UserType}" FontSize="16"
                        TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Label FontSize="16" TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <FormattedString.Spans>
-                                    <Span Text="No."/>
-                                    <Span Text="{Binding UserId}"/>
-                                </FormattedString.Spans>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                <Label FontSize="16" TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="No."/>
+                                <Span Text="{Binding UserId}"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
 
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NavigateCommand}" 
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NavigateCommand}" 
                                               CommandParameter="XMart.Views.EditUserInfoPage"/>
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
+        </StackLayout>
 
-            <CollectionView Grid.Row="2" x:Name="list" ItemsSource="{Binding OptionList}" EmptyView="无选项" SelectionMode="None" Margin="10">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame CornerRadius="5" HasShadow="False">
-                            <StackLayout Orientation="Horizontal">
-                                <ff:CachedImage Source="{Binding icon}" HeightRequest="30" WidthRequest="30"/>
-                                <Label Text="{Binding option}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
-                            </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1"
+        <CollectionView Grid.Row="2" x:Name="list" ItemsSource="{Binding OptionList}" EmptyView="无选项" SelectionMode="None" Margin="10">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame CornerRadius="5" HasShadow="False">
+                        <StackLayout Orientation="Horizontal">
+                            <ff:CachedImage Source="{Binding icon}" HeightRequest="30" WidthRequest="30"/>
+                            <Label Text="{Binding option}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
                                                           Command="{Binding BindingContext.NavigateCommand, Source={x:Reference mePage}}"
                                                           CommandParameter="{Binding page}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-            <!--
+        <!--
             <Grid Grid.Row="2" Padding="20,10" IsVisible="{Binding DesignerVisible}">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -308,6 +307,5 @@
             </Grid>
 -->
 
-        </Grid>
-    </ContentPage.Content>
+    </Grid>
 </ContentPage>

@@ -11,12 +11,10 @@ using Com.Tencent.MM.Opensdk.Modelmsg;
 using Com.Tencent.MM.Opensdk.Openapi;
 using Com.Tencent.Smtt.Sdk;
 using FFImageLoading.Forms.Platform;
-using Java.IO;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
 using Rg.Plugins.Popup.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Xamarin.Essentials;
@@ -84,7 +82,7 @@ namespace XMart.Droid
             //Forms.SetFlags("CarouselView_Experimental");
             Forms.SetFlags("SwipeView_Experimental");
             Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.Init("com.wyhl.XMart.fileprovider");
-
+            /*
             #region X5内核
             preInitCallback = new PreInitCallback();
             tbsListener = new TbsListener();
@@ -112,6 +110,7 @@ namespace XMart.Droid
                 var openResult = QbSdk.OpenFileReader(this, backingFile, null, new ValueCallback());
             });
             #endregion
+            */
 
             //支付宝
             MessagingCenter.Subscribe<object, string>(this, "Pay", (sender, sign) =>

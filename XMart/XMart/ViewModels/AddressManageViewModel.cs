@@ -10,6 +10,7 @@ using Plugin.Toast.Abstractions;
 using Xamarin.Forms;
 using XMart.Views;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace XMart.ViewModels
 {
@@ -41,8 +42,6 @@ namespace XMart.ViewModels
         public Command<AddressInfo> SetDefaultCommand { get; set; }
         public Command AddAddressCommand { get; set; }
         public Command RefreshCommand { get; set; }
-
-        //RestSharpService _restSharpService = new RestSharpService();
 
         public AddressManageViewModel()
         {
@@ -146,28 +145,36 @@ namespace XMart.ViewModels
                     return;
                 }
 
-                //RestSharpService _restSharpService = new RestSharpService();
-
                 string memberId = GlobalVariables.LoggedUser.id.ToString();
+                string url = "/member/addressList";
+                string json = "{\"userId\":" + memberId + "}";
 
-                AddressRD addressRD = await RestSharpService.GetAddressListById(memberId);
-
-                if (addressRD.result.Count != 0)
+                string result = await RestSharpHelper<string>.PostAsyncWithoutDeserialization(url, json);
+                if (!string.IsNullOrWhiteSpace(result))
                 {
-                    AddressList = new ObservableCollection<AddressInfo>(addressRD.result);
-                    Visible = false;
+                    AddressRD addressRD = JsonConvert.DeserializeObject<AddressRD>(result);
+
+                    if (addressRD.result.Count != 0)
+                    {
+                        AddressList = new ObservableCollection<AddressInfo>(addressRD.result);
+                        Visible = false;
+                    }
+                    else
+                    {
+                        Visible = true;
+                        CrossToastPopUp.Current.ShowToastError("无收货地址列表，请添加。", ToastLength.Long);
+                    }
                 }
                 else
                 {
-                    Visible = true;
-                    CrossToastPopUp.Current.ShowToastError("无收货地址列表，请添加。", ToastLength.Long);
+                    CrossToastPopUp.Current.ShowToastError("Error", ToastLength.Long);
+                    return;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                CrossToastPopUp.Current.ShowToastError(ex.Message, ToastLength.Long);
             }
         }
-
     }
 }

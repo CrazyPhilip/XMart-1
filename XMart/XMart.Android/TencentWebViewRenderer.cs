@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using XMart.Droid;
 using System.ComponentModel;
+using Com.Tencent.Smtt.Sdk;
 
 [assembly: ExportRenderer(typeof(TencentWebView), typeof(TencentWebViewRenderer))]
 namespace XMart.Droid
@@ -42,7 +43,12 @@ namespace XMart.Droid
                     var x = tencentWebView.X5WebViewExtension;
                     tencentWebView.SetMinimumWidth(100);
                     tencentWebView.SetMinimumHeight(800);
-                    //tencentWebView.DrawingCacheEnabled = true;
+                    //tencentWebView.SetLayerType();
+                    tencentWebView.Settings.UseWideViewPort = true;
+                    tencentWebView.Settings.LoadWithOverviewMode = true;
+                    tencentWebView.Settings.SetLayoutAlgorithm(WebSettings.LayoutAlgorithm.SingleColumn);
+                    tencentWebView.Settings.TextZoom = 100;
+                    tencentWebView.DrawingCacheEnabled = true;
 
                     SetNativeControl(mRelativeLayout);
                     tencentWebView.LoadUrl(e.NewElement.Url);

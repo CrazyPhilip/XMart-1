@@ -17,6 +17,7 @@
     <Compile Remove="Controls\RememberPwdAction.cs" />
     <Compile Remove="Controls\XamWebView.cs" />
     <Compile Remove="Services\LocalDatabase.cs" />
+    <Compile Remove="Services\RestService.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -148,10 +149,19 @@
     <EmbeddedResource Update="Views\ShareView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\TodayRebatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TotalRebatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\UploadAvatarPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\WebPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\WithdrawPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

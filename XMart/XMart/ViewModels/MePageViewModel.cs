@@ -136,9 +136,9 @@ namespace XMart.ViewModels
 				{
 					OptionList = new ObservableCollection<Option>
 					{
-						new Option { icon = "money_today.png", option = "今日收益", page = "" },
-						new Option { icon = "money_all.png", option = "总收益", page = "" },
-						new Option { icon = "money_withdraw.png", option = "可提现", page = "" },
+						new Option { icon = "money_today.png", option = "今日收益", page = "XMart.Views.TodayRebatePage" },
+						new Option { icon = "money_all.png", option = "总收益", page = "XMart.Views.TotalRebatePage" },
+						new Option { icon = "money_withdraw.png", option = "可提现", page = "XMart.Views.WithdrawPage" },
 						new Option { icon = "contact.png", option = "联系人", page = "XMart.Views.ContactPage" },
 						new Option { icon = "customers.png", option = "我的客户", page = "XMart.Views.CustomerListPage" },
 						new Option { icon = "orders.png", option = "我的订单", page = "XMart.Views.OrderListPage" },

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             x:Class="XMart.Views.WithdrawPage"
+             x:Name="withdrawPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="可提现">
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" Orientation="Vertical" BackgroundColor="LimeGreen">
+            <Label Text="可提现（元）" HorizontalOptions="Center" VerticalOptions="EndAndExpand" TextColor="White" FontSize="16"/>
+            <Label Text="{Binding Withdraw}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" TextColor="White" FontSize="72"/>
+        </StackLayout>
+
+        <Label Grid.Row="1" Text="快来看看美而好家居最新的提现规则吧！" TextColor="White" BackgroundColor="Orange" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+        <CollectionView Grid.Row="2" x:Name="list" ItemsSource="{Binding RebateList}" EmptyView="还不能提现，快去分享好物吧！" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,5" Padding="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="coin.png" HeightRequest="30" WidthRequest="30"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding buyerName}" TextColor="Black"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding productName}"/>
+                        <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding rebate,StringFormat='￥{0:F2}'}" TextColor="Red" FontSize="20" VerticalOptions="Center"/>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                  Command="{Binding BindingContext.EditCommand, Source={x:Reference totalRebatePage}}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

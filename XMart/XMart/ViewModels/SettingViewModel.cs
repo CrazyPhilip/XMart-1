@@ -123,6 +123,7 @@ namespace XMart.ViewModels
                         Thread the = new Thread(new ParameterizedThreadStart(DownloadApk));
                         the.IsBackground = true;
                         the.Start(jObject);
+                        //DownloadApk(jObject);
                     }
                 }
 
@@ -143,7 +144,7 @@ namespace XMart.ViewModels
             {
                 JObject jObject = obj as JObject;
 
-                string appFile = Path.Combine( FileSystem.AppDataDirectory, jObject["result"]["packageName"].ToString());
+                string appFile = Path.Combine("/storage/emulated/0/Android/data/com.wyhl.XMart/files/", jObject["result"]["packageName"].ToString());
                 //Console.WriteLine(FileSystem.AppDataDirectory);
                 using (var writer = new HikFileStream(appFile))
                 {
@@ -152,25 +153,31 @@ namespace XMart.ViewModels
                         Timeout = 10 * 1000 //10 sec timeout time.
                     };
 
-                    RestRequest request = new RestRequest(jObject["result"]["request"].ToString());
+                    RestRequest request = new RestRequest(jObject["result"]["request"].ToString(), Method.GET);
                     //request.AddParameter("FileName", "testFile.abc", ParameterType.UrlSegment);
 
                     writer.Progress += (w, e) => {
                         Rate = string.Format("{0:F2} MB", ((double)writer.CurrentSize / 1048576));
                     };
 
-                    request.ResponseWriter = (responseStream) => responseStream.CopyTo(writer);
+                    request.ResponseWriter = (responseStream) =>
+                    {
+                        using (responseStream)
+                        {
+                            responseStream.CopyTo(writer);
+                        }
+                    };
                     var response = client.DownloadData(request);
                 }
-
-                Device.BeginInvokeOnMainThread(async () => 
+                
+                Device.BeginInvokeOnMainThread(() => 
                 {
                     if (File.Exists(appFile))
                     {
                         CrossToastPopUp.Current.ShowToastSuccess("下载成功！", ToastLength.Long);
 
                         //string apkPath = System.IO.Path.Combine(Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.GetPublicDownloadPath(), "APK.APK");
-                        await Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.InstallApp(appFile, Plugin.XF.AppInstallHelper.Abstractions.InstallMode.OutOfAppStore);
+                        //Plugin.XF.AppInstallHelper.CrossInstallHelper.Current.InstallApp(appFile, Plugin.XF.AppInstallHelper.Abstractions.InstallMode.OutOfAppStore);
                     }
                     else
                     {
