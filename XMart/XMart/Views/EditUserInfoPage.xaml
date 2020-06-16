@@ -3,9 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:XMart.ViewModels"
-             xmlns:controls="clr-namespace:XMart.Controls"
-             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              x:Class="XMart.Views.EditUserInfoPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
@@ -13,7 +10,7 @@
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <Label Text="修改个人信息" Style="{StaticResource TitleLabel}"/>
-            <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding SaveCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
+            <Button WidthRequest="60" Text="保存" FontSize="12" BackgroundColor="Transparent" HeightRequest="30" Padding="0" Command="{Binding SaveCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -21,14 +18,13 @@
         <Style x:Key="TitleLabelStyle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="{DynamicResource SkyBlue}"/>
         </Style>
         <Style x:Key="EntryStyle" TargetType="Entry">
             <Setter Property="Margin" Value="0,5"/>
             <Setter Property="HeightRequest" Value="40"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
         </Style>
     </ContentPage.Resources>
@@ -75,7 +71,7 @@
                 <Entry Placeholder="密码（必填，不可修改）" Text="{Binding Password}" Style="{DynamicResource EntryStyle}"/>
 
                 <Label Text="性别" Style="{DynamicResource TitleLabelStyle}"/>
-                <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender,Mode=TwoWay}" FontSize="20"/>
+                <Picker ItemsSource="{Binding GenderList}" SelectedItem="{Binding Gender,Mode=TwoWay}" FontSize="14"/>
 
                 <Label Text="公司" Style="{DynamicResource TitleLabelStyle}"/>
                 <Entry Placeholder="公司" Text="{Binding User.buyCompanyName}" Style="{DynamicResource EntryStyle}"/>

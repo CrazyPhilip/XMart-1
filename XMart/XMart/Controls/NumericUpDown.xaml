@@ -41,7 +41,7 @@
 
                 <ImageButton x:Name="MinusButton" Grid.Column="0" Source="minus.png" Margin="0" Clicked="MinusTapped" BackgroundColor="Transparent" Padding="0"/>
 
-                <controls:MyEntry x:Name="ValueText" Grid.Column="1" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Fill" Keyboard="Numeric" MaxLength="10" FontSize="24"/>
+                <controls:MyEntry x:Name="ValueText" Grid.Column="1" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Fill" Keyboard="Numeric" MaxLength="10" FontSize="12"/>
 
                 <ImageButton x:Name="PlusButton" Grid.Column="2" Source="plus.png" Margin="0" Clicked="PlusTapped" BackgroundColor="Transparent" Padding="0"/>
 

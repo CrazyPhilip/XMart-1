@@ -10,6 +10,10 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="可提现">
 
+    <NavigationPage.TitleView>
+        <Label Text="可提现" Style="{StaticResource TitleLabel}"/>
+    </NavigationPage.TitleView>
+
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
@@ -18,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <StackLayout Grid.Row="0" Orientation="Vertical" BackgroundColor="LimeGreen">
-            <Label Text="可提现（元）" HorizontalOptions="Center" VerticalOptions="EndAndExpand" TextColor="White" FontSize="16"/>
+            <Label Text="可提现（元）" HorizontalOptions="Center" VerticalOptions="EndAndExpand" TextColor="White"/>
             <Label Text="{Binding Withdraw}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" TextColor="White" FontSize="72"/>
         </StackLayout>
 
@@ -41,7 +45,7 @@
                         <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="coin.png" HeightRequest="30" WidthRequest="30"/>
                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding buyerName}" TextColor="Black"/>
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding productName}"/>
-                        <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding rebate,StringFormat='￥{0:F2}'}" TextColor="Red" FontSize="20" VerticalOptions="Center"/>
+                        <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding rebate,StringFormat='￥{0:F2}'}" TextColor="Red" FontSize="16" VerticalOptions="Center"/>
 
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" 

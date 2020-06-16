@@ -5,11 +5,12 @@ using XMart.Views;
 using XMart.Util;
 using XMart.Services;
 using System.IO;
+using XMart.Controls;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace XMart
 {
-    public partial class App : Application
+    public partial class App : Xamarin.Forms.Application
     {
         public static double ScreenWidth;
         public static double ScreenHeight;
@@ -32,7 +33,7 @@ namespace XMart
             InitializeComponent();
 
             MainPage mainPage = new MainPage();
-            NavigationPage navigationPage = new NavigationPage(mainPage)
+            MyNavigationPage navigationPage = new MyNavigationPage(mainPage)
             {
                 BarBackgroundColor = Color.FromHex("fafafa"),
                 BarTextColor = Color.Black

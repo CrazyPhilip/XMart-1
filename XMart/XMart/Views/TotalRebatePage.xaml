@@ -10,6 +10,10 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="全部收益">
 
+    <NavigationPage.TitleView>
+        <Label Text="全部收益" Style="{StaticResource TitleLabel}"/>
+    </NavigationPage.TitleView>
+
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
@@ -38,7 +42,7 @@
                         <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="coin.png" HeightRequest="30" WidthRequest="30"/>
                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding buyerName}" TextColor="Black"/>
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding productName}"/>
-                        <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding rebate,StringFormat='￥{0:F2}'}" TextColor="Red" FontSize="20" VerticalOptions="Center"/>
+                        <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding rebate,StringFormat='￥{0:F2}'}" TextColor="Red" FontSize="16" VerticalOptions="Center"/>
 
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" 

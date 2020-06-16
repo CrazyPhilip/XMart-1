@@ -31,17 +31,16 @@
 
             <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Product.productImageBig}"/>
             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Product.productName}" 
-                   FontSize="20" TextColor="Black" VerticalOptions="Center" VerticalTextAlignment="Center"/>
-            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Product.subTitle}" FontSize="16" 
+                   TextColor="Black" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Product.subTitle}" FontSize="12" 
                    VerticalOptions="Center" VerticalTextAlignment="Center" MaxLines="2" LineBreakMode="TailTruncation"/>
             
             <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextColor="{StaticResource ThickPink}" WidthRequest="200"
                    VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding MemberPriceVisible}">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="会员价" FontSize="12"/>
-                        <Span Text="￥" FontSize="22"/>
-                        <Span Text="{Binding MemberPrice}" FontSize="26"/>
+                        <Span Text="会员价￥" FontSize="12"/>
+                        <Span Text="{Binding MemberPrice}" FontSize="14"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -49,14 +48,13 @@
                    VerticalOptions="Center" HorizontalOptions="Center">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="市场价" FontSize="12"/>
-                        <Span Text="￥" FontSize="18"/>
-                        <Span Text="{Binding MallPrice}" FontSize="18"/>
+                        <Span Text="市场价￥" FontSize="12"/>
+                        <Span Text="{Binding MallPrice}" FontSize="14"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
 
-            <Picker x:Name="AttributePicker" Grid.Row="2" Grid.Column="2" Title="规格"
+            <Picker x:Name="AttributePicker" Grid.Row="2" Grid.Column="2" Title="规格" FontSize="12"
                     ItemsSource="{Binding Product.itemAttributeValues}" 
                     ItemDisplayBinding="{Binding attributeValue}"  
                     SelectedIndex="{Binding Index,Mode=TwoWay}">
@@ -68,10 +66,10 @@
             <controls:NumericUpDown Grid.Row="3" Grid.Column="2" x:Name="NumberStepper" Minimum="1" Step="1"
                                     HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Value="{Binding ProductNum}"/>
 
-            <Button Grid.Row="4" Grid.Column="1" Text="添加到购物车" TextColor="White"
+            <Button Grid.Row="4" Grid.Column="1" Text="添加到购物车" TextColor="White" FontSize="12"
                         VerticalOptions="CenterAndExpand" HorizontalOptions="Fill" BackgroundColor="Crimson"
                         Command="{Binding AddToCartCommand}"/>
-            <Button Grid.Row="4" Grid.Column="2" Text="立即采购" TextColor="White"
+            <Button Grid.Row="4" Grid.Column="2" Text="立即采购" TextColor="White" FontSize="12"
                         VerticalOptions="CenterAndExpand" HorizontalOptions="Fill" BackgroundColor="Goldenrod"
                         Command="{Binding ToOrderCommand}"/>
         </Grid>

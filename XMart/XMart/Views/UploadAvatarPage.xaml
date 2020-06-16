@@ -11,7 +11,7 @@
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <Label Text="更换头像" Style="{StaticResource TitleLabel}"/>
-            <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding SaveCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
+            <Button WidthRequest="60" Text="保存" FontSize="12" HeightRequest="30" Padding="0" BackgroundColor="Transparent" Command="{Binding SaveCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -19,7 +19,6 @@
         <Style x:Key="TitleLabelStyle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="{DynamicResource SkyBlue}"/>
         </Style>

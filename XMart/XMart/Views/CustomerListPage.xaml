@@ -11,6 +11,10 @@
              x:Name="customerListPage"
              Title="我的客户">
 
+    <NavigationPage.TitleView>
+        <Label Text="我的客户" Style="{StaticResource TitleLabel}"/>
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <!--<Grid RowSpacing="0">
             <cv:CarouselViewControl x:Name="carouselView" ItemsSource="{Binding CustomerList}" ShowIndicators="True">
@@ -110,7 +114,7 @@
                                 <ff:CachedImage Source="{Binding pricture}" Aspect="AspectFill"/>
                             </Frame>
                             <StackLayout Grid.Column="1">
-                                <Label Text="{Binding username}" FontAttributes="Bold" FontSize="22" TextColor="Black"/>
+                                <Label Text="{Binding username}" FontAttributes="Bold" TextColor="Black"/>
                                 <Label Text="{Binding description,StringFormat='简介：{0}'}"/>
                                 <Label Text="{Binding phone,StringFormat='电话：{0}'}"/>
                                 <Label Text="{Binding buyCompanyName,StringFormat='公司：{0}'}"/>

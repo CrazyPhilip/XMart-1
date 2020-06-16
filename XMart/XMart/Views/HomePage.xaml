@@ -15,13 +15,13 @@
     <ContentPage.Resources>
         <Style x:Key="SectionTitle" TargetType="Label">
             <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
             <Setter Property="VerticalTextAlignment" Value="Center"/>
         </Style>
         <Style x:Key="MoreStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="HorizontalOptions" Value="EndAndExpand"/>
             <Setter Property="VerticalTextAlignment" Value="Center"/>
         </Style>
@@ -71,7 +71,7 @@
 
                                             <ff:CachedImage Grid.Row="0" Source="{Binding icon}" Aspect="AspectFill"/>
 
-                                            <Label Grid.Row="1" Text="{Binding name}" TextColor="{DynamicResource SecondaryTextColor}" FontSize="14" LineBreakMode="TailTruncation" 
+                                            <Label Grid.Row="1" Text="{Binding name}" TextColor="{DynamicResource SecondaryTextColor}" FontSize="12" LineBreakMode="TailTruncation" 
                                                    HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
                                         </Grid>
 
@@ -111,8 +111,8 @@
                                             <ff:CachedImage Grid.Row="0" Source="{Binding picUrl}" HeightRequest="80" WidthRequest="80" Aspect="AspectFill"/>
 
                                             <ff:CachedImage Grid.Row="0" Source="discount.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Start"/>
-                                            <Label Grid.Row="1" Text="{Binding productName}" TextColor="{DynamicResource PrimaryTextColor}" FontSize="16" LineBreakMode="TailTruncation"/>
-                                            <Label Grid.Row="2" FontSize="18" FontAttributes="Bold" IsVisible="{Binding Path=BindingContext.MemberVisible,Source={x:Reference Name=homePage}}">
+                                            <Label Grid.Row="1" Text="{Binding productName}" TextColor="{DynamicResource PrimaryTextColor}" FontSize="12" LineBreakMode="TailTruncation"/>
+                                            <Label Grid.Row="2" FontSize="12" FontAttributes="Bold" IsVisible="{Binding Path=BindingContext.MemberVisible,Source={x:Reference Name=homePage}}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="￥" TextColor="{StaticResource ThickPink}"/>
@@ -120,7 +120,7 @@
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            <Label Grid.Row="3" FontSize="16">
+                                            <Label Grid.Row="3" FontSize="12">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="￥" TextColor="{StaticResource SkyBlue}"/>
@@ -392,8 +392,8 @@
                 <StackLayout Orientation="Horizontal" Spacing="0">
                     <ff:CachedImage Source="Resource/drawable/search.png" WidthRequest="20" HeightRequest="20"/>
                     <!--<controls:MyEntry Placeholder="立体装置画" Style="{StaticResource SearchEntry}"/>-->
-                    <Label Text="立体装置画" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
-                    <Label Text="搜索" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="立体装置画" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="12"/>
+                    <Label Text="搜索" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>

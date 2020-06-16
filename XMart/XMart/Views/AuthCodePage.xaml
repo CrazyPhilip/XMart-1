@@ -12,8 +12,8 @@
         <StackLayout VerticalOptions="StartAndExpand" Margin="30,35">
             <!--<ImageButton x:Name="BackButton" Source="back_gray.png" Style="{StaticResource BackButton}" Command="{Binding BackCommand}" 
                          HorizontalOptions="Start" Margin="0,0,0,50"/>-->
-            <Label Text="输入验证码" FontSize="22" TextColor="Black" FontAttributes="Bold"/>
-            <Label FontSize="16" TextColor="Gray">
+            <Label Text="输入验证码" TextColor="Black" FontAttributes="Bold"/>
+            <Label TextColor="Gray">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="已经发送验证码到"/>
@@ -22,13 +22,13 @@
                 </Label.FormattedText>
             </Label>
             <Entry x:Name="AuthCodeEntry" Text="{Binding AuthCode}" Keyboard="Numeric" Placeholder="验证码" MaxLength="6"
-                   FontSize="54" HeightRequest="80" HorizontalTextAlignment="Center">
+                   FontSize="32" HeightRequest="60" HorizontalTextAlignment="Center">
                 <!--
                 <Entry.Behaviors>
                     <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding CheckInputCommand}"/>
                 </Entry.Behaviors>-->
             </Entry>
-            <Label FontSize="16" TextColor="Gray">
+            <Label TextColor="Gray">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="{Binding RemainingTime}"/>
@@ -36,7 +36,7 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            <Button Text="完成" TextColor="White" FontSize="18" FontAttributes="Bold" 
+            <Button Text="完成" TextColor="White" FontAttributes="Bold" 
                     CornerRadius="20" HorizontalOptions="Fill" HeightRequest="40" IsEnabled="False"
                     BackgroundColor="{StaticResource SkyBlue}" 
                     Command="{Binding LoginCommand}">

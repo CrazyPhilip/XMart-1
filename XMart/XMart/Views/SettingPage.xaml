@@ -7,20 +7,22 @@
              xmlns:behaviors="clr-namespace:XMart.Behaviors"
              mc:Ignorable="d"
              x:Class="XMart.Views.SettingPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}"
-             Title="设置">
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <NavigationPage.TitleView>
+        <Label Text="设置" Style="{StaticResource TitleLabel}"/>
+    </NavigationPage.TitleView>
+    
     <ContentPage.Resources>
         <Style x:Key="SectionTiltleLabel" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
         </Style>
         <Style x:Key="OptionLabel" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
         </Style>
@@ -63,8 +65,8 @@
         <ScrollView Orientation="Vertical">
             <StackLayout Orientation="Vertical" Margin="10">
                 <ff:CachedImage Source="logo.png" HeightRequest="80" WidthRequest="80" HorizontalOptions="Center"/>
-                <Label Text="美而好" FontSize="20" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
-                <Label Text="{Binding CurrentVersion,StringFormat='版本号：{0}'}" HorizontalOptions="Center"/>
+                <Label Text="美而好" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+                <Label Text="{Binding CurrentVersion,StringFormat='版本号：{0}'}" HorizontalOptions="Center" FontSize="12"/>
 
                 <Label Text="个性化" Style="{DynamicResource SectionTiltleLabel}"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
@@ -78,21 +80,21 @@
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                     <Label Text="存储空间" Style="{DynamicResource OptionLabel}"/>
-                    <Button Text="清除缓存" Command="{Binding ClearCacheCommand}" HorizontalOptions="EndAndExpand"/>
+                    <Button Text="清除缓存" Command="{Binding ClearCacheCommand}" HorizontalOptions="EndAndExpand" FontSize="12"/>
                 </StackLayout>
 
                 <Label Text="关于美而好" Style="{DynamicResource SectionTiltleLabel}"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                     <Label Text="版本更新" Style="{DynamicResource OptionLabel}"/>
                     <Label Text="{Binding Rate}" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-                    <Button Text="检查更新" Command="{Binding UpdateCommand}" HorizontalOptions="End"/>
+                    <Button Text="检查更新" Command="{Binding UpdateCommand}" HorizontalOptions="End" FontSize="12"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand" HorizontalOptions="Center">
-                    <Label Text="隐私政策、权限说明、帮助、服务条款、官网" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                    <Label Text="西南交大人工智能研究院、成都万云互联科技有限公司" HorizontalOptions="Center"/>
-                    <Label Text="Copyright©2019" HorizontalOptions="Center"/>
-                    <Label Text="万云互联 版权所有" HorizontalOptions="Center"/>
+                    <Label Text="隐私政策、权限说明、帮助、服务条款、官网" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="10"/>
+                    <Label Text="西南交大人工智能研究院、成都万云互联科技有限公司" HorizontalOptions="Center" FontSize="10"/>
+                    <Label Text="Copyright©2019" HorizontalOptions="Center" FontSize="10"/>
+                    <Label Text="万云互联 版权所有" HorizontalOptions="Center" FontSize="10"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

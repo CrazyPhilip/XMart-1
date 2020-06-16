@@ -62,16 +62,16 @@
                                     </Grid.ColumnDefinitions>
 
                                     <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding productImageBig}"/>
-                                    <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" FontSize="16" TextColor="Black" 
+                                    <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" TextColor="Black" 
                                            VerticalOptions="Center" VerticalTextAlignment="Center" LineBreakMode="CharacterWrap"/>
-                                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="14" LineBreakMode="CharacterWrap"/>
+                                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="12" LineBreakMode="CharacterWrap"/>
 
                                     <Label Grid.Row="2" Grid.Column="1" TextColor="{StaticResource SkyBlue}" 
                                            VerticalOptions="Center" HorizontalOptions="Start">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="￥" FontSize="16"/>
-                                                <Span Text="{Binding mallPrice}" FontSize="18"/>
+                                                <Span Text="￥" FontSize="12"/>
+                                                <Span Text="{Binding mallPrice}"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -79,13 +79,13 @@
                                         <Label TextColor="{StaticResource ThickPink}" VerticalOptions="CenterAndExpand" HorizontalOptions="Start">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="￥" FontSize="16"/>
-                                                    <Span Text="{Binding memberPrice}" FontSize="18"/>
+                                                    <Span Text="￥" FontSize="12"/>
+                                                    <Span Text="{Binding memberPrice}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
                                         <Frame BorderColor="{StaticResource ThickPink}" Padding="0" HasShadow="False" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                                            <Label Text="会员价" TextColor="{StaticResource ThickPink}" Margin="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="会员价" TextColor="{StaticResource ThickPink}" Margin="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="10"/>
                                         </Frame>
                                     </StackLayout>
                                 </Grid>

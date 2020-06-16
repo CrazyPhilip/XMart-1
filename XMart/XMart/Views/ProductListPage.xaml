@@ -11,14 +11,12 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
     <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Spacing="0">
+        <StackLayout Orientation="Horizontal" Spacing="0">
             <Frame Style="{StaticResource BaseFrame}" HeightRequest="30" HorizontalOptions="FillAndExpand"
-                       CornerRadius="15" Padding="15,0" BorderColor="LightGray">
-                <!--<controls:MyEntry x:Name="account" Placeholder="搜索商品更便捷···" Style="{StaticResource SearchEntry}"
-                                      Text="{Binding SearchString}" ReturnCommand="{Binding SearchCommand}"/>-->
-                <Label Text="{Binding SearchString}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="LightGray" FontSize="18"/>
+                   CornerRadius="15" Padding="15,0" BorderColor="LightGray" Margin="0">
+                <Label Text="{Binding SearchString}" VerticalOptions="Center" TextColor="LightGray" FontSize="12"/>
             </Frame>
-            <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" FontSize="18"/>
+            <Button Text="搜索" BackgroundColor="Transparent" WidthRequest="60" HeightRequest="20" Padding="0" FontSize="12"/>
             <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SearchCommand}"/>
             </StackLayout.GestureRecognizers>
@@ -34,7 +32,7 @@
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
             <Setter Property="VerticalTextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="12"/>
         </Style>
         <Style x:Key="MyEntryStyle" TargetType="controls:MyEntry">
             <Setter Property="WidthRequest" Value="80"/>
@@ -42,7 +40,7 @@
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="MaxLength" Value="16"/>
         </Style>
     </ContentPage.Resources>
@@ -121,9 +119,9 @@
                            CornerRadius="15" Padding="0" BackgroundColor="WhiteSmoke">
                         <controls:MyEntry Text="{Binding PriceLte}" Placeholder="最高价" Style="{DynamicResource MyEntryStyle}" Keyboard="Numeric" ReturnType="Done"/>
                     </Frame>
-                    <Button Text="确定" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="50"
+                    <Button Text="确定" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="50" FontSize="12" Padding="0"
                             Command="{Binding PriceRangeCommand}" CommandParameter="1"/>
-                    <Button Text="全部重置" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="80"
+                    <Button Text="全部重置" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="80" FontSize="12" Padding="0"
                             Command="{Binding PriceRangeCommand}" CommandParameter="0"/>
                 </StackLayout>
             </ScrollView>
@@ -203,32 +201,16 @@
                                         </Grid.ColumnDefinitions>
 
                                         <ff:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding productImageBig}"/>
-                                        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" FontSize="18" TextColor="{DynamicResource PrimaryTextColor}" 
+                                        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding productName}" TextColor="{DynamicResource PrimaryTextColor}" 
                                            VerticalOptions="Center" VerticalTextAlignment="Center" LineBreakMode="CharacterWrap"/>
-                                        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="16" LineBreakMode="CharacterWrap"/>
+                                        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding subTitle}" FontSize="12" LineBreakMode="CharacterWrap"/>
 
-                                        <Label Grid.Row="2" Grid.Column="1" TextColor="{StaticResource SkyBlue}" 
-                                           VerticalOptions="Center" HorizontalOptions="Start">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="￥" FontSize="22"/>
-                                                    <Span Text="{Binding mallPrice}" FontSize="26"/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <StackLayout Grid.Row="2" Grid.Column="2" Orientation="Horizontal" IsVisible="{Binding MemberPriceVisible}">
-                                            <Label TextColor="{StaticResource ThickPink}" VerticalOptions="CenterAndExpand" HorizontalOptions="Start">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="￥" FontSize="22"/>
-                                                        <Span Text="{Binding memberPrice}" FontSize="26"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Frame BorderColor="{StaticResource ThickPink}" Padding="0" HasShadow="False" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                                                <Label Text="会员价" TextColor="{StaticResource ThickPink}" Margin="0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                            </Frame>
-                                        </StackLayout>
+                                        <Label Grid.Row="2" Grid.Column="1" TextColor="{StaticResource SkyBlue}" VerticalOptions="Center" HorizontalOptions="Start"
+                                               Text="{Binding mallPrice,StringFormat='￥{0:F2}'}"/>
+
+                                        <Label Grid.Row="2" Grid.Column="2" TextColor="{StaticResource ThickPink}" VerticalOptions="CenterAndExpand" HorizontalOptions="Start"
+                                               Text="{Binding mallPrice,StringFormat='会员价￥{0:F2}'}" IsVisible="{Binding MemberPriceVisible}"/>
+
                                     </Grid>
 
                                     <Frame.GestureRecognizers>

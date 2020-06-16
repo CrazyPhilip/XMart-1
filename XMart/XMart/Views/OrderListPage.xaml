@@ -53,14 +53,14 @@
                                         <Grid.Resources>
                                             <Style TargetType="Label">
                                                 <Setter Property="VerticalOptions" Value="Center"/>
-                                                <Setter Property="FontSize" Value="16"/>
+                                                <Setter Property="FontSize" Value="12"/>
                                             </Style>
                                             <Style x:Key="HighlightLabel" TargetType="Label">
                                                 <Setter Property="HorizontalOptions" Value="Center"/>
                                                 <Setter Property="VerticalOptions" Value="Center"/>
                                                 <Setter Property="FontAttributes" Value="Bold"/>
                                                 <Setter Property="TextColor" Value="Black"/>
-                                                <Setter Property="FontSize" Value="18"/>
+                                                <Setter Property="FontSize" Value="14"/>
                                             </Style>
                                         </Grid.Resources>
 
@@ -70,14 +70,9 @@
                                         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding addressInfo.streetName}"/>
                                         <Label Grid.Row="1" Grid.Column="2" Text="{Binding PaymentType}" TextColor="{StaticResource ThickPink}" Style="{StaticResource HighlightLabel}"/>
                                         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding createDate}"/>
-                                        <Label Grid.Row="2" Grid.Column="2" Style="{DynamicResource HighlightLabel}" TextColor="{StaticResource ThickPink}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="总计￥" FontSize="16"/>
-                                                    <Span Text="{Binding orderTotal}"/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                                        <Label Grid.Row="2" Grid.Column="2" Style="{DynamicResource HighlightLabel}" TextColor="{StaticResource ThickPink}"
+                                               Text="{Binding orderTotal,StringFormat='总计￥{0:F2}'}"/>
+
                                         <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" BindableLayout.ItemsSource="{Binding goodsList}" Orientation="Vertical" BackgroundColor="AliceBlue">
                                             <BindableLayout.ItemTemplate>
                                                 <DataTemplate>
@@ -89,7 +84,7 @@
                                                         </Grid.ColumnDefinitions>
                                                         <ff:CachedImage Grid.Column="0" Source="{Binding productImg}" Aspect="AspectFit"/>
                                                         <Label Grid.Column="1" Text="{Binding productName}" MaxLines="2" LineBreakMode="TailTruncation"
-                                                           FontSize="18" TextColor="Black"/>
+                                                           FontSize="12" TextColor="Black"/>
                                                         <Label Grid.Column="2">
                                                             <Label.FormattedText>
                                                                 <FormattedString>

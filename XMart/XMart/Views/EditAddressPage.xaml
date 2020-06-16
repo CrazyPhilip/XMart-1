@@ -12,7 +12,7 @@
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <Label Text="编辑收货地址" Style="{StaticResource TitleLabel}"/>
-            <Button WidthRequest="60" Text="保存" FontSize="18" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
+            <Button WidthRequest="60" Text="保存" FontSize="12" HeightRequest="30" Padding="0" BackgroundColor="Transparent" Command="{Binding AddOrUpdateAddressCommand}" TextColor="{DynamicResource PrimaryTextColor}"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -20,14 +20,13 @@
         <Style x:Key="TitleLabelStyle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="{DynamicResource SkyBlue}"/>
         </Style>
         <Style x:Key="EntryStyle" TargetType="Entry">
             <Setter Property="Margin" Value="0,5"/>
             <Setter Property="HeightRequest" Value="40"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
         </Style>
     </ContentPage.Resources>
@@ -58,7 +57,7 @@
             <Entry Placeholder="电话号码" Text="{Binding Tel}" Style="{DynamicResource EntryStyle}"/>
 
             <Label Text="完整地址" Style="{DynamicResource TitleLabelStyle}"/>
-            <Label FontSize="20" TextColor="{DynamicResource PrimaryTextColor}">
+            <Label FontSize="14" TextColor="{DynamicResource PrimaryTextColor}">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="{Binding SelectedItem,Source={x:Reference provinceList}}"/>
@@ -125,7 +124,7 @@
             <Entry x:Name="streetEntry" Placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等" Text="{Binding Street}" Style="{DynamicResource EntryStyle}"/>
 
             <StackLayout Orientation="Horizontal" Margin="0">
-                <Label Text="是否设为默认地址" HorizontalOptions="Start" FontSize="18" TextColor="{StaticResource SkyBlue}" VerticalOptions="Center"/>
+                <Label Text="是否设为默认地址" HorizontalOptions="Start" FontSize="14" TextColor="{StaticResource SkyBlue}" VerticalOptions="Center"/>
                 <Switch IsToggled="{Binding IsDefault}" OnColor="{StaticResource SkyBlue}"/>
             </StackLayout>
 

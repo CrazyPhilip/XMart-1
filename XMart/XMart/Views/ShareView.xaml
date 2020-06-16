@@ -35,14 +35,14 @@
 
 
             <ff:CachedImage Grid.Row="0" Grid.Column="0" Source="mini_program.png" HeightRequest="40" WidthRequest="40"/>
-            <Label Grid.Row="0" Grid.Column="1" Text="分享小程序给微信好友" VerticalOptions="Center" HorizontalOptions="Fill" FontSize="18">
+            <Label Grid.Row="0" Grid.Column="1" Text="分享小程序给微信好友" VerticalOptions="Center" HorizontalOptions="Fill">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ShareCommand}" CommandParameter="1"/>
                 </Label.GestureRecognizers>
             </Label>
 
             <ff:CachedImage Grid.Row="1" Grid.Column="0" Source="pengyouquan.png" HeightRequest="40" WidthRequest="40"/>
-            <Label Grid.Row="1" Grid.Column="1" Text="分享链接到朋友圈（暂未使用）" VerticalOptions="Center" HorizontalOptions="Fill" FontSize="18">
+            <Label Grid.Row="1" Grid.Column="1" Text="分享链接到朋友圈（暂未使用）" VerticalOptions="Center" HorizontalOptions="Fill">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ShareCommand}" CommandParameter="2"/>
                 </Label.GestureRecognizers>

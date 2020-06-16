@@ -9,6 +9,11 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="联系人"
              x:Name="contactPage">
+
+    <NavigationPage.TitleView>
+        <Label Text="联系人" Style="{StaticResource TitleLabel}"/>
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <CollectionView x:Name="list" ItemsSource="{Binding ContactList}" EmptyView="无联系人" SelectionMode="None">
             <CollectionView.ItemTemplate>
@@ -50,9 +55,9 @@
                                 <ff:CachedImage Source="{Binding PhotoUri}" Aspect="AspectFill"/>
                             </Frame>
                             <StackLayout Grid.Column="1">
-                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="22" TextColor="Black"/>
-                                <Label Text="{Binding Number,StringFormat='电话：{0}'}"/>
-                                <Label Text="{Binding Email,StringFormat='邮箱：{0}'}"/>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" TextColor="Black"/>
+                                <Label Text="{Binding Number,StringFormat='电话：{0}'}" FontSize="12"/>
+                                <Label Text="{Binding Email,StringFormat='邮箱：{0}'}" FontSize="12"/>
                             </StackLayout>
                         </Grid>
 

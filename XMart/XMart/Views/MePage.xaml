@@ -13,7 +13,7 @@
     <ContentPage.Resources>
         <Style x:Key="CommonLabel" TargetType="Label">
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
@@ -21,7 +21,7 @@
         </Style>
         <Style x:Key="ViewCellLabel" TargetType="Label">
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
@@ -43,7 +43,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Text="个人中心" Style="{StaticResource TitleLabel}" HorizontalOptions="CenterAndExpand"/>
-        <Button Grid.Row="0" Text="退出" TextColor="Crimson" BackgroundColor="Transparent" FontSize="18"
+        <Button Grid.Row="0" Text="退出" TextColor="Crimson" BackgroundColor="Transparent" FontSize="12"
                    HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Command="{Binding LoginOutCommand}"/>
 
         <StackLayout Grid.Row="1" Orientation="Horizontal">
@@ -58,11 +58,11 @@
             </Frame>
 
             <StackLayout HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding UserName}" FontSize="24" FontAttributes="Bold"
+                <Label Text="{Binding UserName}" FontSize="18" FontAttributes="Bold"
                        TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Label Text="{Binding UserType}" FontSize="16"
+                <Label Text="{Binding UserType}" FontSize="12"
                        TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Label FontSize="16" TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Center">
+                <Label FontSize="12" TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
@@ -89,7 +89,7 @@
                     <Frame CornerRadius="5" HasShadow="False">
                         <StackLayout Orientation="Horizontal">
                             <ff:CachedImage Source="{Binding icon}" HeightRequest="30" WidthRequest="30"/>
-                            <Label Text="{Binding option}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
+                            <Label Text="{Binding option}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" FontAttributes="Bold"/>
                         </StackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1"

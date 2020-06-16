@@ -42,9 +42,9 @@ namespace XMart.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            Resources.DisplayMetrics.ScaledDensity = 2;//告诉android不要把自己大小单位缩放
+            //Resources.DisplayMetrics.ScaledDensity = 2;//告诉android不要把自己大小单位缩放
             //double systemDensity = DeviceDisplay.MainDisplayInfo.Density;
-            Resources.DisplayMetrics.Density = 2;
+            //Resources.DisplayMetrics.Density = 2;
             //var temp = Resources.DisplayMetrics;
             //var device = DeviceDisplay.MainDisplayInfo;
             //if (DeviceDisplay.MainDisplayInfo.Density >= 3)
